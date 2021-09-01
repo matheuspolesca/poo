@@ -63,7 +63,7 @@ abstract class Sistema {
             System.out.println("\n========= MENU =========");
             System.out.println("\nDigite somente o número da opção desejada:"
                                 + "\n\n1 - Cadastrar Cliente                     2 - Iniciar Atendimento"
-                                + "\n3 - Alterar Cadastro Cliente              4 - Analise Previa"
+                                + "\n3 - Alterar Cadastro Cliente              4 - Alterar Status"
                                 + "\n5 - Acessar Informacoes do Paciente       6 - Encerrar Atendimento,"
                                 + "\n7 - Emitir Relatorios                     8 - Cadastrar Funcionario"
                                 + "\n9 - Alterar Cadastro Funcionario         10 - Excluir Funcionario"
@@ -80,7 +80,7 @@ abstract class Sistema {
                     alterarCadastroCliente();
                     break;
                 case 4:
-                    analisePrevia();
+                    alterarStatus();
                     break;
                 case 5:
                     acessarInformações();
@@ -147,52 +147,49 @@ abstract class Sistema {
         
     };
     
-    public static void iniciarAtendimento(){
+    public static int pesquisarCliente (){
         Scanner sc = new Scanner(System.in);
-        System.out.println("Qual o nome do Cliente?");
-        String nome = sc.nextLine();
+        System.out.println("\nQual o nome do Cliente?");
+        String nome = sc.nextLine().toUpperCase();
         
-        boolean busca=false;
-        int pos=0;
-            
-        while(busca==false){
-            for(int i=0; i<clientes.size(); i++){
-                if(clientes.get(i).getNome().equals(nome)){
-                    busca=true;
-                    pos=i;
-                }
+        int pos;
+      
+        for(int i=0; i<clientes.size(); i++){
+            if(clientes.get(i).getNome().toUpperCase().equals(nome)){
+                pos = i;
+                return pos;
             }
-            if(busca=true)
-                break;
-            System.out.println("Nome não encontrado.");
         }
+        
+        return -1;
+    }
+    
+    public static void iniciarAtendimento(){
+        
+        System.out.println("\n========= INICIAR ATENDIMENTO =========");
+        
+        int busca = pesquisarCliente();
             
-        if(busca=true){
-            System.out.println("Atendimento do cliente" + clientes.get(pos).getNome() + " iniciado.");
-            clientes.get(pos).setStatus("Aguardando triagem.");
+        if(busca >= 0){
+            System.out.println((char)27 + "[32m\nAtendimento do cliente " + clientes.get(busca).getNome() + " iniciado.\u001B[0m");
+            clientes.get(busca).setStatus("Aguardando triagem.");
+        }else{
+            System.out.println((char)27 + "[31m\nCliente não encontrado\u001B[0m");
         }
+      
     };
     
     //Alterar Cadastro do Cliente
     public static void alterarCadastroCliente(){
         Scanner sc = new Scanner(System.in);
         System.out.println("\n========= ALTER CLIENTE =========");
-        System.out.println("\nQual o nome do Cliente?");
-        String nome = sc.nextLine().toUpperCase();
         
-        boolean busca = false;
+       
+        int busca = pesquisarCliente();
+        
         boolean sair = false;
-        int pos=0;
             
-      
-        for(int i=0; i<clientes.size(); i++){
-            if(clientes.get(i).getNome().toUpperCase().equals(nome)){
-                busca = true;
-                pos = i;
-            }
-        }
-               
-        if(busca == true){
+        if(busca >= 0){
             do{
                 System.out.println("\nDigite o número referente ao atributo que deseja alterar:"
                                     + "\n1 - Nome        2 - Telefone     3 - E-mail"
@@ -210,9 +207,8 @@ abstract class Sistema {
                         if(nomeC.isEmpty()){
                             System.out.println((char)27 + "[31m\nNão pode ser alterado para um campo vazio.\u001B[0m");
                         }else{
-                            clientes.get(pos).setNome(nomeC);
+                            clientes.get(busca).setNome(nomeC);
                             System.out.println((char)27 + "[32m\nAlterado com sucesso.\u001B[0m");
-                            System.out.println(pos);
                         }
                         break;
                     case 2:
@@ -222,7 +218,7 @@ abstract class Sistema {
                         if(telefoneC.isEmpty()){
                             System.out.println((char)27 + "[31m\nNão pode ser alterado para um campo vazio.\u001B[0m");
                         }else{
-                            clientes.get(pos).setTelefone(telefoneC);
+                            clientes.get(busca).setTelefone(telefoneC);
                             System.out.println((char)27 + "[32m\nAlterado com sucesso\u001B[0m");
                         }
                         break;
@@ -233,14 +229,14 @@ abstract class Sistema {
                         if(emailC.isEmpty()){
                             System.out.println((char)27 + "[31m\nNão pode ser alterado para um campo vazio.\u001B[0m");
                         }else{
-                            clientes.get(pos).setEmail(emailC);
+                            clientes.get(busca).setEmail(emailC);
                             System.out.println((char)27 + "[32m\nAlterado com sucesso\u001B[0m");
                         }
                         break;
                     case 4:
                         System.out.println("\nQual o novo endereco do seu cliente?");
                         String enderecoC = sc.nextLine();
-                        clientes.get(pos).setEndereco(enderecoC);
+                        clientes.get(busca).setEndereco(enderecoC);
                         System.out.println((char)27 + "[32m\nAlterado com sucesso\u001B[0m");
                         break;
                     case 5:
@@ -250,14 +246,14 @@ abstract class Sistema {
                         if(cpfC.isEmpty()){
                             System.out.println((char)27 + "[31m\nNão pode ser alterado para um campo vazio.\u001B[0m");
                         }else{
-                            clientes.get(pos).setCpf(cpfC);
+                            clientes.get(busca).setCpf(cpfC);
                             System.out.println((char)27 + "[32m\nAlterado com sucesso\u001B[0m");
                         }
                         break;
                     case 6:
                         System.out.println("\nQual as novas doencas do seu cliente?");
                         String doencasC = sc.nextLine();
-                        clientes.get(pos).setDoencas(doencasC);
+                        clientes.get(busca).setDoencas(doencasC);
                         System.out.println((char)27 + "[32m\nAlterado com sucesso\u001B[0m");
                         break;
                     case 7:
@@ -266,7 +262,7 @@ abstract class Sistema {
                         if(sexoC.isEmpty()){
                             System.out.println((char)27 + "[31m\nNão pode ser alterado para um campo vazio.\u001B[0m");
                         }else{
-                            clientes.get(pos).setSexo(sexoC);
+                            clientes.get(busca).setSexo(sexoC);
                             System.out.println((char)27 + "[32m\nAlterado com sucesso\u001B[0m");
                         }
                         break;
@@ -287,59 +283,71 @@ abstract class Sistema {
         
     };
     
-    public static void analisePrevia(){
+    //Alterar o Status do Paciente
+    public static void alterarStatus(){
         if("Enfermeiro".equals(profissao) || "Administrador".equals(profissao)){
-            Scanner sc = new Scanner(System.in);
-            System.out.println("Qual o nome do Cliente?");
-            String nome = sc.nextLine();
             
-            boolean busca=false;
-            int pos=0;
+            System.out.println("\n========= ALTERAR STATUS =========");
+            //Conferir se o paciente existe
+            int busca = pesquisarCliente();
             
-            while(busca==false){
-                for(int i=0; i<clientes.size(); i++){
-                    if(clientes.get(i).getNome().equals(nome)){
-                        busca=true;
-                        pos=i;
-                    }
+            if(busca >= 0){
+                Scanner sc = new Scanner(System.in);
+                System.out.println("\nQual o novo status do paciente?"
+                                    + "\n1 - Aguardando triagem     2 - Aguardando Atendimento"
+                                    + "\n3 - Direcionado            4 - Liberado"
+                                    + "\n5 - Cancelar");
+                int acesso = sc.nextInt();
+                sc.nextLine();
+                
+                switch (acesso) {
+                    case 1:
+                        clientes.get(busca).setStatus("Aguardando triagem");
+                        System.out.println((char)27 + "[32m\nAlterado com sucesso\u001B[0m");
+                        break;
+                    case 2:
+                        clientes.get(busca).setStatus("Aguardando Atendimento");
+                        System.out.println((char)27 + "[32m\nAlterado com sucesso\u001B[0m");
+                        break;
+                    case 3:
+                        clientes.get(busca).setStatus("Direcionado");
+                        System.out.println((char)27 + "[32m\nAlterado com sucesso\u001B[0m");
+                        break;
+                    case 4:
+                        clientes.get(busca).setStatus("Liberado");
+                        System.out.println((char)27 + "[32m\nAlterado com sucesso\u001B[0m");
+                        break;
+                    case 5:
+                        break;
+                    default:
+                        System.out.println((char)27 + "[31m\nOpção invalida\u001B[0m");
                 }
-                if(busca=true)
-                    break;
-                System.out.println("Nome não encontrado.");
-            }
-            
-            if(busca=true){
-                System.out.println("Qual o novo status do paciente?");
-                clientes.get(pos).setStatus(sc.nextLine());
-            }
-        }
-        else
-            System.out.println("Você não tem permissão para acessar essa opção.");
-    };
-    
-    public static void acessarInformações(){
-        if("Medico".equals(profissao) || "Administrador".equals(profissao)){
-            Scanner sc = new Scanner(System.in);
-            System.out.println("\n========= ACESSAR INFORMAÇÕES =========");
-            System.out.println("\nQual o nome do Cliente?");
-            String nome = sc.nextLine().toUpperCase();
-        
-            boolean busca = false;
-            int pos=0;
-            
-            for(int i=0; i<clientes.size(); i++){
-                if(clientes.get(i).getNome().toUpperCase().equals(nome)){
-                    busca = true;
-                    pos = i;
-                }
-            }
-            
-            if(busca==true){
-                System.out.println(clientes.get(pos).toString());
             }else{
                 System.out.println((char)27 + "[31m\nCliente não encontrado\u001B[0m");
             }
-                    
+        }
+        else{
+            System.out.println((char)27 + "[31mVocê não tem permissão para acessar essa opção.\u001B[0m");
+        }
+          
+    };
+    
+    //Acessar informações sobre o cliente
+    public static void acessarInformações(){
+        
+        //Apenas médicos ou o Administrador pode ter acesso as informações
+        if("Medico".equals(profissao) || "Administrador".equals(profissao)){
+            
+            System.out.println("\n========= ACESSAR INFORMAÇÕES =========");
+            
+            //Conferir se o paciente existe
+            int busca = pesquisarCliente();
+            
+            if(busca >= 0){
+                System.out.println(clientes.get(busca).toString());
+            }else{
+                System.out.println((char)27 + "[31m\nCliente não encontrado\u001B[0m");
+            }   
         }
         else{
             System.out.println((char)27 + "[31m\nVocê não tem permissão para acessar essa opção.\u001B[0m");
@@ -348,28 +356,16 @@ abstract class Sistema {
     };
     
     public static void encerrarAtendimento(){
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Qual o nome do Cliente?");
-        String nome = sc.nextLine();
+        System.out.println("\n========= ENCERRAR ATENDIMENTO =========");
         
-        boolean busca=false;
-        int pos=0;
+        //Conferir se o paciente existe
+        int busca = pesquisarCliente();
             
-        while(busca==false){
-            for(int i=0; i<clientes.size(); i++){
-                if(clientes.get(i).getNome().equals(nome)){
-                    busca=true;
-                    pos=i;
-                }
-            }
-            if(busca=true)
-                break;
-            System.out.println("Nome não encontrado.");
-        }
-            
-        if(busca=true){
-            System.out.println("Atendimento do cliente" + clientes.get(pos).getNome() + "finalizado.");
-            clientes.get(pos).setStatus("Aguardando triagem.");
+        if(busca >= 0){
+            System.out.println((char)27 + "[32m\nAtendimento do cliente " + clientes.get(busca).getNome() + " finalizado.\u001B[0m");
+            clientes.get(busca).setStatus("\nAguardando triagem.");
+        }else{
+                System.out.println((char)27 + "[31m\nCliente não encontrado\u001B[0m");
         }
     };
     
