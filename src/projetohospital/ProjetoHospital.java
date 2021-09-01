@@ -4,7 +4,7 @@ public class ProjetoHospital {
 
     public static void main(String[] args) {
         Sistema.funcionarios[0] = new Funcionario("admin", "admin", "admin@gmail.com", "Turmalina", 
-         "00000000000", "admin", "admin", "Administrador", "admin");
+         "0", "admin", "admin", "Administrador", "admin");
         Sistema.numeroFuncionarios++;
         Sistema.funcionarios[1] = new Funcionario("Tulio", "(38)99103-9305", "tulioalves@gmail.com", "Turmalina", 
          "11111111111", "Miopia", "Masculino", "Funcionario", "123");
