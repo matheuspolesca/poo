@@ -16,9 +16,14 @@ public class ProjetoHospital {
          "33333333333", "Miopia", "Feminino" , "Medico", "789");
         Sistema.numeroFuncionarios++;
         
-        Sistema.fazerLogin();
-        if(!"NULL".equals(Sistema.profissao)){
+        try {
+            Sistema.fazerLogin();
+            if(!"NULL".equals(Sistema.profissao)){
             Sistema.menuSistema();
         }
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        
     }
 }
