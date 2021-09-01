@@ -12,6 +12,17 @@ public class Enfermeiro extends Funcionario {
 
     @Override
     public String toString() {
-        return "Enfermeiro{" + "nome=" + getNome() + ", telefone=" + getTelefone() + ", email=" + getEmail() + ", endereco=" + getEndereco() + ", cpf=" + getCpf() + ", doencas=" + getDoencas() + ", sexo=" + getSexo() + ", status=" + getStatus() + "profissao=" + getProfissao() + ", senha=" + getSenha() + '}';
+        String texto = String.format("\n========== ENFERMEIRO: %s ========"
+                        + "\nNome: %s"
+                        + "\nCPF: %s"
+                        + "\nTelefone: %s"
+                        + "\nE-mail %s"
+                        + "\nSexo: %s"
+                        + "\nStatus: %s"
+                        + "\nEndereço: %s    "
+                        + "\nDoenças:%s"
+                        + "\nprofissao: %s"
+                        + "\nsenha: %s", getNome(), getNome(), getCpf(), getTelefone(), getEmail(), getSexo(), getStatus(), getEndereco(), getDoencas(), getProfissao(), getSenha());
+        return texto;
     }
 }

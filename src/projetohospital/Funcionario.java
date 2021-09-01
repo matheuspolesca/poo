@@ -33,6 +33,17 @@ public class Funcionario extends Cliente{
     
     @Override
     public String toString() {
-        return "Funcionario{" + "nome=" + getNome() + ", telefone=" + getTelefone() + ", email=" + getEmail() + ", endereco=" + getEndereco() + ", cpf=" + getCpf() + ", doencas=" + getDoencas() + ", sexo=" + getSexo() + ", status=" + getStatus() + "profissao=" + profissao + ", senha=" + senha + '}';
+        String texto = String.format("\n========== FUNCIONÁRIO: %s ========"
+                        + "\nNome: %s"
+                        + "\nCPF: %s"
+                        + "\nTelefone: %s"
+                        + "\nE-mail %s"
+                        + "\nSexo: %s"
+                        + "\nStatus: %s"
+                        + "\nEndereço: %s    "
+                        + "\nDoenças:%s"
+                        + "\nprofissao: %s"
+                        + "\nsenha: %s", getNome(), getNome(), getCpf(), getTelefone(), getEmail(), getSexo(), getStatus(), getEndereco(), getDoencas(), getProfissao(), getSenha());
+        return texto;
     }
 }

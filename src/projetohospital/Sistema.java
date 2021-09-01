@@ -6,53 +6,49 @@ abstract class Sistema {
     public static ArrayList<Cliente> clientes = new ArrayList();
     public static Funcionario funcionarios[] = new Funcionario[100];
     public static String profissao = "NULL";
-    public static int numeroClientes = 0, numeroFuncionarios = 0;
     
     public Sistema() {
     }
     
     //Quando o sistema abre, a pessoa precisa fazer o login
     public static void fazerLogin(){
-        boolean verificaCpf=false;
-        int pos=0;
+        
         System.out.println("\n========== LOGIN ===========");
         
-        //Verifica se o CPF informado está correto
-        while(verificaCpf==false){
-            Scanner sc = new Scanner(System.in);
-            System.out.println("\nInforme seu CPF:");
-            String cpf = sc.nextLine();
-            for(int i=0; i<numeroFuncionarios; i++){
-                if(funcionarios[i].getCpf().equals(cpf)){
-                    verificaCpf=true;
-                    pos=i;
-                    System.out.println((char)27 + "[32mCPF encontrado\u001B[0m");
-                }
-            }
-            if(verificaCpf==true)
+        boolean verificaCpf = false;
+        int pos=0;
+        
+        Scanner sc = new Scanner(System.in);
+        System.out.println("\nInforme seu CPF:");
+        String cpf = sc.nextLine();
+        
+        for(int i=0; i<funcionarios.length; i++){
+            if(funcionarios[i].getCpf().equals(cpf)){
+                verificaCpf=true;
+                pos=i;
+                System.out.println((char)27 + "[32mCPF encontrado\u001B[0m");
                 break;
-            System.out.println((char)27 + "[31mCPF não encontrado, tente novamente.\u001B[0m");
+            }
+            System.out.println("oi");
         }
         
         //Verifica se a senha informado está correta
-        boolean verificaSenha=false;
-        while(verificaSenha==false){
-            Scanner sc = new Scanner(System.in);
+        if(verificaCpf == true){
+            
             System.out.println("\nInforme sua senha:");
             String senha = sc.nextLine();
+            
             if(funcionarios[pos].getSenha().equals(senha)){
-                verificaSenha=true;
                 System.out.println((char)27 + "[32mSenha confirmada\u001B[0m");
-                break;
+                profissao = funcionarios[pos].getProfissao();
+                System.out.println((char)27 + "[30m\nVocê esta logado no sistema como " + profissao + ".\u001B[0m");
             }
-            else
+            else{
                 System.out.println((char)27 + "[31mSenha não compativel, tente novamente\u001B[0m");
+            }  
+        }else{
+            System.out.println((char)27 + "[31mCPF não encontrado, tente novamente.\u001B[0m");
         }
-        
-        if((verificaCpf==true) && (verificaSenha==true))
-            profissao = funcionarios[pos].getProfissao();
-        
-         System.out.println((char)27 + "[30mVocê esta logado no sistema como " + profissao + ".\u001B[0m");
     };
     
     //Menu do sistema
@@ -137,7 +133,6 @@ abstract class Sistema {
                 System.out.println((char)27 + "[31mCampo Obrigatório não foi preenchido.\u001B[0m");
             }else{
                 Cliente novoCliente = new Cliente(nome, telefone, email, endereco, cpf, doenca, sexo);
-                numeroClientes++;
                 clientes.add(novoCliente);
                 System.out.println((char)27 + "[32mCliente cadastrado com sucesso.\u001B[0m");
             }

@@ -12,6 +12,17 @@ public class Medico extends Funcionario{
     
     @Override
     public String toString() {
-        return "Medico{" + "nome=" + getNome() + ", telefone=" + getTelefone() + ", email=" + getEmail() + ", endereco=" + getEndereco() + ", cpf=" + getCpf() + ", doencas=" + getDoencas() + ", sexo=" + getSexo() + ", status=" + getStatus() + '}';
+        String texto = String.format("\n========== MÉDICO: %s ========"
+                        + "\nNome: %s"
+                        + "\nCPF: %s"
+                        + "\nTelefone: %s"
+                        + "\nE-mail %s"
+                        + "\nSexo: %s"
+                        + "\nStatus: %s"
+                        + "\nEndereço: %s    "
+                        + "\nDoenças:%s"
+                        + "\nprofissao: %s"
+                        + "\nsenha: %s", getNome(), getNome(), getCpf(), getTelefone(), getEmail(), getSexo(), getStatus(), getEndereco(), getDoencas(), getProfissao(), getSenha());
+        return texto;
     }
 }

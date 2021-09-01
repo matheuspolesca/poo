@@ -83,7 +83,16 @@ public class Cliente {
 
     @Override
     public String toString() {
-        return "Cliente{" + "nome=" + nome + ", telefone=" + telefone + ", email=" + email + ", endereco=" + endereco + ", cpf=" + cpf + ", doencas=" + doencas + ", sexo=" + sexo + ", status=" + status + '}';
+        String texto = String.format("\n========== CLIENTE: %s ========"
+                        + "\nNome: %s"
+                        + "\nCPF: %s"
+                        + "\nTelefone: %s"
+                        + "\nE-mail %s"
+                        + "\nSexo: %s"
+                        + "\nStatus: %s"
+                        + "\nEndereço: %s    "
+                        + "\nDoenças:%s", nome, nome, cpf, telefone, email, sexo, status, endereco, doencas);
+        return texto;
     }
 
 }
