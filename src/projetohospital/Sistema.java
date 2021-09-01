@@ -178,25 +178,20 @@ abstract class Sistema {
         Scanner sc = new Scanner(System.in);
         System.out.println("\n========= ALTER CLIENTE =========");
         System.out.println("\nQual o nome do Cliente?");
-        String nome = sc.nextLine();
+        String nome = sc.nextLine().toUpperCase();
         
-        boolean busca=false;
+        boolean busca = false;
         boolean sair = false;
         int pos=0;
             
-        while(busca==false){
-            for(int i=0; i<clientes.size(); i++){
-                if(clientes.get(i).getNome().equals(nome)){
-                    busca=true;
-                    pos=i;
-                }
+      
+        for(int i=0; i<clientes.size(); i++){
+            if(clientes.get(i).getNome().toUpperCase().equals(nome)){
+                busca = true;
+                pos = i;
             }
-            if(busca=true)
-                break;
-            System.out.println("Nome não encontrado.");
         }
-           
-        
+               
         if(busca == true){
             do{
                 System.out.println("\nDigite o número referente ao atributo que deseja alterar:"
@@ -213,10 +208,11 @@ abstract class Sistema {
                         String nomeC = sc.nextLine();
 
                         if(nomeC.isEmpty()){
-                            System.out.println((char)27 + "[31mNão pode ser alterado para um campo vazio.\u001B[0m");
+                            System.out.println((char)27 + "[31m\nNão pode ser alterado para um campo vazio.\u001B[0m");
                         }else{
                             clientes.get(pos).setNome(nomeC);
-                            System.out.println((char)27 + "[32mAlterado com sucesso: " + clientes.get(pos).getNome() + "\u001B[0m");
+                            System.out.println((char)27 + "[32m\nAlterado com sucesso.\u001B[0m");
+                            System.out.println(pos);
                         }
                         break;
                     case 2:
@@ -224,10 +220,10 @@ abstract class Sistema {
                         String telefoneC = sc.nextLine();
 
                         if(telefoneC.isEmpty()){
-                            System.out.println((char)27 + "[31mNão pode ser alterado para um campo vazio.\u001B[0m");
+                            System.out.println((char)27 + "[31m\nNão pode ser alterado para um campo vazio.\u001B[0m");
                         }else{
                             clientes.get(pos).setTelefone(telefoneC);
-                            System.out.println((char)27 + "[32mAlterado com sucesso: " + clientes.get(pos).getTelefone() + "\u001B[0m");
+                            System.out.println((char)27 + "[32m\nAlterado com sucesso\u001B[0m");
                         }
                         break;
                     case 3:
@@ -235,43 +231,43 @@ abstract class Sistema {
                         String emailC = sc.nextLine();
 
                         if(emailC.isEmpty()){
-                            System.out.println((char)27 + "[31mNão pode ser alterado para um campo vazio.\u001B[0m");
+                            System.out.println((char)27 + "[31m\nNão pode ser alterado para um campo vazio.\u001B[0m");
                         }else{
                             clientes.get(pos).setEmail(emailC);
-                            System.out.println((char)27 + "[32mAlterado com sucesso: " + clientes.get(pos).getEmail() + "\u001B[0m");
+                            System.out.println((char)27 + "[32m\nAlterado com sucesso\u001B[0m");
                         }
                         break;
                     case 4:
                         System.out.println("\nQual o novo endereco do seu cliente?");
                         String enderecoC = sc.nextLine();
                         clientes.get(pos).setEndereco(enderecoC);
-                        System.out.println((char)27 + "[32mAlterado com sucesso: " + clientes.get(pos).getEndereco() + "\u001B[0m");
+                        System.out.println((char)27 + "[32m\nAlterado com sucesso\u001B[0m");
                         break;
                     case 5:
                         System.out.println("\nQual o novo CPF do seu cliente?");
                         String cpfC = sc.nextLine();
 
                         if(cpfC.isEmpty()){
-                            System.out.println((char)27 + "[31mNão pode ser alterado para um campo vazio.\u001B[0m");
+                            System.out.println((char)27 + "[31m\nNão pode ser alterado para um campo vazio.\u001B[0m");
                         }else{
                             clientes.get(pos).setCpf(cpfC);
-                            System.out.println((char)27 + "[32mAlterado com sucesso: " + clientes.get(pos).getCpf() + "\u001B[0m");
+                            System.out.println((char)27 + "[32m\nAlterado com sucesso\u001B[0m");
                         }
                         break;
                     case 6:
                         System.out.println("\nQual as novas doencas do seu cliente?");
                         String doencasC = sc.nextLine();
                         clientes.get(pos).setDoencas(doencasC);
-                        System.out.println((char)27 + "[32mAlterado com sucesso: " + clientes.get(pos).getDoencas() + "\u001B[0m");
+                        System.out.println((char)27 + "[32m\nAlterado com sucesso\u001B[0m");
                         break;
                     case 7:
                         System.out.println("\nQual o novo sexo do seu cliente?");
                         String sexoC = sc.nextLine();
                         if(sexoC.isEmpty()){
-                            System.out.println((char)27 + "[31mNão pode ser alterado para um campo vazio.\u001B[0m");
+                            System.out.println((char)27 + "[31m\nNão pode ser alterado para um campo vazio.\u001B[0m");
                         }else{
                             clientes.get(pos).setSexo(sexoC);
-                            System.out.println((char)27 + "[32mAlterado com sucesso: " + clientes.get(pos).getSexo() + "\u001B[0m");
+                            System.out.println((char)27 + "[32m\nAlterado com sucesso\u001B[0m");
                         }
                         break;
                     case 8:
@@ -279,11 +275,11 @@ abstract class Sistema {
                         sair=true;
                         break;
                     default:
-                        System.out.println("Opção invalida");
+                        System.out.println((char)27 + "[31m\nOpção invalida\u001B[0m");
                 }
             }while(sair!=true);
         }else{
-            System.out.println("\nCliente não encontrado");
+            System.out.println((char)27 + "[31m\nCliente não encontrado\u001B[0m");
         }
     }
     
@@ -324,29 +320,31 @@ abstract class Sistema {
     public static void acessarInformações(){
         if("Medico".equals(profissao) || "Administrador".equals(profissao)){
             Scanner sc = new Scanner(System.in);
-            System.out.println("Qual o nome do Cliente?");
-            String nome = sc.nextLine();
-            
-            boolean busca=false;
+            System.out.println("\n========= ACESSAR INFORMAÇÕES =========");
+            System.out.println("\nQual o nome do Cliente?");
+            String nome = sc.nextLine().toUpperCase();
+        
+            boolean busca = false;
             int pos=0;
             
-            while(busca==false){
-                for(int i=0; i<clientes.size(); i++){
-                    if(clientes.get(i).getNome().equals(nome)){
-                        busca=true;
-                        pos=i;
-                    }
+            for(int i=0; i<clientes.size(); i++){
+                if(clientes.get(i).getNome().toUpperCase().equals(nome)){
+                    busca = true;
+                    pos = i;
                 }
-                if(busca=true)
-                    break;
-                System.out.println("Nome não encontrado.");
             }
             
-            if(busca=true)
-                    System.out.println(clientes.get(pos).toString());
+            if(busca==true){
+                System.out.println(clientes.get(pos).toString());
+            }else{
+                System.out.println((char)27 + "[31m\nCliente não encontrado\u001B[0m");
+            }
+                    
         }
-        else
-            System.out.println("Você não tem permissão para acessar essa opção.");
+        else{
+            System.out.println((char)27 + "[31m\nVocê não tem permissão para acessar essa opção.\u001B[0m");
+        }
+            
     };
     
     public static void encerrarAtendimento(){
