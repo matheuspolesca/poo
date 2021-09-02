@@ -20,9 +20,9 @@ abstract class Sistema {
         Scanner sc = new Scanner(System.in);
         System.out.println("\nInforme seu CPF:");
         String cpf = sc.nextLine();
-
         Funcionario funcLogin = new Funcionario();
 
+        //Confere se já existe o CPF 
         for (Funcionario funcionario : funcionarios) {
             if (funcionario.getCpf().equals(cpf)) {
                 funcLogin = funcionario;
@@ -31,8 +31,8 @@ abstract class Sistema {
             }
         }
 
-        //Verifica se a senha informado está correta
-        if (!funcLogin.getCpf().isEmpty()) {
+        //Se existir o CPF, confere se a senha está correta
+        if (funcLogin.getCpf() != null) {
 
             System.out.println("\nInforme sua senha:");
             String senha = sc.nextLine();
@@ -52,6 +52,8 @@ abstract class Sistema {
     //Menu do sistema
     public static void menuSistema() {
         boolean valor = true;
+        
+        //Menu Principal
         while (valor != false) {
             Scanner sc = new Scanner(System.in);
             System.out.println("\n========= MENU =========");
@@ -67,53 +69,7 @@ abstract class Sistema {
                     menuCliente();
                     break;
                 case 2:
-                    System.out.println("\n========= MENU: FUNCIONÁRIO =========");
-                    System.out.println("\nDigite somente o número da opção desejada:"
-                            + "\n\n1 - Cadastrar Funcionario"
-                            + "\n2 - Excluir Funcionario"
-                            + "\n3 - Alterar Cadastro Funcionario"
-                            + "\n4 - Fechar\n");
-                    int acessoF = sc.nextInt();
-
-                    switch (acessoF) {
-                        case 1:
-                            System.out.println("\n*Você quer cadastrar um:"
-                                    + "\n\n1 - Funcionario"
-                                    + "\n2 - Medico"
-                                    + "\n3 - Enfermeiro"
-                                    + "\n4 - Fechar\n");
-                            int opcF = sc.nextInt();
-                            System.out.println("\n========= CADASTRAR FUNCIONÁRIO =========");
-                            switch (opcF) {
-                                case 1:
-//                                    cadastrarCliente();
-                                    break;
-                                case 2:
-//                                    cadastrarCliente();
-                                    break;
-                                case 3:
-//                                    cadastrarCliente();
-                                    break;
-                                case 4:
-                                    break;
-                                default:
-                                    System.out.println("\nOpção Inválida");
-                                    break;
-                            }
-
-                            break;
-
-                        case 2:
-                            //excluirFuncionario
-                            break;
-                        case 3:
-                            //alterarCadastroFuncionario
-                            break;
-                        case 4:
-                            break;
-                        default:
-                            System.out.println((char) 27 + "[31m\nOpção invalida\u001B[0m");
-                    }
+                    menuFuncionario();
                     break;
                 case 3:
                     gerarRelatorio();
@@ -153,7 +109,7 @@ abstract class Sistema {
                 alterarStatus();
                 break;
             case 5:
-                //excluirPaciente
+                deletarCliente();
                 break;
             case 6:
                 encerrarAtendimento();
@@ -162,6 +118,57 @@ abstract class Sistema {
                 acessarInformações();
                 break;
             case 8:
+                break;
+            default:
+                System.out.println((char) 27 + "[31m\nOpção invalida\u001B[0m");
+        }
+    }
+    
+    private static void menuFuncionario(){
+        System.out.println("\n========= MENU: FUNCIONÁRIO =========");
+        System.out.println("\nDigite somente o número da opção desejada:"
+                + "\n\n1 - Cadastrar Funcionario"
+                + "\n2 - Excluir Funcionario"
+                + "\n3 - Alterar Cadastro Funcionario"
+                + "\n4 - Fechar\n");
+        Scanner sc = new Scanner(System.in);
+        int acessoF = sc.nextInt();
+
+        switch (acessoF) {
+            case 1:
+                System.out.println("\n*Você quer cadastrar um:"
+                        + "\n\n1 - Funcionario"
+                        + "\n2 - Medico"
+                        + "\n3 - Enfermeiro"
+                        + "\n4 - Fechar\n");
+                int opcF = sc.nextInt();
+                System.out.println("\n========= CADASTRAR FUNCIONÁRIO =========");
+                switch (opcF) {
+                    case 1:
+                        cadastroFuncionario("Funcionario");
+                        break;
+                    case 2:
+                        cadastroFuncionario("Medico");
+                        break;
+                    case 3:
+                        cadastroFuncionario("Enfermeiro");
+                        break;
+                    case 4:
+                        break;
+                    default:
+                        System.out.println("\nOpção Inválida");
+                        break;
+                }
+
+                break;
+
+            case 2:
+                deletarFuncionario();
+                break;
+            case 3:
+                alterarCadastroFuncionario();
+                break;
+            case 4:
                 break;
             default:
                 System.out.println((char) 27 + "[31m\nOpção invalida\u001B[0m");
@@ -176,24 +183,21 @@ abstract class Sistema {
     public static void cadastrarCliente() {
 
         //Tentar fazer o cadastro
+        Scanner sc = new Scanner(System.in);
+        Cliente novoCliente = new Cliente();
+            
         try 
         {
-            Scanner sc = new Scanner(System.in);
-            boolean encontrou = false;
-            Cliente novoCliente = new Cliente();
-            
-
             System.out.println("\n*CPF:");
             novoCliente.setCpf(sc.nextLine());
 //to do: alterar for
             for (int i = 0; i < clientes.size(); i++) {
                 if (clientes.get(i).getCpf().equals(novoCliente.getCpf())) {
-                    System.out.println((char) 27 + "[31m\nO cliente já está cadastrado\u001B[0m");
-                    encontrou = true;
+                    throw new Exception("Cliente já existe no sistema.");
                 }
             }
-
-            if (!encontrou) {
+            
+            try{
                 
                 System.out.println("\n*Nome:");
                 novoCliente.setNome(sc.nextLine());
@@ -214,26 +218,114 @@ abstract class Sistema {
                 }
                 clientes.add(novoCliente);
                 System.out.println((char) 27 + "[32mCliente cadastrado com sucesso.\u001B[0m");
-                
+
+            } catch (Exception ex){
+                System.out.println((char) 27 + "[31m" + ex.getMessage() + "\u001B[0m");
             }
-        } catch (Exception e) {
-            System.out.println((char) 27 + "[31m" + e.getMessage() + "\u001B[0m");
+            
+        } catch (Exception ex){
+            System.out.println((char) 27 + "[31m" + ex.getMessage() + "\u001B[0m");
+        }
+        
+    }
+    
+    public static void deletarCliente(){
+        //Tentar fazer o cadastro
+        Scanner sc = new Scanner(System.in);
+            
+        try 
+        {
+            System.out.println("\n*CPF:");
+            String cpf = sc.nextLine();
+//to do: alterar for
+            for (int i = 0; i < clientes.size(); i++) {
+                if (clientes.get(i).getCpf().equals(cpf)) {
+                    clientes.remove(i);
+                    System.out.println((char) 27 + "[32mCliente deletado.\u001B[0m");
+                    return;
+                }
+            }
+            throw new Exception("Cliente não encontrado.");
+        } catch (Exception ex){
+            System.out.println((char) 27 + "[31m" + ex.getMessage() + "\u001B[0m");
         }
     }
     
-    public static void cadastroFuncionario(){
-//        if(profissao.equals("Medico") || profissao.equals("Funcionario") || profissao.equals("Enfermeiro")){
-//            System.out.println("\nQual é a senha?");
-//            String senha = sc.nextLine();
-//            Funcionario novoFuncionario = new Funcionario (nome, telefone, email, endereco, cpf, doenca, sexo, profissao, senha);
-//            funcionarios[++numeroFuncionarios] = novoFuncionario;
-//            System.out.format((char)27 + "[32m%s cadastrado com sucesso.\u001B[0m", profissao);
-//        }else{
-//        
-//        }
+    public static void cadastroFuncionario(String cadProfissao){
+        //Tentar fazer o cadastro
+        Scanner sc = new Scanner(System.in);
+        Funcionario novoFuncionario = new Funcionario();
+            
+        try 
+        {
+            System.out.println("\n*CPF:");
+            novoFuncionario.setCpf(sc.nextLine());
+//to do: alterar for
+            for (int i = 0; i < funcionarios.size(); i++) {
+                if (funcionarios.get(i).getCpf().equals(novoFuncionario.getCpf())) {
+                    throw new Exception("Funcionário já existe no sistema.");
+                }
+            }
+            
+            try{
+                //Dados do funcionario
+                System.out.println("\n*Nome:");
+                novoFuncionario.setNome(sc.nextLine());
+                System.out.println("\n*Telefone:");
+                novoFuncionario.setTelefone(sc.nextLine());
+                System.out.println("\n*E-mail:");
+                novoFuncionario.setEmail(sc.nextLine());
+                System.out.println("\nEndereço:");
+                novoFuncionario.setEndereco(sc.nextLine());
+                System.out.println("\nDoença:");
+                novoFuncionario.setDoencas(sc.nextLine());
+                System.out.println("\n*Sexo:");
+                novoFuncionario.setSexo(sc.nextLine());
+                System.out.println("\nSenha:");
+                novoFuncionario.setSenha(sc.nextLine());
+                novoFuncionario.setProfissao(cadProfissao);
+
+                //Se algum campo obrigatório estiver vazio, retorna mensagem de erro
+                if (novoFuncionario.getNome().isEmpty() || novoFuncionario.getTelefone().isEmpty() || novoFuncionario.getEmail().isEmpty() || novoFuncionario.getCpf().isEmpty() || novoFuncionario.getSexo().isEmpty() || novoFuncionario.getSenha().isEmpty()) {
+                    throw new Exception("Campo Obrigatório não foi preenchido.");
+                }
+                
+                funcionarios.add(novoFuncionario);
+                System.out.println((char) 27 + "[32mFuncionario cadastrado com sucesso.\u001B[0m");
+
+            } catch (Exception ex){
+                System.out.println((char) 27 + "[31m" + ex.getMessage() + "\u001B[0m");
+            }
+            
+        } catch (Exception ex){
+            System.out.println((char) 27 + "[31m" + ex.getMessage() + "\u001B[0m");
+        }
+    }
+    
+    public static void deletarFuncionario(){
+        //Tentar fazer o cadastro
+        Scanner sc = new Scanner(System.in);
+
+        try 
+        {
+            System.out.println("\n*CPF:");
+            String cpf = sc.nextLine();
+    
+            for (int i = 0; i < funcionarios.size(); i++) {
+                if (funcionarios.get(i).getCpf().equals(cpf)) {
+                    funcionarios.remove(i);
+                    System.out.println((char) 27 + "[32mFuncionário deletado.\u001B[0m");
+                    return;
+                }
+            }
+            throw new Exception("Funcionário não encontrado.");
+        } catch (Exception ex){
+            System.out.println((char) 27 + "[31m" + ex.getMessage() + "\u001B[0m");
+        }
     }
     
     public static int pesquisarCliente() {
+        
         Scanner sc = new Scanner(System.in);
         System.out.println("\nQual o nome do Cliente?");
         String nome = sc.nextLine().toUpperCase();
@@ -249,20 +341,40 @@ abstract class Sistema {
 
         return -1;
     }
+    
+     public static int pesquisarFuncionario() {
+        
+        Scanner sc = new Scanner(System.in);
+        System.out.println("\nQual o nome do Funcionario?");
+        String nome = sc.nextLine().toUpperCase();
+
+        int pos;
+
+        for (int i = 0; i < funcionarios.size(); i++) {
+            if (funcionarios.get(i).getNome().toUpperCase().equals(nome)) {
+                pos = i;
+                return pos;
+            }
+        }
+
+        return -1;
+    }
 
     public static void iniciarAtendimento() {
 
         System.out.println("\n========= INICIAR ATENDIMENTO =========");
-
         int busca = pesquisarCliente();
-
-        if (busca >= 0) {
-            System.out.println((char) 27 + "[32m\nAtendimento do cliente " + clientes.get(busca).getNome() + " iniciado.\u001B[0m");
-            clientes.get(busca).setStatus("Aguardando triagem.");
-        } else {
-            System.out.println((char) 27 + "[31m\nCliente não encontrado\u001B[0m");
+        
+        try{
+            if (busca >= 0) {
+                System.out.println((char) 27 + "[32m\nAtendimento do cliente " + clientes.get(busca).getNome() + " iniciado.\u001B[0m");
+                clientes.get(busca).setStatus("Aguardando triagem.");
+            } else {
+                throw new Exception("Cliente não encontrado.");
+            }
+        }catch (Exception ex){
+            System.out.println((char) 27 + "[31m" + ex.getMessage() + "\u001B[0m");
         }
-
     }
     
     //Alterar Cadastro do Cliente
@@ -286,7 +398,7 @@ abstract class Sistema {
                 switch (acesso) {
 
                     case 1:
-                        System.out.println("\nQual o novo nome do seu cliente?");
+                        System.out.println("\nNovo nome:");
                         String nomeC = sc.nextLine();
 
                         if (nomeC.isEmpty()) {
@@ -297,7 +409,7 @@ abstract class Sistema {
                         }
                         break;
                     case 2:
-                        System.out.println("\nQual o novo telefone do seu cliente?");
+                        System.out.println("\nNovo Telefone:");
                         String telefoneC = sc.nextLine();
 
                         if (telefoneC.isEmpty()) {
@@ -308,7 +420,7 @@ abstract class Sistema {
                         }
                         break;
                     case 3:
-                        System.out.println("\nQual o novo e-mail do seu cliente?");
+                        System.out.println("\nNovo E-mail:");
                         String emailC = sc.nextLine();
 
                         if (emailC.isEmpty()) {
@@ -319,13 +431,13 @@ abstract class Sistema {
                         }
                         break;
                     case 4:
-                        System.out.println("\nQual o novo endereco do seu cliente?");
+                        System.out.println("\nNovo Endereço:");
                         String enderecoC = sc.nextLine();
                         clientes.get(busca).setEndereco(enderecoC);
                         System.out.println((char) 27 + "[32m\nAlterado com sucesso\u001B[0m");
                         break;
                     case 5:
-                        System.out.println("\nQual o novo CPF do seu cliente?");
+                        System.out.println("\nNovo CPF:");
                         String cpfC = sc.nextLine();
 
                         if (cpfC.isEmpty()) {
@@ -336,13 +448,13 @@ abstract class Sistema {
                         }
                         break;
                     case 6:
-                        System.out.println("\nQual as novas doencas do seu cliente?");
+                        System.out.println("\nNova Doença:");
                         String doencasC = sc.nextLine();
                         clientes.get(busca).setDoencas(doencasC);
                         System.out.println((char) 27 + "[32m\nAlterado com sucesso\u001B[0m");
                         break;
                     case 7:
-                        System.out.println("\nQual o novo sexo do seu cliente?");
+                        System.out.println("\nNovo Sexo:");
                         String sexoC = sc.nextLine();
                         if (sexoC.isEmpty()) {
                             System.out.println((char) 27 + "[31m\nNão pode ser alterado para um campo vazio.\u001B[0m");
@@ -363,12 +475,142 @@ abstract class Sistema {
             System.out.println((char) 27 + "[31m\nCliente não encontrado\u001B[0m");
         }
     }
+    
+    
+    //Alterar Cadastro do Cliente
+    public static void alterarCadastroFuncionario() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("\n========= EDITAR FUNCIONARIO =========");
+
+        int busca = pesquisarFuncionario();
+
+        boolean sair = false;
+
+        if (busca >= 0) {
+            do {
+                System.out.println("\nDigite o número referente ao atributo que deseja alterar:"
+                        + "\n1 - Nome        2 - Telefone     3 - E-mail"
+                        + "\n4 - Endereço    5 - CPF          6 - Doenças"
+                        + "\n7 - Sexo        8 - Senha        9 - Profissão"
+                        + "\n10 - Finalizar Alteracoes");
+                int acesso = sc.nextInt();
+                sc.nextLine();
+
+                switch (acesso) {
+
+                    case 1:
+                        System.out.println("\nNovo Nome:");
+                        String nomeC = sc.nextLine();
+
+                        if (nomeC.isEmpty()) {
+                            System.out.println((char) 27 + "[31m\nNão pode ser alterado para um campo vazio.\u001B[0m");
+                        } else {
+                            funcionarios.get(busca).setNome(nomeC);
+                            System.out.println((char) 27 + "[32m\nAlterado com sucesso.\u001B[0m");
+                        }
+                        break;
+                    case 2:
+                        System.out.println("\nNovo Telefone:");
+                        String telefoneC = sc.nextLine();
+
+                        if (telefoneC.isEmpty()) {
+                            System.out.println((char) 27 + "[31m\nNão pode ser alterado para um campo vazio.\u001B[0m");
+                        } else {
+                            funcionarios.get(busca).setTelefone(telefoneC);
+                            System.out.println((char) 27 + "[32m\nAlterado com sucesso\u001B[0m");
+                        }
+                        break;
+                    case 3:
+                        System.out.println("\nNovo E-mail:");
+                        String emailC = sc.nextLine();
+
+                        if (emailC.isEmpty()) {
+                            System.out.println((char) 27 + "[31m\nNão pode ser alterado para um campo vazio.\u001B[0m");
+                        } else {
+                            funcionarios.get(busca).setEmail(emailC);
+                            System.out.println((char) 27 + "[32m\nAlterado com sucesso\u001B[0m");
+                        }
+                        break;
+                    case 4:
+                        System.out.println("\nNovo Endereço:");
+                        String enderecoC = sc.nextLine();
+                        funcionarios.get(busca).setEndereco(enderecoC);
+                        System.out.println((char) 27 + "[32m\nAlterado com sucesso\u001B[0m");
+                        break;
+                    case 5:
+                        System.out.println("\nNovo CPF:");
+                        String cpfC = sc.nextLine();
+
+                        if (cpfC.isEmpty()) {
+                            System.out.println((char) 27 + "[31m\nNão pode ser alterado para um campo vazio.\u001B[0m");
+                        } else {
+                            funcionarios.get(busca).setCpf(cpfC);
+                            System.out.println((char) 27 + "[32m\nAlterado com sucesso\u001B[0m");
+                        }
+                        break;
+                    case 6:
+                        System.out.println("\nNova Doença:");
+                        String doencasC = sc.nextLine();
+                        funcionarios.get(busca).setDoencas(doencasC);
+                        System.out.println((char) 27 + "[32m\nAlterado com sucesso\u001B[0m");
+                        break;
+                    case 7:
+                        System.out.println("\nNovo Sexo:");
+                        String sexoC = sc.nextLine();
+                        if (sexoC.isEmpty()) {
+                            System.out.println((char) 27 + "[31m\nNão pode ser alterado para um campo vazio.\u001B[0m");
+                        } else {
+                            funcionarios.get(busca).setSexo(sexoC);
+                            System.out.println((char) 27 + "[32m\nAlterado com sucesso\u001B[0m");
+                        }
+                        break;
+                    case 8:
+                        System.out.println("\nNova Senha:");
+                        String senha = sc.nextLine();
+                        if (senha.isEmpty()) {
+                            System.out.println((char) 27 + "[31m\nNão pode ser alterado para um campo vazio.\u001B[0m");
+                        } else {
+                            funcionarios.get(busca).setSenha(senha);
+                            System.out.println((char) 27 + "[32m\nAlterado com sucesso\u001B[0m");
+                        }
+                        break;
+                    case 9:
+                        System.out.println("\nNova Profissão:");
+                        System.out.println("\nDigite o número referente a profissão:"
+                                        + "\n\n1 - Funcionario"
+                                        + "\n2 - Medico"
+                                        + "\n3 - Enfermeiro");
+                        int profissaoF = sc.nextInt();
+                        switch (profissaoF) {
+                            case 1:
+                                funcionarios.get(busca).setStatus("Funcionario");
+                                break;
+                            case 2:
+                                funcionarios.get(busca).setStatus("Medico");
+                                break;
+                            case 3:
+                                funcionarios.get(busca).setStatus("Enfermeiro");
+                                break;
+                            default:
+                                System.out.println((char) 27 + "[31m\nOpção invalida\u001B[0m");
+                        }
+                        break;
+                    case 10:
+                        System.out.println("\nAlterações finalizadas.");
+                        sair = true;
+                        break;
+                    default:
+                        System.out.println((char) 27 + "[31m\nOpção invalida\u001B[0m");
+                }
+            } while (sair != true);
+        } else {
+            System.out.println((char) 27 + "[31m\nFuncionario não encontrado\u001B[0m");
+        }
+    }
 
     public static void gerarRelatorio() {
 
     }
-
-    ;
     
     //Alterar o Status do Paciente
     public static void alterarStatus() {
@@ -441,8 +683,6 @@ abstract class Sistema {
         }
 
     }
-
-    ;
     
     public static void encerrarAtendimento() {
         System.out.println("\n========= ENCERRAR ATENDIMENTO =========");
@@ -452,7 +692,7 @@ abstract class Sistema {
 
         if (busca >= 0) {
             System.out.println((char) 27 + "[32m\nAtendimento do cliente " + clientes.get(busca).getNome() + " finalizado.\u001B[0m");
-            clientes.get(busca).setStatus("\nAguardando triagem.");
+            clientes.get(busca).setStatus("Liberado");
         } else {
             System.out.println((char) 27 + "[31m\nCliente não encontrado\u001B[0m");
         }
