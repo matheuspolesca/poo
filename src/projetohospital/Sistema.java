@@ -301,6 +301,7 @@ abstract class Sistema {
                 System.out.println("\n*Idade:");
                 novoFuncionario.setIdade(sc.nextInt());
                 System.out.println("\n*Telefone:");
+                sc.nextLine();
                 novoFuncionario.setTelefone(sc.nextLine());
                 System.out.println("\n*E-mail:");
                 novoFuncionario.setEmail(sc.nextLine());
