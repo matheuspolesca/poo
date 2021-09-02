@@ -1,13 +1,16 @@
 package projetohospital;
 
 public class Cliente {
-    private String nome, telefone, email, endereco, cpf, doencas, sexo, status;
+    private String nome, sobrenome, telefone, email, endereco, cpf, doencas, sexo, status;
+    private int idade;
 
     public Cliente() {
     }
 
-    public Cliente(String nome, String telefone, String email, String endereco, String cpf, String doencas, String sexo) {
+    public Cliente(String nome, String sobrenome, int idade, String telefone, String email, String endereco, String cpf, String doencas, String sexo) {
         this.nome = nome;
+        this.sobrenome = sobrenome;
+        this.idade = idade;
         this.telefone = telefone;
         this.email = email;
         this.endereco = endereco;
@@ -20,9 +23,25 @@ public class Cliente {
     public String getNome() {
         return nome;
     }
-
+    
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getSobrenome() {
+        return sobrenome;
+    }
+
+    public void setSobrenome(String sobrenome) {
+        this.sobrenome = sobrenome;
+    }
+    
+    public int getIdade() {
+        return idade;
+    }
+
+    public void setIdade(int idade) {
+        this.idade = idade;
     }
 
     public String getTelefone() {
@@ -85,13 +104,15 @@ public class Cliente {
     public String toString() {
         String texto = String.format("\n========== CLIENTE: %s ========"
                         + "\nNome: %s"
+                        + "\nSobrenome: %s"
+                        + "\nIdade: %d"
                         + "\nCPF: %s"
                         + "\nTelefone: %s"
                         + "\nE-mail %s"
                         + "\nSexo: %s"
                         + "\nStatus: %s"
                         + "\nEndereço: %s    "
-                        + "\nDoenças:%s", nome, nome, cpf, telefone, email, sexo, status, endereco, doencas);
+                        + "\nDoenças:%s", nome, nome, sobrenome, idade, cpf, telefone, email, sexo, status, endereco, doencas);
         return texto;
     }
 
