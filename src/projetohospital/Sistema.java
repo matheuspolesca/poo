@@ -307,8 +307,6 @@ abstract class Sistema {
                 novoFuncionario.setEmail(sc.nextLine());
                 System.out.println("\nEndereço:");
                 novoFuncionario.setEndereco(sc.nextLine());
-                System.out.println("\nDoença:");
-                novoFuncionario.setDoencas(sc.nextLine());
                 System.out.println("\n*Sexo:");
                 novoFuncionario.setSexo(sc.nextLine());
                 System.out.println("\nSenha:");
@@ -346,9 +344,9 @@ abstract class Sistema {
                 System.out.println("\nDigite o número referente ao atributo que deseja alterar:"
                         + "\n1 - Nome         2- Sobrenome     3 - Idade"
                         + "\n4 - Telefone     5 - E-mail       6 - Endereço"
-                        + "\n7 - CPF          8 - Doenças      9 - Sexo"
-                        + "\n10 - Senha      11 - Profissão"
-                        + "\n12 - Finalizar Alteracoes");
+                        + "\n7 - CPF          8 - Sexo         9 - Senha"
+                        + "\n10 - Profissão"
+                        + "\n11 - Finalizar Alteracoes");
                 int acesso = sc.nextInt();
                 sc.nextLine();
 
@@ -427,12 +425,6 @@ abstract class Sistema {
                         }
                         break;
                     case 8:
-                        System.out.println("\nNova Doença:");
-                        String doencasC = sc.nextLine();
-                        funcionarios.get(busca).setDoencas(doencasC);
-                        System.out.println((char) 27 + "[32m\nAlterado com sucesso\u001B[0m");
-                        break;
-                    case 9:
                         System.out.println("\nNovo Sexo:");
                         String sexoC = sc.nextLine();
                         if (sexoC.isEmpty()) {
@@ -442,7 +434,7 @@ abstract class Sistema {
                             System.out.println((char) 27 + "[32m\nAlterado com sucesso\u001B[0m");
                         }
                         break;
-                    case 10:
+                    case 9:
                         System.out.println("\nNova Senha:");
                         String senha = sc.nextLine();
                         if (senha.isEmpty()) {
@@ -452,7 +444,7 @@ abstract class Sistema {
                             System.out.println((char) 27 + "[32m\nAlterado com sucesso\u001B[0m");
                         }
                         break;
-                    case 11:
+                    case 10:
                         System.out.println("\nNova Profissão:");
                         System.out.println("\nDigite o número referente a profissão:"
                                 + "\n\n1 - Funcionario"
@@ -461,19 +453,19 @@ abstract class Sistema {
                         int profissaoF = sc.nextInt();
                         switch (profissaoF) {
                             case 1:
-                                funcionarios.get(busca).setStatus("Funcionario");
+                                funcionarios.get(busca).setProfissao("Funcionario");
                                 break;
                             case 2:
-                                funcionarios.get(busca).setStatus("Medico");
+                                funcionarios.get(busca).setProfissao("Medico");
                                 break;
                             case 3:
-                                funcionarios.get(busca).setStatus("Enfermeiro");
+                                funcionarios.get(busca).setProfissao("Enfermeiro");
                                 break;
                             default:
                                 System.out.println((char) 27 + "[31m\nOpção invalida\u001B[0m");
                         }
                         break;
-                    case 12:
+                    case 11:
                         System.out.println("\nAlterações finalizadas.");
                         sair = true;
                         break;

@@ -6,13 +6,13 @@ public class ProjetoHospital {
 
     public static void main(String[] args) {
         Sistema.funcionarios.add(new Funcionario("admin", "admin", 20, "admin", "admin@gmail.com", "Turmalina", 
-         "0", "admin", "admin", "Administrador", "admin"));
+         "0", "admin", "Administrador", "admin"));
         Sistema.funcionarios.add(new Funcionario("Tulio", "Cordeiro", 25, "(38)99103-9305", "tulioalves@gmail.com", "Turmalina", 
-         "11111111111", "Miopia", "Masculino", "Funcionario", "123"));
+         "11111111111", "Masculino", "Funcionario", "123"));
         Sistema.funcionarios.add(new Funcionario("Matheus", "Polesca", 20, "(32)98447-5253", "matheuspolesca@gmail.com", "Sete Lagoas", 
-         "22222222222", "Miopia", "Masculino", "Enfermeiro", "456"));
+         "22222222222", "Masculino", "Enfermeiro", "456"));
         Sistema.funcionarios.add(new Funcionario("Brenda", "Orlandi", 23, "(32)98447-5253", "brendaorlandi@gmail.com", "Diamantina", 
-         "33333333333", "Miopia", "Feminino" , "Medico", "789"));
+         "33333333333", "Feminino" , "Medico", "789"));
         
         
         Sistema.fazerLogin();

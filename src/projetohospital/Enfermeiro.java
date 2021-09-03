@@ -5,8 +5,8 @@ public class Enfermeiro extends Funcionario {
     public Enfermeiro() {
     }
 
-    public Enfermeiro(String nome, String sobrenome, int idade, String telefone, String email, String endereco, String cpf, String doencas, String sexo, String profissao, String senha) {
-        super(nome, sobrenome, idade, telefone, email, endereco, cpf, doencas, sexo, profissao, senha);
+    public Enfermeiro(String nome, String sobrenome, int idade, String telefone, String email, String endereco, String cpf, String sexo, String profissao, String senha) {
+        super(nome, sobrenome, idade, telefone, email, endereco, cpf, sexo, profissao, senha);
         super.setProfissao("Enfermeiro");
     }
 
@@ -20,11 +20,9 @@ public class Enfermeiro extends Funcionario {
                         + "\nTelefone: %s"
                         + "\nE-mail %s"
                         + "\nSexo: %s"
-                        + "\nStatus: %s"
                         + "\nEndereço: %s    "
-                        + "\nDoenças:%s"
-                        + "\nprofissao: %s"
-                        + "\nsenha: %s", getNome(), getNome(), getSobrenome(), getIdade(), getCpf(), getTelefone(), getEmail(), getSexo(), getStatus(), getEndereco(), getDoencas(), getProfissao(), getSenha());
+                        + "\nProfissao: %s"
+                        + "\nSenha: %s", getNome(), getNome(), getSobrenome(), getIdade(), getCpf(), getTelefone(), getEmail(), getSexo(), getEndereco(), getProfissao(), getSenha());
         return texto;
     }
 }
