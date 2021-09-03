@@ -6,8 +6,8 @@ import java.util.Scanner;
 abstract class Sistema {
 
     public static ArrayList<Cliente> clientes = new ArrayList();
-    public static ArrayList<Funcionario> funcionarios = new ArrayList(100);
-    public static int numClientes;
+    public static Funcionario funcionarios[] = new Funcionario[100];
+    public static int numClientes, numFuncionarios=0;
     public static String profissao = "NULL";
 
     public Sistema() {
@@ -103,7 +103,7 @@ abstract class Sistema {
                     throw new Exception("Campo Obrigatório não foi preenchido.");
                 }
                 clientes.add(novoCliente);
-                numClientes = ++numClientes;
+                numClientes = numClientes++;
                 System.out.println((char) 27 + "[32mCliente cadastrado com sucesso.\u001B[0m");
 
             } catch (Exception ex) {
@@ -286,8 +286,8 @@ abstract class Sistema {
             System.out.println("\n*CPF:");
             novoFuncionario.setCpf(sc.nextLine());
 
-            for (int i = 0; i < funcionarios.size(); i++) {
-                if (funcionarios.get(i).getCpf().equals(novoFuncionario.getCpf())) {
+            for (int i = 0; i < numFuncionarios; i++) {
+                if (funcionarios[i].getCpf().equals(novoFuncionario.getCpf())) {
                     throw new Exception("Funcionário já existe no sistema.");
                 }
             }
@@ -318,7 +318,8 @@ abstract class Sistema {
                     throw new Exception("Campo Obrigatório não foi preenchido.");
                 }
 
-                funcionarios.add(novoFuncionario);
+                funcionarios[numFuncionarios] = novoFuncionario;
+                numFuncionarios++;
                 System.out.println((char) 27 + "[32mFuncionario cadastrado com sucesso.\u001B[0m");
 
             } catch (Exception ex) {
@@ -359,7 +360,7 @@ abstract class Sistema {
                         if (nomeC.isEmpty()) {
                             System.out.println((char) 27 + "[31m\nNão pode ser alterado para um campo vazio.\u001B[0m");
                         } else {
-                            funcionarios.get(busca).setNome(nomeC);
+                            funcionarios[busca].setNome(nomeC);
                             System.out.println((char) 27 + "[32m\nAlterado com sucesso.\u001B[0m");
                         }
                         break;
@@ -370,7 +371,7 @@ abstract class Sistema {
                         if (sobrenomeF.isEmpty()) {
                             System.out.println((char) 27 + "[31m\nNão pode ser alterado para um campo vazio.\u001B[0m");
                         } else {
-                            funcionarios.get(busca).setSobrenome(sobrenomeF);
+                            funcionarios[busca].setSobrenome(sobrenomeF);
                             System.out.println((char) 27 + "[32m\nAlterado com sucesso\u001B[0m");
                         }
                         break;
@@ -381,7 +382,7 @@ abstract class Sistema {
                         if (idadeF <= 0) {
                             System.out.println((char) 27 + "[31m\nNão pode ser alterado para um campo vazio.\u001B[0m");
                         } else {
-                            funcionarios.get(busca).setIdade(idadeF);
+                            funcionarios[busca].setIdade(idadeF);
                             System.out.println((char) 27 + "[32m\nAlterado com sucesso.\u001B[0m");
                         }
                         break;
@@ -392,7 +393,7 @@ abstract class Sistema {
                         if (telefoneC.isEmpty()) {
                             System.out.println((char) 27 + "[31m\nNão pode ser alterado para um campo vazio.\u001B[0m");
                         } else {
-                            funcionarios.get(busca).setTelefone(telefoneC);
+                            funcionarios[busca].setTelefone(telefoneC);
                             System.out.println((char) 27 + "[32m\nAlterado com sucesso\u001B[0m");
                         }
                         break;
@@ -403,14 +404,14 @@ abstract class Sistema {
                         if (emailC.isEmpty()) {
                             System.out.println((char) 27 + "[31m\nNão pode ser alterado para um campo vazio.\u001B[0m");
                         } else {
-                            funcionarios.get(busca).setEmail(emailC);
+                            funcionarios[busca].setEmail(emailC);
                             System.out.println((char) 27 + "[32m\nAlterado com sucesso\u001B[0m");
                         }
                         break;
                     case 6:
                         System.out.println("\nNovo Endereço:");
                         String enderecoC = sc.nextLine();
-                        funcionarios.get(busca).setEndereco(enderecoC);
+                        funcionarios[busca].setEndereco(enderecoC);
                         System.out.println((char) 27 + "[32m\nAlterado com sucesso\u001B[0m");
                         break;
                     case 7:
@@ -420,7 +421,7 @@ abstract class Sistema {
                         if (cpfC.isEmpty()) {
                             System.out.println((char) 27 + "[31m\nNão pode ser alterado para um campo vazio.\u001B[0m");
                         } else {
-                            funcionarios.get(busca).setCpf(cpfC);
+                            funcionarios[busca].setCpf(cpfC);
                             System.out.println((char) 27 + "[32m\nAlterado com sucesso\u001B[0m");
                         }
                         break;
@@ -430,7 +431,7 @@ abstract class Sistema {
                         if (sexoC.isEmpty()) {
                             System.out.println((char) 27 + "[31m\nNão pode ser alterado para um campo vazio.\u001B[0m");
                         } else {
-                            funcionarios.get(busca).setSexo(sexoC);
+                            funcionarios[busca].setSexo(sexoC);
                             System.out.println((char) 27 + "[32m\nAlterado com sucesso\u001B[0m");
                         }
                         break;
@@ -440,7 +441,7 @@ abstract class Sistema {
                         if (senha.isEmpty()) {
                             System.out.println((char) 27 + "[31m\nNão pode ser alterado para um campo vazio.\u001B[0m");
                         } else {
-                            funcionarios.get(busca).setSenha(senha);
+                            funcionarios[busca].setSenha(senha);
                             System.out.println((char) 27 + "[32m\nAlterado com sucesso\u001B[0m");
                         }
                         break;
@@ -453,13 +454,13 @@ abstract class Sistema {
                         int profissaoF = sc.nextInt();
                         switch (profissaoF) {
                             case 1:
-                                funcionarios.get(busca).setProfissao("Funcionario");
+                                funcionarios[busca].setProfissao("Funcionario");
                                 break;
                             case 2:
-                                funcionarios.get(busca).setProfissao("Medico");
+                                funcionarios[busca].setProfissao("Medico");
                                 break;
                             case 3:
-                                funcionarios.get(busca).setProfissao("Enfermeiro");
+                                funcionarios[busca].setProfissao("Enfermeiro");
                                 break;
                             default:
                                 System.out.println((char) 27 + "[31m\nOpção invalida\u001B[0m");
@@ -507,8 +508,8 @@ abstract class Sistema {
 
         int pos;
 
-        for (int i = 0; i < funcionarios.size(); i++) {
-            if (funcionarios.get(i).getNome().toUpperCase().equals(nome)) {
+        for (int i = 0; i < numFuncionarios; i++) {
+            if (funcionarios[i].getNome().toUpperCase().equals(nome)) {
                 pos = i;
                 return pos;
             }

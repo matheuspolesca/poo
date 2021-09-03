@@ -31,17 +31,16 @@ public class Cliente extends Pessoa{
     @Override
     public String toString() {
         String texto = String.format("\n========== CLIENTE: %s ========"
-                        + "\nNome: %s"
-                        + "\nSobrenome: %s"
-                        + "\nIdade: %d"
-                        + "\nCPF: %s"
-                        + "\nTelefone: %s"
-                        + "\nE-mail %s"
-                        + "\nSexo: %s"
-                        + "\nStatus: %s"
-                        + "\nEndereço: %s    "
-                        + "\nDoenças:%s", getNome(), getSobrenome(), getIdade(), getCpf(), getTelefone(), getEmail(), getSexo(), status, getEndereco(), doencas);
+                + "\nNome: %s"
+                + "\nSobrenome: %s"
+                + "\nIdade: %d"
+                + "\nCPF: %s"
+                + "\nTelefone: %s"
+                + "\nE-mail %s"
+                + "\nSexo: %s"
+                + "\nEndereço: %s    "
+                + "\nDoencas: %s"
+                + "\nStatus: %s", getNome(), getNome(),getSobrenome(), getIdade(), getCpf(), getTelefone(), getEmail(), getSexo(), getEndereco(), doencas, status);
         return texto;
     }
-
 }
