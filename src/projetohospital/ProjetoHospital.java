@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class ProjetoHospital {
 
     public static void main(String[] args) {
+        //Cadastro dos funcionários
         Sistema.funcionarios[Sistema.numFuncionarios] = new Funcionario("admin", "admin", 20, "admin", "admin@gmail.com", "Turmalina", 
          "0", "admin", "Administrador", "admin");
         Sistema.numFuncionarios++;
@@ -17,7 +18,28 @@ public class ProjetoHospital {
         Sistema.funcionarios[Sistema.numFuncionarios] = new  Medico("Brenda", "Orlandi", 23, "(32)98447-5253", "brendaorlandi@gmail.com", "Diamantina", 
          "33333333333", "Feminino", "Medico", "789");
         Sistema.numFuncionarios++;
- 
+        
+        //Cadastro das doenças
+        Sistema.doencas.add(new Doenca("Cancer",1));
+        Sistema.doencas.add(new Doenca("AIDS",2));
+        Sistema.doencas.add(new Doenca("COVID-19",3));
+        Sistema.doencas.add(new Doenca("Colesterol",4));
+        Sistema.doencas.add(new Doenca("Diabetes",5));
+        Sistema.doencas.add(new Doenca("Sinusite",6));
+        Sistema.doencas.add(new Doenca("Gripe",7));
+        Sistema.doencas.add(new Doenca("Febre",8));
+        Sistema.doencas.add(new Doenca("Enxaqueca",9));
+        
+        //Cliente teste
+        Cliente c = new Cliente("Joao", "Pedro", 25, "3527-1006", "joao@ufvjm.edu.br", "Diamantina", "15274632184", "Pouco");
+        
+        //Parte que precisa ser concertada
+        c.setClienteDoencas(Sistema.doencas.get(1));
+        c.setClienteDoencas(Sistema.doencas.get(3));
+        Sistema.clientes.add(c);
+        Sistema.doencas.get(1).setDoencaClientes(c);
+        Sistema.doencas.get(3).setDoencaClientes(c);
+        
         Sistema.fazerLogin();
         if(!"NULL".equals(Sistema.profissao)){
             boolean valor = true;

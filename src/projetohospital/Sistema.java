@@ -6,6 +6,7 @@ import java.util.Scanner;
 abstract class Sistema {
 
     public static ArrayList<Cliente> clientes = new ArrayList();
+    public static ArrayList<Doenca> doencas = new ArrayList();
     public static Funcionario funcionarios[] = new Funcionario[100];
     public static int numClientes, numFuncionarios=0;
     public static String profissao = "NULL";
@@ -54,6 +55,7 @@ abstract class Sistema {
 //    private static boolean verificaCadastro<T>(T lista){
 //        return true;
 //    }
+    
     //Receber as informações para criação do cliente
     public static void cadastrarCliente() {
 
@@ -92,11 +94,15 @@ abstract class Sistema {
                 System.out.println("\nEndereço:");
                 novoCliente.setEndereco(sc.nextLine());
 
-                System.out.println("\nDoença:");
-                novoCliente.setDoencas(sc.nextLine());
+                /*System.out.println("\nDoença:");
+                novoCliente.setDoencas(sc.nextLine());*/
 
                 System.out.println("\n*Sexo:");
                 novoCliente.setSexo(sc.nextLine());
+                
+                int indiceDoenca = pesquisarDoenca();
+                novoCliente.setClienteDoencas(doencas.get(indiceDoenca));
+                doencas.get(indiceDoenca).setDoencaClientes(novoCliente);
 
                 //Se algum campo obrigatório estiver vazio, retorna mensagem de erro, se não, cadastra o cliente
                 if (novoCliente.getNome().isEmpty() || novoCliente.getSobrenome().isEmpty() || novoCliente.getIdade() <= 0 || novoCliente.getTelefone().isEmpty() || novoCliente.getEmail().isEmpty() || novoCliente.getCpf().isEmpty() || novoCliente.getSexo().isEmpty()) {
@@ -210,9 +216,11 @@ abstract class Sistema {
                         }
                         break;
                     case 8:
-                        System.out.println("\nNova Doença:");
-                        String doencasC = sc.nextLine();
-                        clientes.get(busca).setDoencas(doencasC);
+                        System.out.println("\nNova Doença:");                    
+                        int indiceDoenca = pesquisarDoenca();
+                        clientes.get(busca).setClienteDoencas(doencas.get(indiceDoenca));
+                        doencas.get(indiceDoenca).setDoencaClientes(clientes.get(busca));
+                        
                         System.out.println((char) 27 + "[32m\nAlterado com sucesso\u001B[0m");
                         break;
                     case 9:
@@ -270,6 +278,27 @@ abstract class Sistema {
         for (int i = 0; i < clientes.size(); i++) {
             if (clientes.get(i).getNome().toUpperCase().equals(nome)) {
                 pos = i;
+                return pos;
+            }
+        }
+
+        return -1;
+    }
+    
+    public static int pesquisarDoenca() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("\nInforme o numero referente a doenca do cliente:"
+                        + "\n1 - Cancer      2- AIDS          3 - COVID-19"
+                        + "\n4 - Colesterol  5 - Diabetes     6 - Sinusite"
+                        + "\n7 - Gripe       8 - Febre        9 - Enxaqueca");
+        int indice = sc.nextInt();
+        
+        int pos;
+        
+        for (int i = 0; i < doencas.size(); i++) {
+            if (doencas.get(i).getIdDoenca() == indice) {
+                pos = i;
+                System.out.println("A doença desse indice e: " + doencas.get(i).getNome());
                 return pos;
             }
         }
@@ -500,6 +529,7 @@ abstract class Sistema {
 //            System.out.println((char) 27 + "[31m" + ex.getMessage() + "\u001B[0m");
 //        }
 //    }
+    
     public static int pesquisarFuncionario() {
 
         Scanner sc = new Scanner(System.in);
@@ -610,6 +640,10 @@ abstract class Sistema {
 
             if (busca >= 0) {
                 System.out.println(clientes.get(busca).toString());
+                System.out.println("Doencas do paciente: ");
+                for(int i=0; i<clientes.get(busca).getClienteDoencas().size(); i++){
+                    System.out.println(clientes.get(busca).getClienteDoencas().get(i).getNome());
+                }
             } else {
                 System.out.println((char) 27 + "[31m\nCliente não encontrado\u001B[0m");
             }
@@ -632,19 +666,43 @@ abstract class Sistema {
         switch (acessoF) {
             case 1:
                 System.out.println("\nLista de Clientes");
-
+                relatorioClientes();
                 break;
 
             case 2:
                 System.out.println("\nLista de Funcionarios");
+                relatorioFuncionarios();
                 break;
+                
             case 3:
                 System.out.println("\nLista de Doenças:");
+                relatorioDoencas();
                 break;
-            case 4:
-                break;
+                
             default:
                 System.out.println((char) 27 + "[31m\nOpção invalida\u001B[0m");
+        }
+    }
+    
+    public static void relatorioClientes(){
+        for(int i=0; i<clientes.size(); i++)
+            System.out.println(clientes.get(i).toString());
+    }
+    
+    public static void relatorioFuncionarios(){
+        for(int i=0; i<numFuncionarios; i++)
+            System.out.println(funcionarios[i].toString());
+    }
+    
+    public static void relatorioDoencas(){
+        for(int i=0; i<doencas.size(); i++){
+            System.out.println(doencas.get(i).getNome() + ": "+ doencas.get(i).getQtdPacientes() + " caso(s).");
+            if(doencas.get(i).getQtdPacientes()>0){
+                System.out.println("Os clientes com essa doenca sao: ");
+                for(int j=0; j<doencas.get(i).getDoencaClientes().size(); j++){
+                    System.out.println(doencas.get(i).getDoencaClientes().get(j).getNome());
+                }
+            }
         }
     }
 }
