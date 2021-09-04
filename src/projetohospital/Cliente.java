@@ -26,6 +26,10 @@ public class Cliente extends Pessoa{
         return clienteDoencas;
     }
 
+    public void setClienteDoencas(ArrayList<Doenca> clienteDoencas) {
+        this.clienteDoencas = clienteDoencas;
+    }
+    
     public void setClienteDoencas(Doenca doencaCliente) {
         this.clienteDoencas.add(doencaCliente);
         for(int i=0; i<Sistema.doencas.size(); i++){

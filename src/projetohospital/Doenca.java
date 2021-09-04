@@ -4,15 +4,17 @@ import java.util.ArrayList;
 
 public class Doenca {
     private String nome;
+    private static int totDoencas;
     private int idDoenca, qtdPacientes;
     private ArrayList<Cliente> doencaClientes = new ArrayList();
 
     public Doenca() {
     }
 
-    public Doenca(String nome, int idDoenca) {
+    public Doenca(String nome) {
         this.nome = nome;
-        this.idDoenca = idDoenca;
+        this.idDoenca = totDoencas+1;
+        totDoencas++;
     }
     
     public String getNome() {
@@ -42,9 +44,21 @@ public class Doenca {
     public ArrayList<Cliente> getDoencaClientes() {
         return doencaClientes;
     }
+
+    public void setDoencaClientes(ArrayList<Cliente> doencaClientes) {
+        this.doencaClientes = doencaClientes;
+    }
     
     public void setDoencaClientes(Cliente clienteDoenca) {
         this.doencaClientes.add(clienteDoenca);
+    }
+
+    public static int getTotDoencas() {
+        return totDoencas;
+    }
+
+    public static void setTotDoencas(int totDoencas) {
+        Doenca.totDoencas = totDoencas;
     }
     
     @Override

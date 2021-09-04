@@ -20,25 +20,26 @@ public class ProjetoHospital {
         Sistema.numFuncionarios++;
         
         //Cadastro das doenças
-        Sistema.doencas.add(new Doenca("Cancer",1));
-        Sistema.doencas.add(new Doenca("AIDS",2));
-        Sistema.doencas.add(new Doenca("COVID-19",3));
-        Sistema.doencas.add(new Doenca("Colesterol",4));
-        Sistema.doencas.add(new Doenca("Diabetes",5));
-        Sistema.doencas.add(new Doenca("Sinusite",6));
-        Sistema.doencas.add(new Doenca("Gripe",7));
-        Sistema.doencas.add(new Doenca("Febre",8));
-        Sistema.doencas.add(new Doenca("Enxaqueca",9));
+        Sistema.doencas.add(new Doenca("Cancer"));
+        Sistema.doencas.add(new Doenca("AIDS"));
+        Sistema.doencas.add(new Doenca("COVID-19"));
+        Sistema.doencas.add(new Doenca("Colesterol"));
+        Sistema.doencas.add(new Doenca("Diabetes"));
+        Sistema.doencas.add(new Doenca("Sinusite"));
+        Sistema.doencas.add(new Doenca("Gripe"));
+        Sistema.doencas.add(new Doenca("Febre"));
+        Sistema.doencas.add(new Doenca("Enxaqueca"));
         
         //Cliente teste
         Cliente c = new Cliente("Joao", "Pedro", 25, "3527-1006", "joao@ufvjm.edu.br", "Diamantina", "15274632184", "Pouco");
-        
-        //Parte que precisa ser concertada
+        Sistema.adicionaDoencaAoCliente(c);
+        Sistema.adicionaDoencaAoCliente(c);
+        Sistema.clientes.add(c);
+        /*//Parte que precisa ser concertada
         c.setClienteDoencas(Sistema.doencas.get(1));
         c.setClienteDoencas(Sistema.doencas.get(3));
-        Sistema.clientes.add(c);
         Sistema.doencas.get(1).setDoencaClientes(c);
-        Sistema.doencas.get(3).setDoencaClientes(c);
+        Sistema.doencas.get(3).setDoencaClientes(c);*/
         
         Sistema.fazerLogin();
         if(!"NULL".equals(Sistema.profissao)){
@@ -82,7 +83,7 @@ public class ProjetoHospital {
         System.out.println("\nDigite somente o número da opção desejada:"
                 + "\n\n1 - Cadastrar Cliente                    2 - Iniciar Atendimento"
                 + "\n3 - Editar Cadastro Cliente              4 - Alterar Status"
-                + "\n5 - Excluir Paciente                     6 - Encerrar Atendimento,"
+                + "\n5 - Excluir Paciente                     6 - Encerrar Atendimento"
                 + "\n7 - Acessar Informacoes do Paciente "
                 + "\n8 - Fechar\n");
         Scanner sc = new Scanner(System.in);

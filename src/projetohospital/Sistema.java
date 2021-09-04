@@ -100,9 +100,15 @@ abstract class Sistema {
                 System.out.println("\n*Sexo:");
                 novoCliente.setSexo(sc.nextLine());
                 
-                int indiceDoenca = pesquisarDoenca();
-                novoCliente.setClienteDoencas(doencas.get(indiceDoenca));
-                doencas.get(indiceDoenca).setDoencaClientes(novoCliente);
+                System.out.println("\nQuantas doenças tem o cliente?");
+                int numDoencas = sc.nextInt();
+                if(numDoencas>0){
+                    for(int i=0; i<numDoencas; i++){
+                        int indiceDoenca = pesquisarDoenca();
+                        novoCliente.setClienteDoencas(doencas.get(indiceDoenca));
+                        doencas.get(indiceDoenca).setDoencaClientes(novoCliente);
+                    }
+                }
 
                 //Se algum campo obrigatório estiver vazio, retorna mensagem de erro, se não, cadastra o cliente
                 if (novoCliente.getNome().isEmpty() || novoCliente.getSobrenome().isEmpty() || novoCliente.getIdade() <= 0 || novoCliente.getTelefone().isEmpty() || novoCliente.getEmail().isEmpty() || novoCliente.getCpf().isEmpty() || novoCliente.getSexo().isEmpty()) {
@@ -216,10 +222,11 @@ abstract class Sistema {
                         }
                         break;
                     case 8:
-                        System.out.println("\nNova Doença:");                    
-                        int indiceDoenca = pesquisarDoenca();
+                        System.out.println("\nNova Doença:");
+                        alterarDoenca(clientes.get(busca));
+                        /*int indiceDoenca = pesquisarDoenca();
                         clientes.get(busca).setClienteDoencas(doencas.get(indiceDoenca));
-                        doencas.get(indiceDoenca).setDoencaClientes(clientes.get(busca));
+                        doencas.get(indiceDoenca).setDoencaClientes(clientes.get(busca));*/
                         
                         System.out.println((char) 27 + "[32m\nAlterado com sucesso\u001B[0m");
                         break;
@@ -278,27 +285,6 @@ abstract class Sistema {
         for (int i = 0; i < clientes.size(); i++) {
             if (clientes.get(i).getNome().toUpperCase().equals(nome)) {
                 pos = i;
-                return pos;
-            }
-        }
-
-        return -1;
-    }
-    
-    public static int pesquisarDoenca() {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("\nInforme o numero referente a doenca do cliente:"
-                        + "\n1 - Cancer      2- AIDS          3 - COVID-19"
-                        + "\n4 - Colesterol  5 - Diabetes     6 - Sinusite"
-                        + "\n7 - Gripe       8 - Febre        9 - Enxaqueca");
-        int indice = sc.nextInt();
-        
-        int pos;
-        
-        for (int i = 0; i < doencas.size(); i++) {
-            if (doencas.get(i).getIdDoenca() == indice) {
-                pos = i;
-                System.out.println("A doença desse indice e: " + doencas.get(i).getNome());
                 return pos;
             }
         }
@@ -640,6 +626,7 @@ abstract class Sistema {
 
             if (busca >= 0) {
                 System.out.println(clientes.get(busca).toString());
+                //to do - Concertar a impressão
                 System.out.println("Doencas do paciente: ");
                 for(int i=0; i<clientes.get(busca).getClienteDoencas().size(); i++){
                     System.out.println(clientes.get(busca).getClienteDoencas().get(i).getNome());
@@ -704,5 +691,95 @@ abstract class Sistema {
                 }
             }
         }
+    }
+    
+    public static void alterarDoenca(Cliente cliente){
+        Scanner sc = new Scanner(System.in);
+        boolean sair = false;
+        do {
+            System.out.println("\nDigite o número referente a opção que deseja:"
+                    + "\n1 - Inserir"
+                    + "\n2 - Excluir"
+                    + "\n3 - Finalizar Alteracoes");
+            int acesso = sc.nextInt();
+
+            switch (acesso) {
+
+                case 1:
+                    System.out.println("\nInclusão de doenca:");
+                    int indiceDoenca = pesquisarDoenca();
+                        cliente.setClienteDoencas(doencas.get(indiceDoenca));
+                        doencas.get(indiceDoenca).setDoencaClientes(cliente);
+                        doencas.get(indiceDoenca).setQtdPacientes(+1);
+                    break;
+                case 2:
+                    System.out.println("\nExclusão de doenca:");
+                    if(cliente.getClienteDoencas()!=null){
+                        System.out.println("Informe o ID da doenca do cliente que voce quer exluir:" );
+                        for(int i=0; i<cliente.getClienteDoencas().size(); i++){
+                            System.out.println(cliente.getClienteDoencas().get(i).getIdDoenca() + " - " + cliente.getClienteDoencas().get(i).getNome());
+                        }
+                        int indiceExclui = sc.nextInt();
+                        for(int j=0; j<cliente.getClienteDoencas().size(); j++){
+                            if(cliente.getClienteDoencas().get(j).getIdDoenca()==indiceExclui){
+                                System.out.println("Doença a ser exlcluida: " + cliente.getClienteDoencas().get(j).getNome());
+                                cliente.getClienteDoencas().remove(cliente.getClienteDoencas().get(j));
+                            }
+                        }
+                    }
+                    else
+                        System.out.println("Cliente sem doenças cadastradas.");
+   
+                    break;
+                case 3:
+                    sair = true;
+                    break;
+                default:
+                    System.out.println((char) 27 + "[31m\nOpção invalida\u001B[0m");
+            }
+        } while (sair != true);
+    }
+    
+    public static void adicionaDoencaAoCliente(Cliente cliente){
+        int indiceDoenca = pesquisarDoenca();
+        if(indiceDoenca>0){
+            boolean existe=false;
+            for(int i=0; i<cliente.getClienteDoencas().size(); i++){
+                if(indiceDoenca==cliente.getClienteDoencas().get(i).getIdDoenca()){
+                    existe=true;
+                    System.out.println("Cliente ja possui a doenca registrada.");
+                }
+            }
+            if(existe==false){
+                cliente.getClienteDoencas().add(doencas.get(indiceDoenca));
+                doencas.get(indiceDoenca).getDoencaClientes().add(cliente);
+                doencas.get(indiceDoenca).setQtdPacientes(+1);
+                System.out.println("Doenca registrada com sucesso.");
+            }
+                
+        }
+    }
+    
+    private static void excluiDoencaDoCliente(Cliente cliente){
+        
+    }
+    
+    public static int pesquisarDoenca() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("\nInforme o numero referente a doenca:");
+        for(int i=0; i<doencas.size(); i++){
+            System.out.println(doencas.get(i).getIdDoenca() + " - " + doencas.get(i).getNome());
+        }
+        int busca = sc.nextInt();
+        int indice;
+        
+        for (int i = 0; i < doencas.size(); i++) {
+            if (doencas.get(i).getIdDoenca() == busca) {
+                indice = doencas.get(i).getIdDoenca();
+                return indice;
+            }
+        }
+
+        return -1;
     }
 }
