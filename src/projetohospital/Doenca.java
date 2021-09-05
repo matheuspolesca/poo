@@ -13,7 +13,7 @@ public class Doenca {
 
     public Doenca(String nome) {
         this.nome = nome;
-        this.idDoenca = totDoencas+1;
+        this.idDoenca = totDoencas;
         totDoencas++;
     }
     
@@ -30,7 +30,7 @@ public class Doenca {
     }
 
     public void setQtdPacientes(int qtdPacientes) {
-        this.qtdPacientes = qtdPacientes;
+        this.qtdPacientes += qtdPacientes;
     }
 
     public int getIdDoenca() {
@@ -47,10 +47,6 @@ public class Doenca {
 
     public void setDoencaClientes(ArrayList<Cliente> doencaClientes) {
         this.doencaClientes = doencaClientes;
-    }
-    
-    public void setDoencaClientes(Cliente clienteDoenca) {
-        this.doencaClientes.add(clienteDoenca);
     }
 
     public static int getTotDoencas() {

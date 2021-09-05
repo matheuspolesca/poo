@@ -31,15 +31,8 @@ public class ProjetoHospital {
         Sistema.doencas.add(new Doenca("Enxaqueca"));
         
         //Cliente teste
-        Cliente c = new Cliente("Joao", "Pedro", 25, "3527-1006", "joao@ufvjm.edu.br", "Diamantina", "15274632184", "Pouco");
-        Sistema.adicionaDoencaAoCliente(c);
-        Sistema.adicionaDoencaAoCliente(c);
+        Cliente c = new Cliente("Gabriel", "Augusto", 25, "3527-1006", "joao@ufvjm.edu.br", "Diamantina", "15274632184", "Pouco");
         Sistema.clientes.add(c);
-        /*//Parte que precisa ser concertada
-        c.setClienteDoencas(Sistema.doencas.get(1));
-        c.setClienteDoencas(Sistema.doencas.get(3));
-        Sistema.doencas.get(1).setDoencaClientes(c);
-        Sistema.doencas.get(3).setDoencaClientes(c);*/
         
         Sistema.fazerLogin();
         if(!"NULL".equals(Sistema.profissao)){
@@ -150,7 +143,7 @@ public class ProjetoHospital {
                     case 4:
                         break;
                     default:
-                        System.out.println("\nOpção Inválida");
+                        System.out.println("[31m\nOpção invalida\u001B[0m");
                         break;
                 }
 

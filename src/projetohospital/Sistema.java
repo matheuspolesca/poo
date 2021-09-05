@@ -94,9 +94,6 @@ abstract class Sistema {
                 System.out.println("\nEndereço:");
                 novoCliente.setEndereco(sc.nextLine());
 
-                /*System.out.println("\nDoença:");
-                novoCliente.setDoencas(sc.nextLine());*/
-
                 System.out.println("\n*Sexo:");
                 novoCliente.setSexo(sc.nextLine());
                 
@@ -104,9 +101,7 @@ abstract class Sistema {
                 int numDoencas = sc.nextInt();
                 if(numDoencas>0){
                     for(int i=0; i<numDoencas; i++){
-                        int indiceDoenca = pesquisarDoenca();
-                        novoCliente.setClienteDoencas(doencas.get(indiceDoenca));
-                        doencas.get(indiceDoenca).setDoencaClientes(novoCliente);
+                        adicionaDoencaAoCliente(novoCliente);
                     }
                 }
 
@@ -224,9 +219,6 @@ abstract class Sistema {
                     case 8:
                         System.out.println("\nNova Doença:");
                         alterarDoenca(clientes.get(busca));
-                        /*int indiceDoenca = pesquisarDoenca();
-                        clientes.get(busca).setClienteDoencas(doencas.get(indiceDoenca));
-                        doencas.get(indiceDoenca).setDoencaClientes(clientes.get(busca));*/
                         
                         System.out.println((char) 27 + "[32m\nAlterado com sucesso\u001B[0m");
                         break;
@@ -707,29 +699,11 @@ abstract class Sistema {
 
                 case 1:
                     System.out.println("\nInclusão de doenca:");
-                    int indiceDoenca = pesquisarDoenca();
-                        cliente.setClienteDoencas(doencas.get(indiceDoenca));
-                        doencas.get(indiceDoenca).setDoencaClientes(cliente);
-                        doencas.get(indiceDoenca).setQtdPacientes(+1);
+                    adicionaDoencaAoCliente(cliente);
                     break;
                 case 2:
                     System.out.println("\nExclusão de doenca:");
-                    if(cliente.getClienteDoencas()!=null){
-                        System.out.println("Informe o ID da doenca do cliente que voce quer exluir:" );
-                        for(int i=0; i<cliente.getClienteDoencas().size(); i++){
-                            System.out.println(cliente.getClienteDoencas().get(i).getIdDoenca() + " - " + cliente.getClienteDoencas().get(i).getNome());
-                        }
-                        int indiceExclui = sc.nextInt();
-                        for(int j=0; j<cliente.getClienteDoencas().size(); j++){
-                            if(cliente.getClienteDoencas().get(j).getIdDoenca()==indiceExclui){
-                                System.out.println("Doença a ser exlcluida: " + cliente.getClienteDoencas().get(j).getNome());
-                                cliente.getClienteDoencas().remove(cliente.getClienteDoencas().get(j));
-                            }
-                        }
-                    }
-                    else
-                        System.out.println("Cliente sem doenças cadastradas.");
-   
+                    excluiDoencaDoCliente(cliente);
                     break;
                 case 3:
                     sair = true;
@@ -742,31 +716,59 @@ abstract class Sistema {
     
     public static void adicionaDoencaAoCliente(Cliente cliente){
         int indiceDoenca = pesquisarDoenca();
-        if(indiceDoenca>0){
+        if(indiceDoenca>=0){
             boolean existe=false;
             for(int i=0; i<cliente.getClienteDoencas().size(); i++){
                 if(indiceDoenca==cliente.getClienteDoencas().get(i).getIdDoenca()){
                     existe=true;
-                    System.out.println("Cliente ja possui a doenca registrada.");
+                    break;
                 }
             }
             if(existe==false){
                 cliente.getClienteDoencas().add(doencas.get(indiceDoenca));
                 doencas.get(indiceDoenca).getDoencaClientes().add(cliente);
                 doencas.get(indiceDoenca).setQtdPacientes(+1);
-                System.out.println("Doenca registrada com sucesso.");
+                System.out.println((char) 27 + "[32m\nDoenca registrada com sucesso.\u001B[0m");
             }
-                
+            else{
+                System.out.println((char) 27 + "[31m\nDoenca já registrada no cliente.\u001B[0m");
+            }  
         }
     }
     
-    private static void excluiDoencaDoCliente(Cliente cliente){
-        
+    public static void excluiDoencaDoCliente(Cliente cliente){
+        if(cliente.getClienteDoencas().isEmpty()){
+            System.out.println((char) 27 + "[31m\nCliente sem doenças cadastradas.\u001B[0m");
+        }
+        else{
+            Scanner sc = new Scanner(System.in);
+            System.out.println("\nInforme o numero referente a doenca que você deseja exluir:" );
+            for(int i=0; i<cliente.getClienteDoencas().size(); i++){
+                 System.out.println(cliente.getClienteDoencas().get(i).getIdDoenca() + " - " + cliente.getClienteDoencas().get(i).getNome());
+            }
+            int indiceExclui = sc.nextInt();
+            for(int j=0; j<cliente.getClienteDoencas().size(); j++){
+                if(cliente.getClienteDoencas().get(j).getIdDoenca()==indiceExclui){
+                        cliente.getClienteDoencas().remove(cliente.getClienteDoencas().get(j));
+                }
+            }
+            for(int k=0; k<doencas.size(); k++){
+                if(doencas.get(k).getIdDoenca()==indiceExclui){
+                    for(int l=0; l<doencas.get(k).getDoencaClientes().size(); l++){
+                        if(doencas.get(k).getDoencaClientes().get(l)==cliente){
+                            doencas.get(k).getDoencaClientes().remove(doencas.get(k).getDoencaClientes().get(l));
+                            doencas.get(k).setQtdPacientes(-1);
+                        }
+                    }
+                }
+            }
+            System.out.println((char) 27 + "[32m\nDoenca excluida com sucesso.\u001B[0m");
+        }  
     }
     
     public static int pesquisarDoenca() {
         Scanner sc = new Scanner(System.in);
-        System.out.println("\nInforme o numero referente a doenca:");
+        System.out.println("\nInforme o numero referente a doenca: ");
         for(int i=0; i<doencas.size(); i++){
             System.out.println(doencas.get(i).getIdDoenca() + " - " + doencas.get(i).getNome());
         }

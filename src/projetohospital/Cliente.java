@@ -30,15 +30,6 @@ public class Cliente extends Pessoa{
         this.clienteDoencas = clienteDoencas;
     }
     
-    public void setClienteDoencas(Doenca doencaCliente) {
-        this.clienteDoencas.add(doencaCliente);
-        for(int i=0; i<Sistema.doencas.size(); i++){
-            if(doencaCliente.getNome().equals(Sistema.doencas.get(i).getNome())){
-                Sistema.doencas.get(i).setQtdPacientes(+1);
-            }
-        }
-    }
-    
     @Override
     public String toString() {
         String texto = String.format("\n========== CLIENTE: %s ========"
