@@ -11,6 +11,7 @@ public class Funcionario extends Pessoa{
         super(nome, sobrenome, idade, telefone, email, endereco, cpf, sexo);
         this.profissao = profissao;
         this.senha = senha;
+        Sistema.setNumFuncionarios(+1);
     }
 
     public String getProfissao() {

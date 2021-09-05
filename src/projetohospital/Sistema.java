@@ -5,13 +5,17 @@ import java.util.Scanner;
 
 abstract class Sistema {
 
-    public static ArrayList<Cliente> clientes = new ArrayList();
-    public static ArrayList<Funcionario> funcionarios = new ArrayList(100);
-    public static int numClientes;
-    public static String profissao = "NULL";
+    private static ArrayList<Cliente> clientes = new ArrayList();
+    private static ArrayList<Doenca> doencas = new ArrayList();
+    private static Funcionario funcionarios[] = new Funcionario[100];
+    private static int numClientes, numFuncionarios;
+    private static String profissao = "NULL";
+    protected static int numClientesProtected;
 
     public Sistema() {
         numClientes = 0;
+        numClientesProtected = 0;
+        numFuncionarios=0;
     }
 
     //Quando o sistema abre, a pessoa precisa fazer o login
@@ -54,6 +58,7 @@ abstract class Sistema {
 //    private static boolean verificaCadastro<T>(T lista){
 //        return true;
 //    }
+    
     //Receber as informações para criação do cliente
     public static void cadastrarCliente() {
 
@@ -92,18 +97,22 @@ abstract class Sistema {
                 System.out.println("\nEndereço:");
                 novoCliente.setEndereco(sc.nextLine());
 
-                System.out.println("\nDoença:");
-                novoCliente.setDoencas(sc.nextLine());
-
                 System.out.println("\n*Sexo:");
                 novoCliente.setSexo(sc.nextLine());
+                
+                System.out.println("\nQuantas doenças tem o cliente?");
+                int numDoencas = sc.nextInt();
+                if(numDoencas>0){
+                    for(int i=0; i<numDoencas; i++){
+                        adicionaDoencaAoCliente(novoCliente);
+                    }
+                }
 
                 //Se algum campo obrigatório estiver vazio, retorna mensagem de erro, se não, cadastra o cliente
                 if (novoCliente.getNome().isEmpty() || novoCliente.getSobrenome().isEmpty() || novoCliente.getIdade() <= 0 || novoCliente.getTelefone().isEmpty() || novoCliente.getEmail().isEmpty() || novoCliente.getCpf().isEmpty() || novoCliente.getSexo().isEmpty()) {
                     throw new Exception("Campo Obrigatório não foi preenchido.");
                 }
                 clientes.add(novoCliente);
-                numClientes = ++numClientes;
                 System.out.println((char) 27 + "[32mCliente cadastrado com sucesso.\u001B[0m");
 
             } catch (Exception ex) {
@@ -211,8 +220,8 @@ abstract class Sistema {
                         break;
                     case 8:
                         System.out.println("\nNova Doença:");
-                        String doencasC = sc.nextLine();
-                        clientes.get(busca).setDoencas(doencasC);
+                        alterarDoenca(clientes.get(busca));
+                        
                         System.out.println((char) 27 + "[32m\nAlterado com sucesso\u001B[0m");
                         break;
                     case 9:
@@ -249,6 +258,8 @@ abstract class Sistema {
             for (int i = 0; i < clientes.size(); i++) {
                 if (clientes.get(i).getCpf().equals(cpf)) {
                     clientes.remove(i);
+                    setNumClientes(-1);
+                    numClientesProtected--;
                     System.out.println((char) 27 + "[32mCliente deletado.\u001B[0m");
                     return;
                 }
@@ -286,8 +297,8 @@ abstract class Sistema {
             System.out.println("\n*CPF:");
             novoFuncionario.setCpf(sc.nextLine());
 
-            for (int i = 0; i < funcionarios.size(); i++) {
-                if (funcionarios.get(i).getCpf().equals(novoFuncionario.getCpf())) {
+            for (int i = 0; i < numFuncionarios; i++) {
+                if (funcionarios[i].getCpf().equals(novoFuncionario.getCpf())) {
                     throw new Exception("Funcionário já existe no sistema.");
                 }
             }
@@ -318,7 +329,7 @@ abstract class Sistema {
                     throw new Exception("Campo Obrigatório não foi preenchido.");
                 }
 
-                funcionarios.add(novoFuncionario);
+                funcionarios[numFuncionarios] = novoFuncionario;
                 System.out.println((char) 27 + "[32mFuncionario cadastrado com sucesso.\u001B[0m");
 
             } catch (Exception ex) {
@@ -359,7 +370,7 @@ abstract class Sistema {
                         if (nomeC.isEmpty()) {
                             System.out.println((char) 27 + "[31m\nNão pode ser alterado para um campo vazio.\u001B[0m");
                         } else {
-                            funcionarios.get(busca).setNome(nomeC);
+                            funcionarios[busca].setNome(nomeC);
                             System.out.println((char) 27 + "[32m\nAlterado com sucesso.\u001B[0m");
                         }
                         break;
@@ -370,7 +381,7 @@ abstract class Sistema {
                         if (sobrenomeF.isEmpty()) {
                             System.out.println((char) 27 + "[31m\nNão pode ser alterado para um campo vazio.\u001B[0m");
                         } else {
-                            funcionarios.get(busca).setSobrenome(sobrenomeF);
+                            funcionarios[busca].setSobrenome(sobrenomeF);
                             System.out.println((char) 27 + "[32m\nAlterado com sucesso\u001B[0m");
                         }
                         break;
@@ -381,7 +392,7 @@ abstract class Sistema {
                         if (idadeF <= 0) {
                             System.out.println((char) 27 + "[31m\nNão pode ser alterado para um campo vazio.\u001B[0m");
                         } else {
-                            funcionarios.get(busca).setIdade(idadeF);
+                            funcionarios[busca].setIdade(idadeF);
                             System.out.println((char) 27 + "[32m\nAlterado com sucesso.\u001B[0m");
                         }
                         break;
@@ -392,7 +403,7 @@ abstract class Sistema {
                         if (telefoneC.isEmpty()) {
                             System.out.println((char) 27 + "[31m\nNão pode ser alterado para um campo vazio.\u001B[0m");
                         } else {
-                            funcionarios.get(busca).setTelefone(telefoneC);
+                            funcionarios[busca].setTelefone(telefoneC);
                             System.out.println((char) 27 + "[32m\nAlterado com sucesso\u001B[0m");
                         }
                         break;
@@ -403,14 +414,14 @@ abstract class Sistema {
                         if (emailC.isEmpty()) {
                             System.out.println((char) 27 + "[31m\nNão pode ser alterado para um campo vazio.\u001B[0m");
                         } else {
-                            funcionarios.get(busca).setEmail(emailC);
+                            funcionarios[busca].setEmail(emailC);
                             System.out.println((char) 27 + "[32m\nAlterado com sucesso\u001B[0m");
                         }
                         break;
                     case 6:
                         System.out.println("\nNovo Endereço:");
                         String enderecoC = sc.nextLine();
-                        funcionarios.get(busca).setEndereco(enderecoC);
+                        funcionarios[busca].setEndereco(enderecoC);
                         System.out.println((char) 27 + "[32m\nAlterado com sucesso\u001B[0m");
                         break;
                     case 7:
@@ -420,7 +431,7 @@ abstract class Sistema {
                         if (cpfC.isEmpty()) {
                             System.out.println((char) 27 + "[31m\nNão pode ser alterado para um campo vazio.\u001B[0m");
                         } else {
-                            funcionarios.get(busca).setCpf(cpfC);
+                            funcionarios[busca].setCpf(cpfC);
                             System.out.println((char) 27 + "[32m\nAlterado com sucesso\u001B[0m");
                         }
                         break;
@@ -430,7 +441,7 @@ abstract class Sistema {
                         if (sexoC.isEmpty()) {
                             System.out.println((char) 27 + "[31m\nNão pode ser alterado para um campo vazio.\u001B[0m");
                         } else {
-                            funcionarios.get(busca).setSexo(sexoC);
+                            funcionarios[busca].setSexo(sexoC);
                             System.out.println((char) 27 + "[32m\nAlterado com sucesso\u001B[0m");
                         }
                         break;
@@ -440,7 +451,7 @@ abstract class Sistema {
                         if (senha.isEmpty()) {
                             System.out.println((char) 27 + "[31m\nNão pode ser alterado para um campo vazio.\u001B[0m");
                         } else {
-                            funcionarios.get(busca).setSenha(senha);
+                            funcionarios[busca].setSenha(senha);
                             System.out.println((char) 27 + "[32m\nAlterado com sucesso\u001B[0m");
                         }
                         break;
@@ -453,13 +464,13 @@ abstract class Sistema {
                         int profissaoF = sc.nextInt();
                         switch (profissaoF) {
                             case 1:
-                                funcionarios.get(busca).setProfissao("Funcionario");
+                                funcionarios[busca].setProfissao("Funcionario");
                                 break;
                             case 2:
-                                funcionarios.get(busca).setProfissao("Medico");
+                                funcionarios[busca].setProfissao("Medico");
                                 break;
                             case 3:
-                                funcionarios.get(busca).setProfissao("Enfermeiro");
+                                funcionarios[busca].setProfissao("Enfermeiro");
                                 break;
                             default:
                                 System.out.println((char) 27 + "[31m\nOpção invalida\u001B[0m");
@@ -499,6 +510,7 @@ abstract class Sistema {
 //            System.out.println((char) 27 + "[31m" + ex.getMessage() + "\u001B[0m");
 //        }
 //    }
+    
     public static int pesquisarFuncionario() {
 
         Scanner sc = new Scanner(System.in);
@@ -507,8 +519,8 @@ abstract class Sistema {
 
         int pos;
 
-        for (int i = 0; i < funcionarios.size(); i++) {
-            if (funcionarios.get(i).getNome().toUpperCase().equals(nome)) {
+        for (int i = 0; i < numFuncionarios; i++) {
+            if (funcionarios[i].getNome().toUpperCase().equals(nome)) {
                 pos = i;
                 return pos;
             }
@@ -609,6 +621,11 @@ abstract class Sistema {
 
             if (busca >= 0) {
                 System.out.println(clientes.get(busca).toString());
+                //to do - Concertar a impressão
+                System.out.println("Doencas do paciente: ");
+                for(int i=0; i<clientes.get(busca).getClienteDoencas().size(); i++){
+                    System.out.println(clientes.get(busca).getClienteDoencas().get(i).getNome());
+                }
             } else {
                 System.out.println((char) 27 + "[31m\nCliente não encontrado\u001B[0m");
             }
@@ -624,26 +641,214 @@ abstract class Sistema {
                 + "\n\n1 - Lista de Clientes"
                 + "\n2 - Lista de Funcionários"
                 + "\n3 - Lista de Doenças"
-                + "\n4 - Fechar\n");
+                + "\n5 - Fechar\n");
         Scanner sc = new Scanner(System.in);
         int acessoF = sc.nextInt();
 
         switch (acessoF) {
             case 1:
+                System.out.println("\nNúmero de Pacientes:");
+                relatorioPacientes();
                 System.out.println("\nLista de Clientes");
-
+                relatorioClientes();
                 break;
 
             case 2:
+                System.out.println("\nNumero de Funcionarios");
+                System.out.println(numFuncionarios);
                 System.out.println("\nLista de Funcionarios");
+                relatorioFuncionarios();
                 break;
+                
             case 3:
                 System.out.println("\nLista de Doenças:");
+                relatorioDoencas();
                 break;
-            case 4:
-                break;
+                
             default:
                 System.out.println((char) 27 + "[31m\nOpção invalida\u001B[0m");
         }
+    }
+    
+    public static void relatorioClientes(){
+        for(int i=0; i<clientes.size(); i++)
+            System.out.println(clientes.get(i).toString());
+    }
+    
+    public static void relatorioFuncionarios(){
+        for(int i=0; i<numFuncionarios; i++)
+            System.out.println(funcionarios[i].toString());
+    }
+    
+    public static void relatorioDoencas(){
+        for(int i=0; i<doencas.size(); i++){
+            System.out.println(doencas.get(i).getNome() + ": "+ doencas.get(i).getQtdPacientes() + " caso(s).");
+            if(doencas.get(i).getQtdPacientes()>0){
+                System.out.println("Os clientes com essa doenca sao: ");
+                for(int j=0; j<doencas.get(i).getDoencaClientes().size(); j++){
+                    System.out.println(doencas.get(i).getDoencaClientes().get(j).getNome());
+                }
+            }
+        }
+    }
+    
+    public static void relatorioPacientes(){
+        System.out.println(clientes.size());
+    }
+    
+    public static void alterarDoenca(Cliente cliente){
+        Scanner sc = new Scanner(System.in);
+        boolean sair = false;
+        do {
+            System.out.println("\nDigite o número referente a opção que deseja:"
+                    + "\n1 - Inserir"
+                    + "\n2 - Excluir"
+                    + "\n3 - Finalizar Alteracoes");
+            int acesso = sc.nextInt();
+
+            switch (acesso) {
+
+                case 1:
+                    System.out.println("\nInclusão de doenca:");
+                    adicionaDoencaAoCliente(cliente);
+                    break;
+                case 2:
+                    System.out.println("\nExclusão de doenca:");
+                    excluiDoencaDoCliente(cliente);
+                    break;
+                case 3:
+                    sair = true;
+                    break;
+                default:
+                    System.out.println((char) 27 + "[31m\nOpção invalida\u001B[0m");
+            }
+        } while (sair != true);
+    }
+    
+    public static void adicionaDoencaAoCliente(Cliente cliente){
+        int indiceDoenca = pesquisarDoenca();
+        if(indiceDoenca>=0){
+            boolean existe=false;
+            for(int i=0; i<cliente.getClienteDoencas().size(); i++){
+                if(indiceDoenca==cliente.getClienteDoencas().get(i).getIdDoenca()){
+                    existe=true;
+                    break;
+                }
+            }
+            if(existe==false){
+                cliente.getClienteDoencas().add(doencas.get(indiceDoenca));
+                doencas.get(indiceDoenca).getDoencaClientes().add(cliente);
+                doencas.get(indiceDoenca).setQtdPacientes(+1);
+                System.out.println((char) 27 + "[32m\nDoenca registrada com sucesso.\u001B[0m");
+            }
+            else{
+                System.out.println((char) 27 + "[31m\nDoenca já registrada no cliente.\u001B[0m");
+            }  
+        }
+    }
+    
+    public static void excluiDoencaDoCliente(Cliente cliente){
+        if(cliente.getClienteDoencas().isEmpty()){
+            System.out.println((char) 27 + "[31m\nCliente sem doenças cadastradas.\u001B[0m");
+        }
+        else{
+            Scanner sc = new Scanner(System.in);
+            System.out.println("\nInforme o numero referente a doenca que você deseja exluir:" );
+            for(int i=0; i<cliente.getClienteDoencas().size(); i++){
+                 System.out.println(cliente.getClienteDoencas().get(i).getIdDoenca() + " - " + cliente.getClienteDoencas().get(i).getNome());
+            }
+            int indiceExclui = sc.nextInt();
+            for(int j=0; j<cliente.getClienteDoencas().size(); j++){
+                if(cliente.getClienteDoencas().get(j).getIdDoenca()==indiceExclui){
+                        cliente.getClienteDoencas().remove(cliente.getClienteDoencas().get(j));
+                }
+            }
+            for(int k=0; k<doencas.size(); k++){
+                if(doencas.get(k).getIdDoenca()==indiceExclui){
+                    for(int l=0; l<doencas.get(k).getDoencaClientes().size(); l++){
+                        if(doencas.get(k).getDoencaClientes().get(l)==cliente){
+                            doencas.get(k).getDoencaClientes().remove(doencas.get(k).getDoencaClientes().get(l));
+                            doencas.get(k).setQtdPacientes(-1);
+                        }
+                    }
+                }
+            }
+            System.out.println((char) 27 + "[32m\nDoenca excluida com sucesso.\u001B[0m");
+        }  
+    }
+    
+    public static int pesquisarDoenca() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("\nInforme o numero referente a doenca: ");
+        for(int i=0; i<doencas.size(); i++){
+            System.out.println(doencas.get(i).getIdDoenca() + " - " + doencas.get(i).getNome());
+        }
+        int busca = sc.nextInt();
+        int indice;
+        
+        for (int i = 0; i < doencas.size(); i++) {
+            if (doencas.get(i).getIdDoenca() == busca) {
+                indice = doencas.get(i).getIdDoenca();
+                return indice;
+            }
+        }
+
+        return -1;
+    }
+
+    public static ArrayList<Cliente> getClientes() {
+        return clientes;
+    }
+
+    public static void setClientes(ArrayList<Cliente> clientes) {
+        Sistema.clientes = clientes;
+    }
+
+    public static ArrayList<Doenca> getDoencas() {
+        return doencas;
+    }
+
+    public static void setDoencas(ArrayList<Doenca> doencas) {
+        Sistema.doencas = doencas;
+    }
+
+    public static Funcionario[] getFuncionarios() {
+        return funcionarios;
+    }
+
+    public static void setFuncionarios(Funcionario[] funcionarios) {
+        Sistema.funcionarios = funcionarios;
+    }
+
+    public static int getNumClientes() {
+        return numClientes;
+    }
+
+    public static void setNumClientes(int numClientes) {
+        Sistema.numClientes += numClientes;
+    }
+
+    public static int getNumFuncionarios() {
+        return numFuncionarios;
+    }
+
+    public static void setNumFuncionarios(int numFuncionarios) {
+        Sistema.numFuncionarios += numFuncionarios;
+    }
+
+    public static String getProfissao() {
+        return profissao;
+    }
+
+    public static void setProfissao(String profissao) {
+        Sistema.profissao = profissao;
+    }
+
+    public static int getNumClientesProtected() {
+        return numClientesProtected;
+    }
+
+    public static void setNumClientesProtected(int numClientesProtected) {
+        Sistema.numClientesProtected += numClientesProtected;
     }
 }

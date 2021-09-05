@@ -5,18 +5,37 @@ import java.util.Scanner;
 public class ProjetoHospital {
 
     public static void main(String[] args) {
-        Sistema.funcionarios.add(new Funcionario("admin", "admin", 20, "admin", "admin@gmail.com", "Turmalina", 
-         "0", "admin", "Administrador", "admin"));
-        Sistema.funcionarios.add(new Funcionario("Tulio", "Cordeiro", 25, "(38)99103-9305", "tulioalves@gmail.com", "Turmalina", 
-         "11111111111", "Masculino", "Funcionario", "123"));
-        Sistema.funcionarios.add(new Funcionario("Matheus", "Polesca", 20, "(32)98447-5253", "matheuspolesca@gmail.com", "Sete Lagoas", 
-         "22222222222", "Masculino", "Enfermeiro", "456"));
-        Sistema.funcionarios.add(new Funcionario("Brenda", "Orlandi", 23, "(32)98447-5253", "brendaorlandi@gmail.com", "Diamantina", 
-         "33333333333", "Feminino" , "Medico", "789"));
+        //Cadastro dos funcionários
+        Sistema.getFuncionarios()[Sistema.getNumFuncionarios()] = new Funcionario("admin", "admin", 20, "admin", "admin@gmail.com", "Turmalina", 
+        "0", "admin", "Administrador", "admin");
+        Sistema.getFuncionarios()[Sistema.getNumFuncionarios()] = new  Funcionario("Tulio", "Cordeiro", 25, "(38)99103-9305", "tulioalves@gmail.com", "Turmalina", 
+        "11111111111", "Masculino", "Funcionario", "123");
+        Sistema.getFuncionarios()[Sistema.getNumFuncionarios()] = new  Enfermeiro("Matheus", "Polesca", 20, "(32)98447-5253", "matheuspolesca@gmail.com", "Sete Lagoas", 
+        "22222222222", "Masculino", "Enfermeiro", "456");
+        Sistema.getFuncionarios()[Sistema.getNumFuncionarios()] = new  Medico("Brenda", "Orlandi", 23, "(32)98447-5253", "brendaorlandi@gmail.com", "Diamantina", 
+        "33333333333", "Feminino", "Medico", "789");
         
+        //Cadastro das doenças
+        Sistema.getDoencas().add(new Doenca("Cancer"));
+        Sistema.getDoencas().add(new Doenca("AIDS"));
+        Sistema.getDoencas().add(new Doenca("COVID-19"));
+        Sistema.getDoencas().add(new Doenca("Colesterol"));
+        Sistema.getDoencas().add(new Doenca("Diabetes"));
+        Sistema.getDoencas().add(new Doenca("Sinusite"));
+        Sistema.getDoencas().add(new Doenca("Gripe"));
+        Sistema.getDoencas().add(new Doenca("Febre"));
+        Sistema.getDoencas().add(new Doenca("Enxaqueca"));
+        
+        //Cliente teste
+        Sistema.getClientes().add(new Cliente("Gabriel", "Augusto", 25, "3527-1006", "joao@ufvjm.edu.br", "Diamantina", "15274632184", "Pouco"));
+
+        
+        //Fila teste
+        //Fila fila = new Fila(cliente, doenca, "25/02/2000 07:32");
+        //Sistema.
         
         Sistema.fazerLogin();
-        if(!"NULL".equals(Sistema.profissao)){
+        if(!"NULL".equals(Sistema.getProfissao())){
             boolean valor = true;
         
             //Menu Principal
@@ -57,7 +76,7 @@ public class ProjetoHospital {
         System.out.println("\nDigite somente o número da opção desejada:"
                 + "\n\n1 - Cadastrar Cliente                    2 - Iniciar Atendimento"
                 + "\n3 - Editar Cadastro Cliente              4 - Alterar Status"
-                + "\n5 - Excluir Paciente                     6 - Encerrar Atendimento,"
+                + "\n5 - Excluir Paciente                     6 - Encerrar Atendimento"
                 + "\n7 - Acessar Informacoes do Paciente "
                 + "\n8 - Fechar\n");
         Scanner sc = new Scanner(System.in);
@@ -124,7 +143,7 @@ public class ProjetoHospital {
                     case 4:
                         break;
                     default:
-                        System.out.println("\nOpção Inválida");
+                        System.out.println("[31m\nOpção invalida\u001B[0m");
                         break;
                 }
 
