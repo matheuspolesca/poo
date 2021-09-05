@@ -1,6 +1,7 @@
 package projetohospital;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Cliente extends Pessoa{
     private String status;

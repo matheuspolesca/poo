@@ -31,8 +31,12 @@ public class ProjetoHospital {
         Sistema.doencas.add(new Doenca("Enxaqueca"));
         
         //Cliente teste
-        Cliente c = new Cliente("Gabriel", "Augusto", 25, "3527-1006", "joao@ufvjm.edu.br", "Diamantina", "15274632184", "Pouco");
+        Cliente c = new Cliente("Gabriel", "Augusto", 25, "3527-1006", "indio@ufvjm.edu.br", "Diamantina", "15274632184", "Pouco");
         Sistema.clientes.add(c);
+        
+        //Fila teste
+        Fila fila = new Fila(cliente, doenca, "25/02/2000 07:32");
+        Sistema.
         
         Sistema.fazerLogin();
         if(!"NULL".equals(Sistema.profissao)){
