@@ -6,40 +6,36 @@ public class ProjetoHospital {
 
     public static void main(String[] args) {
         //Cadastro dos funcionários
-        Sistema.funcionarios[Sistema.numFuncionarios] = new Funcionario("admin", "admin", 20, "admin", "admin@gmail.com", "Turmalina", 
-         "0", "admin", "Administrador", "admin");
-        Sistema.numFuncionarios++;
-        Sistema.funcionarios[Sistema.numFuncionarios] = new  Funcionario("Tulio", "Cordeiro", 25, "(38)99103-9305", "tulioalves@gmail.com", "Turmalina", 
-         "11111111111", "Masculino", "Funcionario", "123");
-        Sistema.numFuncionarios++;
-        Sistema.funcionarios[Sistema.numFuncionarios] = new  Enfermeiro("Matheus", "Polesca", 20, "(32)98447-5253", "matheuspolesca@gmail.com", "Sete Lagoas", 
-         "22222222222", "Masculino", "Enfermeiro", "456");
-        Sistema.numFuncionarios++;
-        Sistema.funcionarios[Sistema.numFuncionarios] = new  Medico("Brenda", "Orlandi", 23, "(32)98447-5253", "brendaorlandi@gmail.com", "Diamantina", 
-         "33333333333", "Feminino", "Medico", "789");
-        Sistema.numFuncionarios++;
+        Sistema.getFuncionarios()[Sistema.getNumFuncionarios()] = new Funcionario("admin", "admin", 20, "admin", "admin@gmail.com", "Turmalina", 
+        "0", "admin", "Administrador", "admin");
+        Sistema.getFuncionarios()[Sistema.getNumFuncionarios()] = new  Funcionario("Tulio", "Cordeiro", 25, "(38)99103-9305", "tulioalves@gmail.com", "Turmalina", 
+        "11111111111", "Masculino", "Funcionario", "123");
+        Sistema.getFuncionarios()[Sistema.getNumFuncionarios()] = new  Enfermeiro("Matheus", "Polesca", 20, "(32)98447-5253", "matheuspolesca@gmail.com", "Sete Lagoas", 
+        "22222222222", "Masculino", "Enfermeiro", "456");
+        Sistema.getFuncionarios()[Sistema.getNumFuncionarios()] = new  Medico("Brenda", "Orlandi", 23, "(32)98447-5253", "brendaorlandi@gmail.com", "Diamantina", 
+        "33333333333", "Feminino", "Medico", "789");
         
         //Cadastro das doenças
-        Sistema.doencas.add(new Doenca("Cancer"));
-        Sistema.doencas.add(new Doenca("AIDS"));
-        Sistema.doencas.add(new Doenca("COVID-19"));
-        Sistema.doencas.add(new Doenca("Colesterol"));
-        Sistema.doencas.add(new Doenca("Diabetes"));
-        Sistema.doencas.add(new Doenca("Sinusite"));
-        Sistema.doencas.add(new Doenca("Gripe"));
-        Sistema.doencas.add(new Doenca("Febre"));
-        Sistema.doencas.add(new Doenca("Enxaqueca"));
+        Sistema.getDoencas().add(new Doenca("Cancer"));
+        Sistema.getDoencas().add(new Doenca("AIDS"));
+        Sistema.getDoencas().add(new Doenca("COVID-19"));
+        Sistema.getDoencas().add(new Doenca("Colesterol"));
+        Sistema.getDoencas().add(new Doenca("Diabetes"));
+        Sistema.getDoencas().add(new Doenca("Sinusite"));
+        Sistema.getDoencas().add(new Doenca("Gripe"));
+        Sistema.getDoencas().add(new Doenca("Febre"));
+        Sistema.getDoencas().add(new Doenca("Enxaqueca"));
         
         //Cliente teste
-        Cliente c = new Cliente("Gabriel", "Augusto", 25, "3527-1006", "indio@ufvjm.edu.br", "Diamantina", "15274632184", "Pouco");
-        Sistema.clientes.add(c);
+        Sistema.getClientes().add(new Cliente("Gabriel", "Augusto", 25, "3527-1006", "joao@ufvjm.edu.br", "Diamantina", "15274632184", "Pouco"));
+
         
         //Fila teste
-        Fila fila = new Fila(cliente, doenca, "25/02/2000 07:32");
-        Sistema.
+        //Fila fila = new Fila(cliente, doenca, "25/02/2000 07:32");
+        //Sistema.
         
         Sistema.fazerLogin();
-        if(!"NULL".equals(Sistema.profissao)){
+        if(!"NULL".equals(Sistema.getProfissao())){
             boolean valor = true;
         
             //Menu Principal

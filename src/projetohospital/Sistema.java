@@ -5,14 +5,17 @@ import java.util.Scanner;
 
 abstract class Sistema {
 
-    public static ArrayList<Cliente> clientes = new ArrayList();
-    public static ArrayList<Doenca> doencas = new ArrayList();
-    public static Funcionario funcionarios[] = new Funcionario[100];
-    public static int numClientes, numFuncionarios=0;
-    public static String profissao = "NULL";
+    private static ArrayList<Cliente> clientes = new ArrayList();
+    private static ArrayList<Doenca> doencas = new ArrayList();
+    private static Funcionario funcionarios[] = new Funcionario[100];
+    private static int numClientes, numFuncionarios;
+    private static String profissao = "NULL";
+    protected static int numClientesProtected;
 
     public Sistema() {
         numClientes = 0;
+        numClientesProtected = 0;
+        numFuncionarios=0;
     }
 
     //Quando o sistema abre, a pessoa precisa fazer o login
@@ -110,7 +113,6 @@ abstract class Sistema {
                     throw new Exception("Campo Obrigatório não foi preenchido.");
                 }
                 clientes.add(novoCliente);
-                numClientes = numClientes++;
                 System.out.println((char) 27 + "[32mCliente cadastrado com sucesso.\u001B[0m");
 
             } catch (Exception ex) {
@@ -256,6 +258,8 @@ abstract class Sistema {
             for (int i = 0; i < clientes.size(); i++) {
                 if (clientes.get(i).getCpf().equals(cpf)) {
                     clientes.remove(i);
+                    setNumClientes(-1);
+                    numClientesProtected--;
                     System.out.println((char) 27 + "[32mCliente deletado.\u001B[0m");
                     return;
                 }
@@ -326,7 +330,6 @@ abstract class Sistema {
                 }
 
                 funcionarios[numFuncionarios] = novoFuncionario;
-                numFuncionarios++;
                 System.out.println((char) 27 + "[32mFuncionario cadastrado com sucesso.\u001B[0m");
 
             } catch (Exception ex) {
@@ -638,17 +641,21 @@ abstract class Sistema {
                 + "\n\n1 - Lista de Clientes"
                 + "\n2 - Lista de Funcionários"
                 + "\n3 - Lista de Doenças"
-                + "\n4 - Fechar\n");
+                + "\n5 - Fechar\n");
         Scanner sc = new Scanner(System.in);
         int acessoF = sc.nextInt();
 
         switch (acessoF) {
             case 1:
+                System.out.println("\nNúmero de Pacientes:");
+                relatorioPacientes();
                 System.out.println("\nLista de Clientes");
                 relatorioClientes();
                 break;
 
             case 2:
+                System.out.println("\nNumero de Funcionarios");
+                System.out.println(numFuncionarios);
                 System.out.println("\nLista de Funcionarios");
                 relatorioFuncionarios();
                 break;
@@ -683,6 +690,10 @@ abstract class Sistema {
                 }
             }
         }
+    }
+    
+    public static void relatorioPacientes(){
+        System.out.println(clientes.size());
     }
     
     public static void alterarDoenca(Cliente cliente){
@@ -783,5 +794,61 @@ abstract class Sistema {
         }
 
         return -1;
+    }
+
+    public static ArrayList<Cliente> getClientes() {
+        return clientes;
+    }
+
+    public static void setClientes(ArrayList<Cliente> clientes) {
+        Sistema.clientes = clientes;
+    }
+
+    public static ArrayList<Doenca> getDoencas() {
+        return doencas;
+    }
+
+    public static void setDoencas(ArrayList<Doenca> doencas) {
+        Sistema.doencas = doencas;
+    }
+
+    public static Funcionario[] getFuncionarios() {
+        return funcionarios;
+    }
+
+    public static void setFuncionarios(Funcionario[] funcionarios) {
+        Sistema.funcionarios = funcionarios;
+    }
+
+    public static int getNumClientes() {
+        return numClientes;
+    }
+
+    public static void setNumClientes(int numClientes) {
+        Sistema.numClientes += numClientes;
+    }
+
+    public static int getNumFuncionarios() {
+        return numFuncionarios;
+    }
+
+    public static void setNumFuncionarios(int numFuncionarios) {
+        Sistema.numFuncionarios += numFuncionarios;
+    }
+
+    public static String getProfissao() {
+        return profissao;
+    }
+
+    public static void setProfissao(String profissao) {
+        Sistema.profissao = profissao;
+    }
+
+    public static int getNumClientesProtected() {
+        return numClientesProtected;
+    }
+
+    public static void setNumClientesProtected(int numClientesProtected) {
+        Sistema.numClientesProtected += numClientesProtected;
     }
 }

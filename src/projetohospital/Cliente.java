@@ -13,6 +13,8 @@ public class Cliente extends Pessoa{
     public Cliente (String nome, String sobrenome, int idade, String telefone, String email, String endereco, String cpf, String sexo)
     {
         super(nome, sobrenome, idade, telefone, email, endereco, cpf, sexo);
+        Sistema.numClientesProtected++;
+        Sistema.setNumClientes(+1);
     }
     
     public String getStatus() {
