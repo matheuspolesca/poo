@@ -1,5 +1,6 @@
-package projetohospital;
+package model;
 
+import model.Funcionario;
 import java.util.ArrayList;
 
 public class Medico extends Funcionario{
