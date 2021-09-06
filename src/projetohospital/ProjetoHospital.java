@@ -1,19 +1,26 @@
 package projetohospital;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ProjetoHospital {
 
     public static void main(String[] args) {
         //Cadastro dos funcionários
+        ArrayList<Plantao> periodo = new ArrayList<>();
+        periodo.add(Plantao.TARDE);
+        periodo.add(Plantao.MANHA);
+        
         Sistema.getFuncionarios()[Sistema.getNumFuncionarios()] = new Funcionario("admin", "admin", 20, "admin", "admin@gmail.com", "Turmalina", 
-        "0", "admin", "Administrador", "admin");
-        Sistema.getFuncionarios()[Sistema.getNumFuncionarios()] = new  Funcionario("Tulio", "Cordeiro", 25, "(38)99103-9305", "tulioalves@gmail.com", "Turmalina", 
-        "11111111111", "Masculino", "Funcionario", "123");
+        "0", "admin", "Administrador", "admin", periodo);
+        
+        
+        Sistema.getFuncionarios()[Sistema.getNumFuncionarios()] = new  Funcionario("Tulio", "Cordeiro", 25, "(38)99103-9305", "tulioalves@gmail.com", "Turmalina", "11111111111", "Masculino", "Funcionario", "123", periodo);
         Sistema.getFuncionarios()[Sistema.getNumFuncionarios()] = new  Enfermeiro("Matheus", "Polesca", 20, "(32)98447-5253", "matheuspolesca@gmail.com", "Sete Lagoas", 
-        "22222222222", "Masculino", "Enfermeiro", "456");
+        "22222222222", "Masculino", "Enfermeiro", "456", periodo);
         Sistema.getFuncionarios()[Sistema.getNumFuncionarios()] = new  Medico("Brenda", "Orlandi", 23, "(32)98447-5253", "brendaorlandi@gmail.com", "Diamantina", 
-        "33333333333", "Feminino", "Medico", "789");
+        "33333333333", "Feminino", "Medico", "789", periodo);
+        
         
         //Cadastro das doenças
         Sistema.getDoencas().add(new Doenca("Cancer"));
@@ -117,7 +124,8 @@ public class ProjetoHospital {
                 + "\n\n1 - Cadastrar Funcionario"
                 + "\n2 - Excluir Funcionario"
                 + "\n3 - Alterar Cadastro Funcionario"
-                + "\n4 - Fechar\n");
+                + "\n4 - Alterar Plantão"
+                + "\n5 - Fechar\n");
         Scanner sc = new Scanner(System.in);
         int acessoF = sc.nextInt();
 
@@ -156,6 +164,9 @@ public class ProjetoHospital {
                 Sistema.alterarCadastroFuncionario();
                 break;
             case 4:
+                Sistema.alterarPlantao();
+                break;
+            case 5:
                 break;
             default:
                 System.out.println((char) 27 + "[31m\nOpção invalida\u001B[0m");

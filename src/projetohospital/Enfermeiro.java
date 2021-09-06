@@ -1,12 +1,14 @@
 package projetohospital;
 
+import java.util.ArrayList;
+
 public class Enfermeiro extends Funcionario {
 
     public Enfermeiro() {
     }
 
-    public Enfermeiro(String nome, String sobrenome, int idade, String telefone, String email, String endereco, String cpf, String sexo, String profissao, String senha) {
-        super(nome, sobrenome, idade, telefone, email, endereco, cpf, sexo, profissao, senha);
+    public Enfermeiro(String nome, String sobrenome, int idade, String telefone, String email, String endereco, String cpf, String sexo, String profissao, String senha, ArrayList<Plantao> periodo) {
+        super(nome, sobrenome, idade, telefone, email, endereco, cpf, sexo, profissao, senha, periodo);
         super.setProfissao("Enfermeiro");
     }
 
