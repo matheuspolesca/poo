@@ -5,7 +5,7 @@ public class Enfermeiro extends Funcionario {
     public Enfermeiro() {
     }
 
-    public Enfermeiro(String nome, String sobrenome, int idade, String telefone, String email, String endereco, String cpf, String sexo, String profissao, String senha) {
+    public Enfermeiro(String nome, String sobrenome, Integer idade, String telefone, String email, String endereco, String cpf, String sexo, String profissao, String senha) {
         super(nome, sobrenome, idade, telefone, email, endereco, cpf, sexo, profissao, senha);
         super.setProfissao("Enfermeiro");
     }

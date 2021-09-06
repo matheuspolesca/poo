@@ -6,6 +6,7 @@ import java.util.Date;
 public class Cliente extends Pessoa{
     private String status;
     private ArrayList<Doenca> clienteDoencas = new ArrayList();
+    private IdTriagem idTriagem;
 
     public Cliente() {
     }
@@ -32,7 +33,15 @@ public class Cliente extends Pessoa{
     public void setClienteDoencas(ArrayList<Doenca> clienteDoencas) {
         this.clienteDoencas = clienteDoencas;
     }
-    
+
+    public IdTriagem getIdTriagem() {
+        return idTriagem;
+    }
+
+    public void setIdTriagem(IdTriagem idtriagem) {
+        this.idTriagem = idtriagem;
+    }
+
     @Override
     public String toString() {
         String texto = String.format("\n========== CLIENTE: %s ========"
@@ -44,7 +53,8 @@ public class Cliente extends Pessoa{
                 + "\nE-mail %s"
                 + "\nSexo: %s"
                 + "\nEndereço: %s    "
-                + "\nStatus: %s", getNome(), getNome(),getSobrenome(), getIdade(), getCpf(), getTelefone(), getEmail(), getSexo(), getEndereco(), status);
+                + "\nStatus: %s    "
+                + "\nIdTriagem: %s", getNome(), getNome(),getSobrenome(), getIdade(), getCpf(), getTelefone(), getEmail(), getSexo(), getEndereco(), status, idTriagem);
         return texto;
     }
 }

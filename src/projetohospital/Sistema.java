@@ -140,7 +140,8 @@ abstract class Sistema {
                         + "\n1 - Nome        2- Sobrenome     3 - Idade"
                         + "\n4 - Telefone    5 - E-mail       6 - Endereço"
                         + "\n7 - CPF         8 - Doenças      9 - Sexo"
-                        + "\n10 - Finalizar Alteracoes");
+                        + "\n10 - IdTriagem"
+                        + "\n11 - Finalizar Alteracoes");
                 int acesso = sc.nextInt();
                 sc.nextLine();
 
@@ -235,6 +236,9 @@ abstract class Sistema {
                         }
                         break;
                     case 10:
+                        alterarIdTriagem(clientes.get(busca));
+                        break;
+                    case 11:
                         System.out.println("\nAlterações finalizadas.");
                         sair = true;
                         break;
@@ -794,6 +798,38 @@ abstract class Sistema {
         }
 
         return -1;
+    }
+    
+    private static void alterarIdTriagem(Cliente cliente){
+        if ("Enfermeiro".equals(profissao) || "Administrador".equals(profissao)) {
+            System.out.println("\n========= ALTERAR IDTRIAGEM =========");
+                Scanner sc = new Scanner(System.in);
+                System.out.println("\nDigite o número referente ao nova Id de Triagem:"
+                                + "\n1 - Vermelha       2 - Amarela       3 - Verde");
+                int acesso = sc.nextInt();
+                sc.nextLine();
+
+                switch (acesso) {
+                    case 1:
+                        cliente.setIdTriagem(IdTriagem.VERMELHO);
+                        System.out.println((char) 27 + "[32m\nAlterado com sucesso\u001B[0m");
+                        break;
+                    case 2:
+                        cliente.setIdTriagem(IdTriagem.AMARELO);
+                        System.out.println((char) 27 + "[32m\nAlterado com sucesso\u001B[0m");
+                        break;
+                    case 3:
+                        cliente.setIdTriagem(IdTriagem.VERDE);
+                        System.out.println((char) 27 + "[32m\nAlterado com sucesso\u001B[0m");
+                        break;
+                    case 4:
+                        break;
+                    default:
+                        System.out.println((char) 27 + "[31m\nOpção invalida\u001B[0m");
+                }
+        } else {
+            System.out.println((char) 27 + "[31mVocê não tem permissão para acessar essa opção.\u001B[0m");
+        }
     }
 
     public static ArrayList<Cliente> getClientes() {
