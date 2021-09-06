@@ -29,9 +29,9 @@ abstract class Sistema {
         Funcionario funcLogin = new Funcionario();
 
         //Confere se já existe o CPF 
-        for (Funcionario funcionario : funcionarios) {
-            if (funcionario.getCpf().equals(cpf)) {
-                funcLogin = funcionario;
+        for (int i = 0; i < numFuncionarios; i++){
+            if (funcionarios[i].getCpf().equals(cpf)) {
+                funcLogin = funcionarios[i];
                 System.out.println((char) 27 + "[32mCPF encontrado\u001B[0m");
                 break;
             }
@@ -662,7 +662,8 @@ abstract class Sistema {
                 + "\n\n1 - Lista de Clientes"
                 + "\n2 - Lista de Funcionários"
                 + "\n3 - Lista de Doenças"
-                + "\n5 - Fechar\n");
+                + "\n4 - Relatório de Plantão"
+                + "\n5 - Voltar\n");
         Scanner sc = new Scanner(System.in);
         int acessoF = sc.nextInt();
 
@@ -684,6 +685,11 @@ abstract class Sistema {
             case 3:
                 System.out.println("\nLista de Doenças:");
                 relatorioDoencas();
+                break;
+            case 4:
+                relatorioPlantao();
+                break;
+            case 5:
                 break;
 
             default:
@@ -725,6 +731,20 @@ abstract class Sistema {
         System.out.println(clientes.size());
     }
 
+    public static void relatorioPlantao() {
+        System.out.println("\n========= RELATÓRIO PLANTÃO =========");
+        for (int j = 0; j < 3; j++) {
+            System.out.println("\nPeriodo: " + Plantao.values()[j].name());
+            for (int i = 0; i < numFuncionarios; i++) {
+                for (Plantao periodo : funcionarios[i].getPeriodo()) {
+                    if(periodo.getDescricao() == Plantao.values()[j].getDescricao() && !funcionarios[i].getProfissao().equals("Administrador")){
+                    System.out.println(funcionarios[i].getNome());
+                    }
+                }
+            }
+        }
+    }
+   
     public static void alterarDoenca(Cliente cliente) {
         Scanner sc = new Scanner(System.in);
         boolean sair = false;
