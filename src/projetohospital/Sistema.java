@@ -778,39 +778,43 @@ abstract class Sistema {
         Scanner sc = new Scanner(System.in);
         ArrayList<Plantao> periodo = new ArrayList<>();
         Funcionario funcionario = pesquisarFuncionario();
-
-        System.out.println("\nQuantos turnos você trabalha? (MAX 3)");
-        int opc = sc.nextInt();
+        
         try {
-            if (opc <= 0 || opc > 3) {
-                throw new Exception("Error: Quantidade de turnos são de 1 a 3 (Manhã, Tarde, Noite)");
-            }
+            if(funcionario!=null){
+            System.out.println("\nQuantos turnos você trabalha? (MAX 3)");
+            int opc = sc.nextInt();
 
-            for (int i = 0; i < opc; i++) {
-                boolean existe = false;
-                System.out.println("\nDigite o número referente ao período de trabalho:"
-                        + "\n1 - Manhã        2- Tarde     3 - Noite");
-                int opcPeriodo = sc.nextInt();
-                
-                for (Plantao periodinho : periodo) 
-                {
-                    if (periodinho.getDescricao() == opcPeriodo) 
+                if (opc <= 0 || opc > 3) {
+                    throw new Exception("Error: Quantidade de turnos são de 1 a 3 (Manhã, Tarde, Noite)");
+                }
+
+                for (int i = 0; i < opc; i++) {
+                    boolean existe = false;
+                    System.out.println("\nDigite o número referente ao período de trabalho:"
+                            + "\n1 - Manhã        2- Tarde     3 - Noite");
+                    int opcPeriodo = sc.nextInt();
+
+                    for (Plantao periodinho : periodo) 
                     {
-                        System.err.println("Error: Não pode selecionar dois períodos iguais.");
-                        --i;
-                        existe = true;
-                        break;
+                        if (periodinho.getDescricao() == opcPeriodo) 
+                        {
+                            System.err.println("Error: Não pode selecionar dois períodos iguais.");
+                            --i;
+                            existe = true;
+                            break;
+                        }
+                    }
+
+                    if (!existe) 
+                    {
+                        periodo.add(Plantao.values()[opcPeriodo - 1]);
                     }
                 }
 
-                if (!existe) 
-                {
-                    periodo.add(Plantao.values()[opcPeriodo - 1]);
-                }
+                funcionario.setPeriodo(periodo);
+            }else{
+                throw new Exception("Error: Funcionário não encontrado.");
             }
-            
-            funcionario.setPeriodo(periodo);
-            
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
