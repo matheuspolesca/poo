@@ -1,9 +1,10 @@
-package projetohospital;
+package model;
 
+import controller.FuncionarioApplication;
 import java.util.ArrayList;
 
 public class Funcionario extends Pessoa{
-    private String profissao, senha;
+    public  String profissao, senha;
     private ArrayList<Plantao> periodo;
             
     public Funcionario() {
@@ -14,7 +15,7 @@ public class Funcionario extends Pessoa{
         super(nome, sobrenome, idade, telefone, email, endereco, cpf, sexo);
         this.profissao = profissao;
         this.senha = senha;
-        Sistema.setNumFuncionarios(+1);
+        FuncionarioApplication.setNumFuncionarios(+1);
         this.periodo =  periodo;
     }
 

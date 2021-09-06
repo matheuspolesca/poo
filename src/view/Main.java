@@ -1,48 +1,64 @@
-package projetohospital;
+package view;
 
+import controller.AtendimentoApplication;
+import controller.ClienteApplication;
+import controller.DoencaApplication;
+import controller.FuncionarioApplication;
+import controller.SistemaApplication;
+import model.Plantao;
+import model.Doenca;
+import model.Medico;
+import model.Funcionario;
+import model.Enfermeiro;
+import model.Cliente;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class ProjetoHospital {
+public class Main {
+    private static String profissao = "NULL";
 
+    public static String getProfissao() {
+        return profissao;
+    }
+
+    public static void setProfissao(String profissao) {
+        Main.profissao = profissao;
+    }
+    
+    
     public static void main(String[] args) {
+        
         //Cadastro dos funcionários
         ArrayList<Plantao> periodo = new ArrayList<>();
         periodo.add(Plantao.TARDE);
         periodo.add(Plantao.MANHA);
-        
-        Sistema.getFuncionarios()[Sistema.getNumFuncionarios()] = new Funcionario("admin", "admin", 20, "admin", "admin@gmail.com", "Turmalina", 
+      
+        FuncionarioApplication.getFuncionarios()[FuncionarioApplication.getNumFuncionarios()] = new Funcionario("admin", "admin", 20, "admin", "admin@gmail.com", "Turmalina", 
         "0", "admin", "Administrador", "admin", periodo);
         
-        
-        Sistema.getFuncionarios()[Sistema.getNumFuncionarios()] = new  Funcionario("Tulio", "Cordeiro", 25, "(38)99103-9305", "tulioalves@gmail.com", "Turmalina", "11111111111", "Masculino", "Funcionario", "123", periodo);
-        Sistema.getFuncionarios()[Sistema.getNumFuncionarios()] = new  Enfermeiro("Matheus", "Polesca", 20, "(32)98447-5253", "matheuspolesca@gmail.com", "Sete Lagoas", 
+        FuncionarioApplication.getFuncionarios()[FuncionarioApplication.getNumFuncionarios()] = new  Funcionario("Tulio", "Cordeiro", 25, "(38)99103-9305", "tulioalves@gmail.com", "Turmalina", "11111111111", "Masculino", "Funcionario", "123", periodo);
+        FuncionarioApplication.getFuncionarios()[FuncionarioApplication.getNumFuncionarios()] = new  Enfermeiro("Matheus", "Polesca", 20, "(32)98447-5253", "matheuspolesca@gmail.com", "Sete Lagoas", 
         "22222222222", "Masculino", "Enfermeiro", "456", periodo);
-        Sistema.getFuncionarios()[Sistema.getNumFuncionarios()] = new  Medico("Brenda", "Orlandi", 23, "(32)98447-5253", "brendaorlandi@gmail.com", "Diamantina", 
+        FuncionarioApplication.getFuncionarios()[FuncionarioApplication.getNumFuncionarios()] = new  Medico("Brenda", "Orlandi", 23, "(32)98447-5253", "brendaorlandi@gmail.com", "Diamantina", 
         "33333333333", "Feminino", "Medico", "789", periodo);
         
         
         //Cadastro das doenças
-        Sistema.getDoencas().add(new Doenca("Cancer"));
-        Sistema.getDoencas().add(new Doenca("AIDS"));
-        Sistema.getDoencas().add(new Doenca("COVID-19"));
-        Sistema.getDoencas().add(new Doenca("Colesterol"));
-        Sistema.getDoencas().add(new Doenca("Diabetes"));
-        Sistema.getDoencas().add(new Doenca("Sinusite"));
-        Sistema.getDoencas().add(new Doenca("Gripe"));
-        Sistema.getDoencas().add(new Doenca("Febre"));
-        Sistema.getDoencas().add(new Doenca("Enxaqueca"));
+        DoencaApplication.getDoencas().add(new Doenca("Cancer"));
+        DoencaApplication.getDoencas().add(new Doenca("AIDS"));
+        DoencaApplication.getDoencas().add(new Doenca("COVID-19"));
+        DoencaApplication.getDoencas().add(new Doenca("Colesterol"));
+        DoencaApplication.getDoencas().add(new Doenca("Diabetes"));
+        DoencaApplication.getDoencas().add(new Doenca("Sinusite"));
+        DoencaApplication.getDoencas().add(new Doenca("Gripe"));
+        DoencaApplication.getDoencas().add(new Doenca("Febre"));
+        DoencaApplication.getDoencas().add(new Doenca("Enxaqueca"));
         
         //Cliente teste
-        Sistema.getClientes().add(new Cliente("Gabriel", "Augusto", 25, "3527-1006", "joao@ufvjm.edu.br", "Diamantina", "15274632184", "Pouco"));
-
+        ClienteApplication.getClientes().add(new Cliente("Gabriel", "Augusto", 25, "3527-1006", "joao@ufvjm.edu.br", "Diamantina", "15274632184", "Pouco"));
         
-        //Fila teste
-        //Fila fila = new Fila(cliente, doenca, "25/02/2000 07:32");
-        //Sistema.
-        
-        Sistema.fazerLogin();
-        if(!"NULL".equals(Sistema.getProfissao())){
+        fazerLogin();
+        if(!"NULL".equals(profissao)){
             boolean valor = true;
         
             //Menu Principal
@@ -64,7 +80,7 @@ public class ProjetoHospital {
                         menuFuncionario();
                         break;
                     case 3:
-                        Sistema.gerarRelatorio();
+                        SistemaApplication.gerarRelatorio();
                         break;
                     case 4:
                         System.out.println("Sistema finalizado.");
@@ -74,6 +90,46 @@ public class ProjetoHospital {
                         System.out.println((char) 27 + "[31m\nOpção invalida\u001B[0m");
                 }
             }
+        }
+    }
+
+    public Main() {
+    }
+    
+    //Quando o sistema abre, a pessoa precisa fazer o login
+    public static void fazerLogin() {
+
+        System.out.println("\n========== LOGIN ===========");
+
+        Scanner sc = new Scanner(System.in);
+        System.out.println("\nInforme seu CPF:");
+        String cpf = sc.nextLine();
+        Funcionario funcLogin = new Funcionario();
+
+        //Confere se já existe o CPF 
+        for (int i = 0; i < FuncionarioApplication.getNumFuncionarios() ; i++){
+            if (FuncionarioApplication.getFuncionarios()[i].getCpf().equals(cpf)) {
+                funcLogin = FuncionarioApplication.getFuncionarios()[i];
+                Util.Sucesso("CPF encontrado.");
+                break;
+            }
+        }
+
+        //Se existir o CPF, confere se a senha está correta
+        if (funcLogin.getCpf() != null) {
+
+            System.out.println("\nInforme sua senha:");
+            String senha = sc.nextLine();
+
+            if (funcLogin.getSenha().equals(senha)) {
+                Util.Sucesso("Senha confirmada");
+                profissao = funcLogin.getProfissao();
+                Util.Notifica("\nVocê esta logado no sistema como " + profissao);
+            } else {
+                Util.Erro("Senha não compativel, tente novamente.");
+            }
+        } else {
+            Util.Erro("CPF não encontrado, tente novamente.");
         }
     }
     
@@ -91,25 +147,25 @@ public class ProjetoHospital {
         switch (acessoC) {
             case 1:
                 System.out.println("\n========= CADASTRAR CLIENTE =========");
-                Sistema.cadastrarCliente();
+                ClienteApplication.cadastrarCliente();
                 break;
             case 2:
-                Sistema.iniciarAtendimento();
+                AtendimentoApplication.iniciarAtendimento();
                 break;
             case 3:
-                Sistema.alterarCadastroCliente();
+                ClienteApplication.alterarCadastroCliente();
                 break;
             case 4:
-                Sistema.alterarStatus();
+                AtendimentoApplication.alterarStatus();
                 break;
             case 5:
-                Sistema.deletarCliente();
+                ClienteApplication.deletarCliente();
                 break;
             case 6:
-                Sistema.encerrarAtendimento();
+                AtendimentoApplication.encerrarAtendimento();
                 break;
             case 7:
-                Sistema.acessarInformações();
+                SistemaApplication.acessarInformações();
                 break;
             case 8:
                 break;
@@ -140,13 +196,13 @@ public class ProjetoHospital {
                 System.out.println("\n========= CADASTRAR FUNCIONÁRIO =========");
                 switch (opcF) {
                     case 1:
-                        Sistema.cadastroFuncionario("Funcionario");
+                        FuncionarioApplication.cadastroFuncionario("Funcionario");
                         break;
                     case 2:
-                        Sistema.cadastroFuncionario("Medico");
+                        FuncionarioApplication.cadastroFuncionario("Medico");
                         break;
                     case 3:
-                        Sistema.cadastroFuncionario("Enfermeiro");
+                        FuncionarioApplication.cadastroFuncionario("Enfermeiro");
                         break;
                     case 4:
                         break;
@@ -161,10 +217,10 @@ public class ProjetoHospital {
 //                deletarFuncionario();
                 break;
             case 3:
-                Sistema.alterarCadastroFuncionario();
+                FuncionarioApplication.alterarCadastroFuncionario();
                 break;
             case 4:
-                Sistema.alterarPlantao();
+                FuncionarioApplication.alterarPlantao();
                 break;
             case 5:
                 break;
