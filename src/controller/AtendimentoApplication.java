@@ -19,7 +19,7 @@ import view.Main;
  * @author brend
  */
 public class AtendimentoApplication {
-    
+
     private static ArrayList<Cliente> filaAtendimento = new ArrayList();
 
     public static ArrayList<Cliente> getFilaAtendimento() {
@@ -29,15 +29,14 @@ public class AtendimentoApplication {
     public static void setFilaAtendimento(ArrayList<Cliente> filaAtendimento) {
         AtendimentoApplication.filaAtendimento = filaAtendimento;
     }
-    
+
+    //Inicia o atendimento do paciente
     public static void iniciarAtendimento() {
-
-        System.out.println("\n========= INICIAR ATENDIMENTO =========");
-        int busca = ClienteApplication.pesquisarCliente();
-
         try {
+            System.out.println("\n========= INICIAR ATENDIMENTO =========");
+            int busca = ClienteApplication.pesquisarCliente();
             if (busca >= 0) {
-                Util.Sucesso("\nAtendimento do cliente " +ClienteApplication.getClientes().get(busca).getNome() + " iniciado.");
+                Util.Sucesso("\nAtendimento do cliente " + ClienteApplication.getClientes().get(busca).getNome() + " iniciado.");
                 LocalDate agora;
                 agora = LocalDate.now();
                 System.out.println(agora);
@@ -50,11 +49,12 @@ public class AtendimentoApplication {
         } catch (Exception ex) {
             Util.Erro(ex.getMessage());
         }
+
     }
 
     //Alterar o Status do Paciente
     public static void alterarStatus() {
-        if ("Enfermeiro".equals(Main.getProfissao()) || "Administrador".equals(Main.getProfissao())) {
+        try {
 
             System.out.println("\n========= ALTERAR STATUS =========");
             //Conferir se o paciente existe
@@ -92,33 +92,39 @@ public class AtendimentoApplication {
                         Util.Erro("\nOpção invalida");
                 }
             } else {
-                Util.Erro("\nCliente não encontrado");
+                throw new Exception("\nCliente não encontrado.");
             }
-        } else {
-            Util.Erro("\nVocê não tem permissão para acessar essa opção.");
+        } catch (Exception ex) {
+            Util.Erro(ex.getMessage());
         }
 
     }
 
+    //Encerrar atendimento do paciente
     public static void encerrarAtendimento() {
-        System.out.println("\n========= ENCERRAR ATENDIMENTO =========");
+        try {
 
-        //Conferir se o paciente existe
-        int busca = ClienteApplication.pesquisarCliente();
+            System.out.println("\n========= ENCERRAR ATENDIMENTO =========");
 
-        if (busca >= 0) {
-            Util.Sucesso("\nAtendimento do cliente " + ClienteApplication.getClientes().get(busca).getNome() + " finalizado com sucesso.");
-            ClienteApplication.getClientes().get(busca).setStatus("Liberado");
-            for(int i=0; i<AtendimentoApplication.getFilaAtendimento().size(); i++){
-                if(ClienteApplication.getClientes().get(busca) == AtendimentoApplication.getFilaAtendimento().get(i)){
-                    AtendimentoApplication.getFilaAtendimento().remove(AtendimentoApplication.getFilaAtendimento().get(i));
-                    break;
+            //Conferir se o paciente existe
+            int busca = ClienteApplication.pesquisarCliente();
+
+            if (busca >= 0) {
+                Util.Sucesso("\nAtendimento do cliente " + ClienteApplication.getClientes().get(busca).getNome() + " finalizado com sucesso.");
+                ClienteApplication.getClientes().get(busca).setStatus("Liberado");
+                for (int i = 0; i < AtendimentoApplication.getFilaAtendimento().size(); i++) {
+                    if (ClienteApplication.getClientes().get(busca) == AtendimentoApplication.getFilaAtendimento().get(i)) {
+                        AtendimentoApplication.getFilaAtendimento().remove(AtendimentoApplication.getFilaAtendimento().get(i));
+                        break;
+                    }
                 }
+                ClienteApplication.getClientes().get(busca).setData(null);
+                ClienteApplication.getClientes().get(busca).setIdTriagem(null);
+            } else {
+                throw new Exception("\nCliente não encontrado.");
             }
-            ClienteApplication.getClientes().get(busca).setData(null);
-            ClienteApplication.getClientes().get(busca).setIdTriagem(null);
-        } else {
-            Util.Erro("\nCliente não encontrado");
+        } catch (Exception ex) {
+            Util.Erro(ex.getMessage());
         }
     }
 }

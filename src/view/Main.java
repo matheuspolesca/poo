@@ -194,8 +194,7 @@ public class Main {
                 + "\n\n1 - Cadastrar Funcionario"
                 + "\n2 - Excluir Funcionario"
                 + "\n3 - Alterar Cadastro Funcionario"
-                + "\n4 - Alterar Plantão"
-                + "\n5 - Fechar\n");
+                + "\n4 - Fechar\n");
         Scanner sc = new Scanner(System.in);
         int acessoF = sc.nextInt();
 
@@ -234,9 +233,6 @@ public class Main {
                 FuncionarioApplication.alterarCadastroFuncionario();
                 break;
             case 4:
-                FuncionarioApplication.alterarPlantao();
-                break;
-            case 5:
                 break;
             default:
                 System.out.println((char) 27 + "[31m\nOpção invalida\u001B[0m");
