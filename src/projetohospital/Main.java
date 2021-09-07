@@ -1,11 +1,12 @@
-package view;
+package projetohospital;
 
 import controller.AtendimentoApplication;
 import controller.ClienteApplication;
 import controller.DoencaApplication;
 import controller.FuncionarioApplication;
 import controller.RelatoriosApplication;
-import model.Plantao;
+import controller.SistemaApplication;
+
 import model.Doenca;
 import model.Medico;
 import model.Funcionario;
@@ -13,6 +14,7 @@ import model.Enfermeiro;
 import model.Cliente;
 import java.util.ArrayList;
 import java.util.Scanner;
+import model.Plantao;
 
 public class Main {
     private static String profissao = "NULL";
@@ -33,18 +35,17 @@ public class Main {
         periodo.add(Plantao.TARDE);
         periodo.add(Plantao.MANHA);
         
+        //Cadastro dos funcionÃ¡rios
         FuncionarioApplication.getFuncionarios()[FuncionarioApplication.getNumFuncionarios()] = new Funcionario("admin", "admin", 20, "admin", "admin@gmail.com", "Turmalina", 
         "0", "admin", "Administrador", "admin", periodo);
-        
-        
-        FuncionarioApplication.getFuncionarios()[FuncionarioApplication.getNumFuncionarios()] = new  Funcionario("Tulio", "Cordeiro", 25, "(38)99103-9305", "tulioalves@gmail.com", "Turmalina", "11111111111", "Masculino", "Funcionario", "123", periodo);
+        FuncionarioApplication.getFuncionarios()[FuncionarioApplication.getNumFuncionarios()] = new  Funcionario("Tulio", "Cordeiro", 25, "(38)99103-9305", "tulioalves@gmail.com", "Turmalina", 
+        "11111111111", "Masculino", "Funcionario", "123", periodo);
         FuncionarioApplication.getFuncionarios()[FuncionarioApplication.getNumFuncionarios()] = new  Enfermeiro("Matheus", "Polesca", 20, "(32)98447-5253", "matheuspolesca@gmail.com", "Sete Lagoas", 
         "22222222222", "Masculino", "Enfermeiro", "456", periodo);
         FuncionarioApplication.getFuncionarios()[FuncionarioApplication.getNumFuncionarios()] = new  Medico("Brenda", "Orlandi", 23, "(32)98447-5253", "brendaorlandi@gmail.com", "Diamantina", 
         "33333333333", "Feminino", "Medico", "789", periodo);
         
-        
-        //Cadastro das doenças
+        //Cadastro das doenÃ§as
         DoencaApplication.getDoencas().add(new Doenca("Cancer"));
         DoencaApplication.getDoencas().add(new Doenca("AIDS"));
         DoencaApplication.getDoencas().add(new Doenca("COVID-19"));
@@ -57,7 +58,7 @@ public class Main {
         
         //Cliente teste
         ClienteApplication.getClientes().add(new Cliente("Gabriel", "Augusto", 25, "3527-1006", "joao@ufvjm.edu.br", "Diamantina", "15274632184", "Pouco"));
-        
+
         fazerLogin();
         if(!"NULL".equals(profissao)){
             boolean valor = true;
@@ -66,9 +67,9 @@ public class Main {
             while (valor != false) {
                 Scanner sc = new Scanner(System.in);
                 System.out.println("\n========= MENU =========");
-                System.out.println("\nDigite somente o número da opção desejada:"
+                System.out.println("\nDigite somente o nÃºmero da opÃ§Ã£o desejada:"
                         + "\n\n1 - Cliente"
-                        + "\n2 - Funcionários"
+                        + "\n2 - FuncionÃ¡rios"
                         + "\n3 - Emitir Relatorios  "
                         + "\n4 - Encerrar Sistema\n");
                 int acessoM = sc.nextInt();
@@ -81,22 +82,21 @@ public class Main {
                         menuFuncionario();
                         break;
                     case 3:
-                        RelatoriosApplication.gerarRelatorio();
+                        SistemaApplication.gerarRelatorio();
                         break;
                     case 4:
                         System.out.println("Sistema finalizado.");
                         valor = false;
                         break;
                     default:
-                        System.out.println((char) 27 + "[31m\nOpção invalida\u001B[0m");
+                        System.out.println((char) 27 + "[31m\nOpÃ§Ã£o invalida\u001B[0m");
                 }
             }
         }
+        
     }
 
-    public Main() {
-    }
-    
+  
     //Quando o sistema abre, a pessoa precisa fazer o login
     public static void fazerLogin() {
 

@@ -4,7 +4,7 @@ package model;
 abstract class Pessoa {
         
     private String nome, sobrenome, telefone, email, endereco, cpf, sexo;
-    private int idade;
+    private Integer idade;
 
     public Pessoa() {
     }
@@ -37,7 +37,7 @@ abstract class Pessoa {
         this.sobrenome = sobrenome;
     }
     
-    public int getIdade() {
+    public Integer getIdade() {
         return idade;
     }
 

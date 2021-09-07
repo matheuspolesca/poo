@@ -2,8 +2,8 @@ package controller;
 
 import java.util.Scanner;
 import model.Plantao;
-import view.Util;
-import view.Main;
+import projetohospital.Util;
+import projetohospital.Main;
 
 public abstract class SistemaApplication {
     

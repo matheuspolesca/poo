@@ -9,7 +9,7 @@ import model.Cliente;
 import model.Doenca;
 import java.util.ArrayList;
 import java.util.Scanner;
-import view.Util;
+import projetohospital.Util;
 
 /**
  *

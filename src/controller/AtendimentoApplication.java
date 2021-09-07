@@ -6,8 +6,8 @@
 package controller;
 
 import java.util.Scanner;
-import view.Util;
-import view.Main;
+import projetohospital.Util;
+import projetohospital.Main;
 
 /**
  *

@@ -8,7 +8,8 @@ package controller;
 import model.Cliente;
 import java.util.ArrayList;
 import java.util.Scanner;
-import view.Util;
+import projetohospital.Util;
+import controller.TriagemApplication;
 
 /**
  *
@@ -131,7 +132,8 @@ public class ClienteApplication {
                         + "\n1 - Nome        2- Sobrenome     3 - Idade"
                         + "\n4 - Telefone    5 - E-mail       6 - Endereço"
                         + "\n7 - CPF         8 - Doenças      9 - Sexo"
-                        + "\n10 - Finalizar Alteracoes");
+                        + "\n10 - IdTriagem"
+                        + "\n11 - Finalizar Alteracoes");
                 int acesso = sc.nextInt();
                 sc.nextLine();
 
@@ -142,10 +144,10 @@ public class ClienteApplication {
                         String nomeC = sc.nextLine();
 
                         if (nomeC.isEmpty()) {
-                            Util.Erro("\nNão pode ser alterado para um campo vazio.");
+                            System.out.println((char) 27 + "[31m\nNão pode ser alterado para um campo vazio.\u001B[0m");
                         } else {
                             clientes.get(busca).setNome(nomeC);
-                            Util.Sucesso("\nAlterado com sucesso.");
+                            System.out.println((char) 27 + "[32m\nAlterado com sucesso.\u001B[0m");
                         }
                         break;
                     case 2:
@@ -153,10 +155,10 @@ public class ClienteApplication {
                         String sobrenomeC = sc.nextLine();
 
                         if (sobrenomeC.isEmpty()) {
-                            Util.Erro("\nNão pode ser alterado para um campo vazio.");
+                            System.out.println((char) 27 + "[31m\nNão pode ser alterado para um campo vazio.\u001B[0m");
                         } else {
                             clientes.get(busca).setSobrenome(sobrenomeC);
-                            Util.Sucesso("\nAlterado com sucesso.");
+                            System.out.println((char) 27 + "[32m\nAlterado com sucesso\u001B[0m");
                         }
                         break;
                     case 3:
@@ -164,10 +166,10 @@ public class ClienteApplication {
                         int idadeC = sc.nextInt();
 
                         if (idadeC <= 0) {
-                            Util.Erro("\nNão pode ser alterado para um campo vazio.");
+                            System.out.println((char) 27 + "[31m\nNão pode ser alterado para um campo vazio.\u001B[0m");
                         } else {
                             clientes.get(busca).setIdade(idadeC);
-                            Util.Sucesso("\nAlterado com sucesso.");
+                            System.out.println((char) 27 + "[32m\nAlterado com sucesso.\u001B[0m");
                         }
                         break;
                     case 4:
@@ -175,10 +177,10 @@ public class ClienteApplication {
                         String telefoneC = sc.nextLine();
 
                         if (telefoneC.isEmpty()) {
-                            Util.Erro("\nNão pode ser alterado para um campo vazio.");
+                            System.out.println((char) 27 + "[31m\nNão pode ser alterado para um campo vazio.\u001B[0m");
                         } else {
                             clientes.get(busca).setTelefone(telefoneC);
-                            Util.Sucesso("\nAlterado com sucesso.");
+                            System.out.println((char) 27 + "[32m\nAlterado com sucesso\u001B[0m");
                         }
                         break;
                     case 5:
@@ -186,55 +188,58 @@ public class ClienteApplication {
                         String emailC = sc.nextLine();
 
                         if (emailC.isEmpty()) {
-                            Util.Erro("\nNão pode ser alterado para um campo vazio.");
+                            System.out.println((char) 27 + "[31m\nNão pode ser alterado para um campo vazio.\u001B[0m");
                         } else {
                             clientes.get(busca).setEmail(emailC);
-                            Util.Sucesso("\nAlterado com sucesso.");
+                            System.out.println((char) 27 + "[32m\nAlterado com sucesso\u001B[0m");
                         }
                         break;
                     case 6:
                         System.out.println("\nNovo Endereço:");
                         String enderecoC = sc.nextLine();
                         clientes.get(busca).setEndereco(enderecoC);
-                        Util.Sucesso("\nAlterado com sucesso.");
+                        System.out.println((char) 27 + "[32m\nAlterado com sucesso\u001B[0m");
                         break;
                     case 7:
                         System.out.println("\nNovo CPF:");
                         String cpfC = sc.nextLine();
 
                         if (cpfC.isEmpty()) {
-                            Util.Erro("\nNão pode ser alterado para um campo vazio.");
+                            System.out.println((char) 27 + "[31m\nNão pode ser alterado para um campo vazio.\u001B[0m");
                         } else {
                             clientes.get(busca).setCpf(cpfC);
-                            Util.Sucesso("\nAlterado com sucesso.");
+                            System.out.println((char) 27 + "[32m\nAlterado com sucesso\u001B[0m");
                         }
                         break;
                     case 8:
                         System.out.println("\nNova Doença:");
-                        DoencaApplication.alterarDoenca(clientes.get(busca));
-
-                        Util.Sucesso("\nAlterado com sucesso.");
+                        TriagemApplication.alterarIdTriagem(clientes.get(busca));
+                        
+                        System.out.println((char) 27 + "[32m\nAlterado com sucesso\u001B[0m");
                         break;
                     case 9:
                         System.out.println("\nNovo Sexo:");
                         String sexoC = sc.nextLine();
                         if (sexoC.isEmpty()) {
-                            Util.Erro("\nNão pode ser alterado para um campo vazio.");
+                            System.out.println((char) 27 + "[31m\nNão pode ser alterado para um campo vazio.\u001B[0m");
                         } else {
                             clientes.get(busca).setSexo(sexoC);
-                            Util.Sucesso("\nAlterado com sucesso.");
+                            System.out.println((char) 27 + "[32m\nAlterado com sucesso\u001B[0m");
                         }
                         break;
                     case 10:
+                        TriagemApplication.alterarIdTriagem(clientes.get(busca));
+                        break;
+                    case 11:
                         System.out.println("\nAlterações finalizadas.");
                         sair = true;
                         break;
                     default:
-                       Util.Erro("\nOpção invalida.");
+                        System.out.println((char) 27 + "[31m\nOpção invalida\u001B[0m");
                 }
             } while (sair != true);
         } else {
-            Util.Erro("\nCliente não encontrado.");
+            System.out.println((char) 27 + "[31m\nCliente não encontrado\u001B[0m");
         }
     }
 
