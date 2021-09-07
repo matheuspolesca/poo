@@ -213,7 +213,7 @@ public class ClienteApplication {
                         break;
                     case 8:
                         System.out.println("\nNova Doença:");
-                        TriagemApplication.alterarIdTriagem(clientes.get(busca));
+                        DoencaApplication.adicionaDoencaAoCliente(clientes.get(busca));
                         
                         System.out.println((char) 27 + "[32m\nAlterado com sucesso\u001B[0m");
                         break;

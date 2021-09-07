@@ -78,6 +78,9 @@ public class Cliente extends Pessoa implements Comparable <Cliente>{
         if(this.getData() != cliente.getData()){
             return this.getData().compareTo(cliente.getData());
         }
+        else if(this.getClienteDoencas().size() != cliente.getClienteDoencas().size()){
+            return Integer.valueOf(this.getClienteDoencas().size()).compareTo((cliente.getClienteDoencas().size()));
+        }
         else if(this.getIdade() != cliente.getIdade()){
             return this.getIdade().compareTo(cliente.getIdade());
         }
