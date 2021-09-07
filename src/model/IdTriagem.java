@@ -1,4 +1,4 @@
-package projetohospital;
+package model;
 
 public enum IdTriagem {
     VERMELHO("Vermelho - Alta"),

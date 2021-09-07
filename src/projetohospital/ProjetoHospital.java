@@ -31,13 +31,8 @@ public class ProjetoHospital {
 
         
         //Fila teste
-<<<<<<< Updated upstream
         //Fila fila = new Fila(cliente, doenca, "25/02/2000 07:32");
         //Sistema.
-=======
-        Fila fila = new Fila(cliente, doenca, "25/02/2000 07:32");
-        Sistema.fila.add(fila);
->>>>>>> Stashed changes
         
         Sistema.fazerLogin();
         if(!"NULL".equals(Sistema.getProfissao())){

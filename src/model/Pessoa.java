@@ -1,4 +1,4 @@
-package projetohospital;
+package model;
 
 //Classe referente a características padrão para todas as outras classes
 abstract class Pessoa {

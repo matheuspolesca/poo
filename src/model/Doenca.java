@@ -1,5 +1,6 @@
-package projetohospital;
+package model;
 
+import model.Cliente;
 import java.util.ArrayList;
 
 public class Doenca {
