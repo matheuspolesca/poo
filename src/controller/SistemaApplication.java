@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.Collections;
 import java.util.Scanner;
 import model.Plantao;
 import projetohospital.Util;
@@ -46,7 +47,8 @@ public abstract class SistemaApplication {
                 + "\n2 - Lista de Funcionários"
                 + "\n3 - Lista de Doenças"
                 + "\n4 - Relatório de Plantão"
-                + "\n5 - Voltar\n");
+                + "\n5 - Fila de Atendimento"
+                + "\n6 - Voltar\n");
         Scanner sc = new Scanner(System.in);
         int acessoF = sc.nextInt();
 
@@ -73,6 +75,14 @@ public abstract class SistemaApplication {
                 relatorioPlantao();
                 break;
             case 5:
+                if(!AtendimentoApplication.getFilaAtendimento().isEmpty()){
+                    System.out.println("\nFila de Atendimento:");
+                    AtendimentoApplication.getFilaAtendimento().stream().map(s -> s.getNome()).forEach(System.out::println);
+                }
+                else
+                    System.out.println((char) 27 + "[31m\nA fila de atendimento esta vazia.\u001B[0m");
+                break;
+            case 6:
                 break;
 
             default:

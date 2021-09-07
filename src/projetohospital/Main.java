@@ -13,7 +13,6 @@ import model.Funcionario;
 import model.Enfermeiro;
 import model.Cliente;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Scanner;
 import model.Plantao;
 
@@ -59,13 +58,21 @@ public class Main {
         
         //Cliente teste     
         ClienteApplication.getClientes().add(new Cliente("Gabriel", "Augusto", 25, "3527-1006", "gabriel@ufvjm.edu.br", "Diamantina", "44444444444", "Masculino"));
-        ClienteApplication.getClientes().add(new Cliente("Fernanda", "Montinegro", 45, "3527-1006", "fernanda@ufvjm.edu.br", "São Paulo", "55555555555", "Masculino"));
+        ClienteApplication.getClientes().add(new Cliente("Fernanda", "Montinegro", 45, "3527-1006", "fernanda@ufvjm.edu.br", "São Paulo", "55555555555", "Feminino"));
         ClienteApplication.getClientes().add(new Cliente("Airton", "Senna", 85, "3527-1006", "airton@ufvjm.edu.br", "Santa Catarina", "66666666666", "Masculino"));
-        ClienteApplication.getClientes().add(new Cliente("Elizabeth", "Pereira", 65, "3527-1006", "elizabeth@ufvjm.edu.br", "Pernambuco", "15274632184", "Masculino"));
-        ClienteApplication.getClientes().add(new Cliente("João", "Pedro", 5, "3527-1006", "joaol@ufvjm.edu.br", "Bahia", "15274632184", "Masculino"));
+        ClienteApplication.getClientes().add(new Cliente("Elizabeth", "Pereira", 65, "3527-1006", "elizabeth@ufvjm.edu.br", "Pernambuco", "77777777777", "Feminino"));
+        ClienteApplication.getClientes().add(new Cliente("João", "Pedro", 5, "3527-1006", "joaol@ufvjm.edu.br", "Bahia", "88888888888", "Masculino"));
+        ClienteApplication.getClientes().add(new Cliente("Julia", "Robets", 15, "3527-1006", "elizabeth@ufvjm.edu.br", "Estados Unidos", "99999999999", "Feminino"));
         
-        /*Collections.sort( ClienteApplication.getClientes());
-        ClienteApplication.getClientes().stream().forEach(System.out::print);*/
+        ClienteApplication.getClientes().get(0).getClienteDoencas().add( DoencaApplication.getDoencas().get(0));
+        ClienteApplication.getClientes().get(0).getClienteDoencas().add( DoencaApplication.getDoencas().get(1));
+        ClienteApplication.getClientes().get(1).getClienteDoencas().add( DoencaApplication.getDoencas().get(2));
+        ClienteApplication.getClientes().get(1).getClienteDoencas().add( DoencaApplication.getDoencas().get(3));
+        ClienteApplication.getClientes().get(1).getClienteDoencas().add( DoencaApplication.getDoencas().get(4));
+        ClienteApplication.getClientes().get(2).getClienteDoencas().add( DoencaApplication.getDoencas().get(5));
+        ClienteApplication.getClientes().get(2).getClienteDoencas().add( DoencaApplication.getDoencas().get(6));
+        ClienteApplication.getClientes().get(2).getClienteDoencas().add( DoencaApplication.getDoencas().get(7));
+        ClienteApplication.getClientes().get(2).getClienteDoencas().add( DoencaApplication.getDoencas().get(8));
 
         fazerLogin();
         if(!"NULL".equals(profissao)){
