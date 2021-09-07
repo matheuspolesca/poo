@@ -58,6 +58,10 @@ public class Main {
         
         //Cliente teste
         ClienteApplication.getClientes().add(new Cliente("Gabriel", "Augusto", 25, "3527-1006", "joao@ufvjm.edu.br", "Diamantina", "15274632184", "Pouco"));
+        
+        //Fila teste
+        //Fila fila = new Fila(cliente, doenca, "25/02/2000 07:32");
+        //Sistema.
 
         fazerLogin();
         if(!"NULL".equals(profissao)){
