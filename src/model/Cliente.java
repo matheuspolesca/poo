@@ -1,5 +1,7 @@
-package projetohospital;
+package model;
 
+import controller.ClienteApplication;
+import model.Pessoa;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -14,8 +16,8 @@ public class Cliente extends Pessoa{
     public Cliente (String nome, String sobrenome, int idade, String telefone, String email, String endereco, String cpf, String sexo)
     {
         super(nome, sobrenome, idade, telefone, email, endereco, cpf, sexo);
-        Sistema.numClientesProtected++;
-        Sistema.setNumClientes(+1);
+        ClienteApplication.getNumClientesProtected();
+        ClienteApplication.getNumClientes();
     }
     
     public String getStatus() {

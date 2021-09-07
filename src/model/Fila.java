@@ -1,5 +1,7 @@
-package projetohospital;
+package model;
 
+import model.Doenca;
+import model.Cliente;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
