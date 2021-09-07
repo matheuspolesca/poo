@@ -93,9 +93,6 @@ public class Main {
             }
         }
     }
-
-    public Main() {
-    }
     
     //Quando o sistema abre, a pessoa precisa fazer o login
     public static void fazerLogin() {
