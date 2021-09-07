@@ -4,7 +4,6 @@ import controller.AtendimentoApplication;
 import controller.ClienteApplication;
 import controller.DoencaApplication;
 import controller.FuncionarioApplication;
-import controller.RelatoriosApplication;
 import controller.SistemaApplication;
 
 import model.Doenca;
@@ -181,7 +180,7 @@ public class Main {
                 AtendimentoApplication.encerrarAtendimento();
                 break;
             case 7:
-                RelatoriosApplication.acessarInformações();
+                SistemaApplication.acessarInformações();
                 break;
             case 8:
                 break;
