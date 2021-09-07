@@ -9,7 +9,7 @@ import model.Cliente;
 import model.Doenca;
 import java.util.ArrayList;
 import java.util.Scanner;
-import projetohospital.Util;
+import view.Util;
 
 /**
  *
@@ -31,24 +31,26 @@ public class DoencaApplication {
     }
     
     
-    public static void adicionaDoencaAoCliente(Cliente cliente) {
-        int indiceDoenca = pesquisarDoenca();
-        if (indiceDoenca >= 0) {
-            boolean existe = false;
-            for (int i = 0; i < cliente.getClienteDoencas().size(); i++) {
-                if (indiceDoenca == cliente.getClienteDoencas().get(i).getIdDoenca()) {
-                    existe = true;
-                    break;
+    protected static void adicionaDoencaAoCliente(Cliente cliente) {
+        try{
+            int indiceDoenca = pesquisarDoenca();
+            if (indiceDoenca >= 0) {
+                
+                for (int i = 0; i < cliente.getClienteDoencas().size(); i++) {
+                    if (indiceDoenca == cliente.getClienteDoencas().get(i).getIdDoenca()) {
+                        throw new Exception("\nDoenca já registrada no cliente.");
+                    }
                 }
-            }
-            if (existe == false) {
+                
                 cliente.getClienteDoencas().add(doencas.get(indiceDoenca));
                 doencas.get(indiceDoenca).getDoencaClientes().add(cliente);
                 doencas.get(indiceDoenca).setQtdPacientes(+1);
                 Util.Sucesso("\nDoenca registrada com sucesso.");
-            } else {
-                Util.Erro("\nDoenca já registrada no cliente.");
+            }else{
+                throw new Exception("\nDoenca não cadastrada.");
             }
+        } catch (Exception ex) {
+            Util.Erro(ex.getMessage());
         }
     }
     
@@ -81,7 +83,7 @@ public class DoencaApplication {
         } while (sair != true);
     }
 
-    public static void excluiDoencaDoCliente(Cliente cliente) {
+    private static void excluiDoencaDoCliente(Cliente cliente) {
         if (cliente.getClienteDoencas().isEmpty()) {
             Util.Notifica("\nCliente sem doenças cadastradas.");
         } else {
@@ -110,7 +112,7 @@ public class DoencaApplication {
         }
     }
 
-    public static int pesquisarDoenca() {
+    private static int pesquisarDoenca() {
         Scanner sc = new Scanner(System.in);
         System.out.println("\nInforme o numero referente a doenca: ");
         for (int i = 0; i < doencas.size(); i++) {

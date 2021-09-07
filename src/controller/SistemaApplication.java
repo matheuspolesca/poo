@@ -1,59 +1,65 @@
 package controller;
 
+import java.util.Collections;
 import java.util.Scanner;
+import model.Cliente;
+import model.ClienteComparator;
 import model.Plantao;
-import projetohospital.Util;
-import projetohospital.Main;
+import view.Util;
+import view.Main;
 
 public abstract class SistemaApplication {
-    
-    
+
     public SistemaApplication() {
     }
-   
 
     //Acessar informações sobre o cliente
     public static void acessarInformações() {
 
-        //Apenas médicos ou o Administrador pode ter acesso as informações
-        if ("Medico".equals(Main.getProfissao()) || "Administrador".equals(Main.getProfissao())) {
+        try {
+            //Apenas médicos ou o Administrador pode ter acesso as informações
+            if ("Medico".equals(Main.getProfissao()) || "Administrador".equals(Main.getProfissao())) {
 
-            System.out.println("\n========= ACESSAR INFORMAÇÕES =========");
+                System.out.println("\n========= ACESSAR INFORMAÇÕES =========");
 
-            //Conferir se o paciente existe
-            int busca = ClienteApplication.pesquisarCliente();
+                //Conferir se o paciente existe
+                Cliente cliente = ClienteApplication.pesquisarCliente();
 
-            if (busca >= 0) {
-                System.out.println(ClienteApplication.getClientes().get(busca).toString());
-                //to do - Concertar a impressão
-                System.out.println("Doencas do paciente: ");
-                for (int i = 0; i < ClienteApplication.getClientes().get(busca).getClienteDoencas().size(); i++) {
-                    System.out.println(ClienteApplication.getClientes().get(busca).getClienteDoencas().get(i).getNome());
+                if (cliente!=null) {
+                    System.out.println(cliente.toString());
+                    //to do - Concertar a impressão
+                    System.out.println("Doencas do paciente: ");
+                    for (int i = 0; i < cliente.getClienteDoencas().size(); i++) {
+                        System.out.println(cliente.getClienteDoencas().get(i).getNome());
+                    }
+                } else {
+                    throw new Exception("\nCliente não encontrado.");
                 }
             } else {
-                Util.Erro("\nCliente não encontrado.");
+                throw new Exception("\nVocê não tem permissão para acessar essa opção.");
             }
-        } else {
-            Util.Erro("\nVocê não tem permissão para acessar essa opção.");
+        } catch (Exception ex) {
+            Util.Erro(ex.getMessage());
         }
-
     }
 
     public static void gerarRelatorio() {
         System.out.println("\n========= RELATÓRIO =========");
         System.out.println("\nDigite somente o número da opção desejada:"
                 + "\n\n1 - Lista de Clientes"
-                + "\n2 - Lista de Funcionários"
+                + "\n2 - Lista de Funcionarios"
                 + "\n3 - Lista de Doenças"
                 + "\n4 - Relatório de Plantão"
-                + "\n5 - Voltar\n");
+                + "\n5 - Fila de Atendimento em Ordem de Prioridade Crescente"
+                + "\n6 - Fila de Atendimento em Ordem de Prioridade Decrescente"
+                + "\n7 - Voltar\n");
         Scanner sc = new Scanner(System.in);
         int acessoF = sc.nextInt();
 
         switch (acessoF) {
             case 1:
-                System.out.println("\nNúmero de Pacientes:");
-                relatorioPacientes();
+                System.out.println("\nNumero de Pacientes:");
+                System.out.println(ClienteApplication.getClientes().size());
                 System.out.println("\nLista de Clientes");
                 relatorioClientes();
                 break;
@@ -73,6 +79,23 @@ public abstract class SistemaApplication {
                 relatorioPlantao();
                 break;
             case 5:
+                if (!AtendimentoApplication.getFilaAtendimento().isEmpty()) {
+                    System.out.println("\nFila de Atendimento:");
+                    AtendimentoApplication.getFilaAtendimento().stream().map(s -> s.getNome()).forEach(System.out::println);
+                } else {
+                    Util.Erro("A fila de atendimento esta vazia.");
+                }
+                break;
+                case 6:
+                if(!AtendimentoApplication.getFilaAtendimento().isEmpty()){
+                    System.out.println("\nFila de Atendimento:");
+                    Collections.sort(AtendimentoApplication.getFilaAtendimento(), new ClienteComparator());
+                    AtendimentoApplication.getFilaAtendimento().stream().map(s -> s.getNome()).forEach(System.out::println);
+                }
+                else
+                    System.out.println((char) 27 + "[31m\nA fila de atendimento esta vazia.\u001B[0m");
+                break;
+            case 7:
                 break;
 
             default:
@@ -80,13 +103,15 @@ public abstract class SistemaApplication {
         }
     }
 
-    public static void relatorioClientes() {
+    //Lista de Clientes
+    private static void relatorioClientes() {
         for (int i = 0; i < ClienteApplication.getClientes().size(); i++) {
             System.out.println(ClienteApplication.getClientes().get(i).toString());
         }
     }
 
-    public static void relatorioFuncionarios() {
+    //Lista de Funcionarios
+    private static void relatorioFuncionarios() {
 
         for (int i = 0; i < FuncionarioApplication.getNumFuncionarios(); i++) {
             System.out.println(FuncionarioApplication.getFuncionarios()[i].toString());
@@ -98,7 +123,8 @@ public abstract class SistemaApplication {
 
     }
 
-    public static void relatorioDoencas() {
+    //Lista de Doenças
+    private static void relatorioDoencas() {
         for (int i = 0; i < DoencaApplication.getDoencas().size(); i++) {
             System.out.println(DoencaApplication.getDoencas().get(i).getNome() + ": " + DoencaApplication.getDoencas().get(i).getQtdPacientes() + " caso(s).");
             if (DoencaApplication.getDoencas().get(i).getQtdPacientes() > 0) {
@@ -110,18 +136,15 @@ public abstract class SistemaApplication {
         }
     }
 
-    public static void relatorioPacientes() {
-        System.out.println(ClienteApplication.getClientes().size());
-    }
-
-    public static void relatorioPlantao() {
+    //Relatórios dos Funcionários de Plantão
+    private static void relatorioPlantao() {
         System.out.println("\n========= RELATÓRIO PLANTÃO =========");
         for (int j = 0; j < 3; j++) {
             System.out.println("\nPeriodo: " + Plantao.values()[j].name());
             for (int i = 0; i < FuncionarioApplication.getNumFuncionarios(); i++) {
                 for (Plantao periodo : FuncionarioApplication.getFuncionarios()[i].getPeriodo()) {
-                    if(periodo.getDescricao() == Plantao.values()[j].getDescricao() && !FuncionarioApplication.getFuncionarios()[i].getProfissao().equals("Administrador")){
-                    System.out.println(FuncionarioApplication.getFuncionarios()[i].getNome());
+                    if (periodo.getDescricao() == Plantao.values()[j].getDescricao() && !FuncionarioApplication.getFuncionarios()[i].getProfissao().equals("Administrador")) {
+                        System.out.println(FuncionarioApplication.getFuncionarios()[i].getNome());
                     }
                 }
             }

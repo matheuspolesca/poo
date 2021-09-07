@@ -1,9 +1,10 @@
 package model;
 
 import controller.ClienteApplication;
-import model.Pessoa;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Objects;
 
 public class Cliente extends Pessoa implements Comparable <Cliente>{
     private String status;
@@ -44,12 +45,12 @@ public class Cliente extends Pessoa implements Comparable <Cliente>{
     public void setIdTriagem(IdTriagem idtriagem) {
         this.idTriagem = idtriagem;
     }
-
+    
     public Date getData() {
         return data;
     }
-
-    public void setHorario(Date data) {
+    
+    public void setData(Date data) {
         this.data = data;
     }
 
@@ -71,6 +72,7 @@ public class Cliente extends Pessoa implements Comparable <Cliente>{
     }
     
     @Override
+    
     public int compareTo(Cliente cliente) {
         if(this.getIdTriagem()!= cliente.getIdTriagem()){
             return this.getIdTriagem().compareTo(cliente.getIdTriagem());
@@ -81,10 +83,10 @@ public class Cliente extends Pessoa implements Comparable <Cliente>{
         else if(this.getClienteDoencas().size() != cliente.getClienteDoencas().size()){
             return Integer.valueOf(this.getClienteDoencas().size()).compareTo((cliente.getClienteDoencas().size()));
         }
-        else if(this.getIdade() != cliente.getIdade()){
+        else if(!Objects.equals(this.getIdade(), cliente.getIdade())){
             return this.getIdade().compareTo(cliente.getIdade());
         }
-        else if(this.getNome() != cliente.getNome()){
+        else if(this.getNome() == null ? cliente.getNome() != null : !this.getNome().equals(cliente.getNome())){
             return this.getNome().compareTo(cliente.getNome());
         }
         return this.getSobrenome().compareTo(cliente.getSobrenome());
