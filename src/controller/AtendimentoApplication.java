@@ -5,7 +5,10 @@
  */
 package controller;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
+import model.Cliente;
 import projetohospital.Util;
 import projetohospital.Main;
 
@@ -15,6 +18,16 @@ import projetohospital.Main;
  */
 public class AtendimentoApplication {
     
+    private static ArrayList<Cliente> filaAtendimento = new ArrayList();
+
+    public static ArrayList<Cliente> getFilaAtendimento() {
+        return filaAtendimento;
+    }
+
+    public static void setFilaAtendimento(ArrayList<Cliente> filaAtendimento) {
+        AtendimentoApplication.filaAtendimento = filaAtendimento;
+    }
+    
     public static void iniciarAtendimento() {
 
         System.out.println("\n========= INICIAR ATENDIMENTO =========");
@@ -23,7 +36,11 @@ public class AtendimentoApplication {
         try {
             if (busca >= 0) {
                 Util.Sucesso("\nAtendimento do cliente " +ClienteApplication.getClientes().get(busca).getNome() + " iniciado.");
+                //to do: Incluir horário
                 ClienteApplication.getClientes().get(busca).setStatus("Aguardando triagem.");
+                //ClienteApplication.getClientes().get(busca).getData() = ;
+                AtendimentoApplication.getFilaAtendimento().add(ClienteApplication.getClientes().get(busca));
+                Collections.sort(AtendimentoApplication.getFilaAtendimento());
             } else {
                 throw new Exception("\nCliente não encontrado.");
             }
@@ -89,6 +106,15 @@ public class AtendimentoApplication {
         if (busca >= 0) {
             Util.Sucesso("\nAtendimento do cliente " + ClienteApplication.getClientes().get(busca).getNome() + " finalizado com sucesso.");
             ClienteApplication.getClientes().get(busca).setStatus("Liberado");
+            //to do: Deletar Data e idCliente
+            //ClienteApplication.getClientes().get(busca).getData() = ;
+            //ClienteApplication.getClientes().get(busca).getIdTriagem();
+            for(int i=0; i<AtendimentoApplication.getFilaAtendimento().size(); i++){
+                if(ClienteApplication.getClientes().get(busca) == AtendimentoApplication.getFilaAtendimento().get(i)){
+                    AtendimentoApplication.getFilaAtendimento().remove(AtendimentoApplication.getFilaAtendimento().get(i));
+                    break;
+                }
+            }
         } else {
             Util.Erro("\nCliente não encontrado");
         }

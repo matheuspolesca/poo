@@ -27,14 +27,32 @@ public class TriagemApplication {
                 switch (acesso) {
                     case 1:
                         cliente.setIdTriagem(IdTriagem.VERMELHO);
+                        for(int i=0; i<AtendimentoApplication.getFilaAtendimento().size(); i++){
+                            if(cliente == AtendimentoApplication.getFilaAtendimento().get(i)){
+                                AtendimentoApplication.getFilaAtendimento().get(i).setIdTriagem(IdTriagem.VERMELHO);
+                            break;
+                            }
+                        }
                         System.out.println((char) 27 + "[32m\nAlterado com sucesso\u001B[0m");
                         break;
                     case 2:
                         cliente.setIdTriagem(IdTriagem.AMARELO);
+                        for(int i=0; i<AtendimentoApplication.getFilaAtendimento().size(); i++){
+                            if(cliente == AtendimentoApplication.getFilaAtendimento().get(i)){
+                                AtendimentoApplication.getFilaAtendimento().get(i).setIdTriagem(IdTriagem.AMARELO);
+                            break;
+                            }
+                        }
                         System.out.println((char) 27 + "[32m\nAlterado com sucesso\u001B[0m");
                         break;
                     case 3:
                         cliente.setIdTriagem(IdTriagem.VERDE);
+                        for(int i=0; i<AtendimentoApplication.getFilaAtendimento().size(); i++){
+                            if(cliente == AtendimentoApplication.getFilaAtendimento().get(i)){
+                                AtendimentoApplication.getFilaAtendimento().get(i).setIdTriagem(IdTriagem.VERDE);
+                            break;
+                            }
+                        }
                         System.out.println((char) 27 + "[32m\nAlterado com sucesso\u001B[0m");
                         break;
                     case 4:

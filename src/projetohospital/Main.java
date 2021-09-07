@@ -13,6 +13,7 @@ import model.Funcionario;
 import model.Enfermeiro;
 import model.Cliente;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 import model.Plantao;
 
@@ -56,12 +57,15 @@ public class Main {
         DoencaApplication.getDoencas().add(new Doenca("Febre"));
         DoencaApplication.getDoencas().add(new Doenca("Enxaqueca"));
         
-        //Cliente teste
-        ClienteApplication.getClientes().add(new Cliente("Gabriel", "Augusto", 25, "3527-1006", "joao@ufvjm.edu.br", "Diamantina", "15274632184", "Pouco"));
+        //Cliente teste     
+        ClienteApplication.getClientes().add(new Cliente("Gabriel", "Augusto", 25, "3527-1006", "gabriel@ufvjm.edu.br", "Diamantina", "44444444444", "Masculino"));
+        ClienteApplication.getClientes().add(new Cliente("Fernanda", "Montinegro", 45, "3527-1006", "fernanda@ufvjm.edu.br", "São Paulo", "55555555555", "Masculino"));
+        ClienteApplication.getClientes().add(new Cliente("Airton", "Senna", 85, "3527-1006", "airton@ufvjm.edu.br", "Santa Catarina", "66666666666", "Masculino"));
+        ClienteApplication.getClientes().add(new Cliente("Elizabeth", "Pereira", 65, "3527-1006", "elizabeth@ufvjm.edu.br", "Pernambuco", "15274632184", "Masculino"));
+        ClienteApplication.getClientes().add(new Cliente("João", "Pedro", 5, "3527-1006", "joaol@ufvjm.edu.br", "Bahia", "15274632184", "Masculino"));
         
-        //Fila teste
-        //Fila fila = new Fila(cliente, doenca, "25/02/2000 07:32");
-        //Sistema.
+        /*Collections.sort( ClienteApplication.getClientes());
+        ClienteApplication.getClientes().stream().forEach(System.out::print);*/
 
         fazerLogin();
         if(!"NULL".equals(profissao)){

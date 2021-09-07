@@ -5,10 +5,11 @@ import model.Pessoa;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Cliente extends Pessoa{
+public class Cliente extends Pessoa implements Comparable <Cliente>{
     private String status;
     private ArrayList<Doenca> clienteDoencas = new ArrayList();
     private IdTriagem idTriagem;
+    private Date data;
 
     public Cliente() {
     }
@@ -44,6 +45,14 @@ public class Cliente extends Pessoa{
         this.idTriagem = idtriagem;
     }
 
+    public Date getData() {
+        return data;
+    }
+
+    public void setHorario(Date data) {
+        this.data = data;
+    }
+
     @Override
     public String toString() {
         String texto = String.format("\n========== CLIENTE: %s ========"
@@ -56,7 +65,25 @@ public class Cliente extends Pessoa{
                 + "\nSexo: %s"
                 + "\nEndereço: %s    "
                 + "\nStatus: %s    "
-                + "\nIdTriagem: %s", getNome(), getNome(),getSobrenome(), getIdade(), getCpf(), getTelefone(), getEmail(), getSexo(), getEndereco(), status, idTriagem);
+                + "\nData: %s    "
+                + "\nIdTriagem: %s", getNome(), getNome(),getSobrenome(), getIdade(), getCpf(), getTelefone(), getEmail(), getSexo(), getEndereco(), status, data, idTriagem);
         return texto;
+    }
+    
+    @Override
+    public int compareTo(Cliente cliente) {
+        if(this.getIdTriagem()!= cliente.getIdTriagem()){
+            return this.getIdTriagem().compareTo(cliente.getIdTriagem());
+        }
+        if(this.getData() != cliente.getData()){
+            return this.getData().compareTo(cliente.getData());
+        }
+        else if(this.getIdade() != cliente.getIdade()){
+            return this.getIdade().compareTo(cliente.getIdade());
+        }
+        else if(this.getNome() != cliente.getNome()){
+            return this.getNome().compareTo(cliente.getNome());
+        }
+        return this.getSobrenome().compareTo(cliente.getSobrenome());
     }
 }
