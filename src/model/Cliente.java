@@ -50,10 +50,10 @@ public class Cliente extends Pessoa implements Comparable <Cliente>{
         this.data = data;
     }
 
-    public void setHorario(Date data) {
+    public void setData(Date data) {
         this.data = data;
     }
-
+    
     @Override
     public String toString() {
         String texto = String.format("\n========== CLIENTE: %s ========"
