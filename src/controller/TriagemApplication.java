@@ -8,7 +8,7 @@ package controller;
 import java.util.Scanner;
 import model.Cliente;
 import model.IdTriagem;
-import projetohospital.Main;
+import view.Main;
 /**
  *
  * @author brend

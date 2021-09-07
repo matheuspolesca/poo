@@ -10,8 +10,8 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.Scanner;
 import model.Cliente;
-import projetohospital.Util;
-import projetohospital.Main;
+import view.Util;
+import view.Main;
 
 /**
  *

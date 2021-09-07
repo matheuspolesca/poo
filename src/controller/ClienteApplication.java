@@ -8,7 +8,7 @@ package controller;
 import model.Cliente;
 import java.util.ArrayList;
 import java.util.Scanner;
-import projetohospital.Util;
+import view.Util;
 import controller.TriagemApplication;
 
 /**
