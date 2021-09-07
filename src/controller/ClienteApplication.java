@@ -116,11 +116,12 @@ public class ClienteApplication {
         Scanner sc = new Scanner(System.in);
         System.out.println("\n========= EDITAR CLIENTE =========");
 
-        int busca = pesquisarCliente();
+        Cliente cliente = pesquisarCliente();
 
         boolean sair = false;
+        
         try{
-            if (busca >= 0) {
+            if (cliente!=null) {
                 do {
                     System.out.println("\nDigite o número referente ao atributo que deseja alterar:"
                             + "\n1 - Nome        2- Sobrenome     3 - Idade"
@@ -140,7 +141,7 @@ public class ClienteApplication {
                             if (nomeC.isEmpty()) {
                                 System.out.println((char) 27 + "[31m\nNão pode ser alterado para um campo vazio.\u001B[0m");
                             } else {
-                                clientes.get(busca).setNome(nomeC);
+                                cliente.setNome(nomeC);
                                 System.out.println((char) 27 + "[32m\nAlterado com sucesso.\u001B[0m");
                             }
                             break;
@@ -151,7 +152,7 @@ public class ClienteApplication {
                             if (sobrenomeC.isEmpty()) {
                                 System.out.println((char) 27 + "[31m\nNão pode ser alterado para um campo vazio.\u001B[0m");
                             } else {
-                                clientes.get(busca).setSobrenome(sobrenomeC);
+                                cliente.setSobrenome(sobrenomeC);
                                 System.out.println((char) 27 + "[32m\nAlterado com sucesso\u001B[0m");
                             }
                             break;
@@ -162,7 +163,7 @@ public class ClienteApplication {
                             if (idadeC <= 0) {
                                 System.out.println((char) 27 + "[31m\nNão pode ser alterado para um campo vazio.\u001B[0m");
                             } else {
-                                clientes.get(busca).setIdade(idadeC);
+                                cliente.setIdade(idadeC);
                                 System.out.println((char) 27 + "[32m\nAlterado com sucesso.\u001B[0m");
                             }
                             break;
@@ -173,7 +174,7 @@ public class ClienteApplication {
                             if (telefoneC.isEmpty()) {
                                 System.out.println((char) 27 + "[31m\nNão pode ser alterado para um campo vazio.\u001B[0m");
                             } else {
-                                clientes.get(busca).setTelefone(telefoneC);
+                                cliente.setTelefone(telefoneC);
                                 System.out.println((char) 27 + "[32m\nAlterado com sucesso\u001B[0m");
                             }
                             break;
@@ -184,14 +185,14 @@ public class ClienteApplication {
                             if (emailC.isEmpty()) {
                                 System.out.println((char) 27 + "[31m\nNão pode ser alterado para um campo vazio.\u001B[0m");
                             } else {
-                                clientes.get(busca).setEmail(emailC);
+                                cliente.setEmail(emailC);
                                 System.out.println((char) 27 + "[32m\nAlterado com sucesso\u001B[0m");
                             }
                             break;
                         case 6:
                             System.out.println("\nNovo Endereço:");
                             String enderecoC = sc.nextLine();
-                            clientes.get(busca).setEndereco(enderecoC);
+                            cliente.setEndereco(enderecoC);
                             System.out.println((char) 27 + "[32m\nAlterado com sucesso\u001B[0m");
                             break;
                         case 7:
@@ -201,15 +202,12 @@ public class ClienteApplication {
                             if (cpfC.isEmpty()) {
                                 System.out.println((char) 27 + "[31m\nNão pode ser alterado para um campo vazio.\u001B[0m");
                             } else {
-                                clientes.get(busca).setCpf(cpfC);
+                                cliente.setCpf(cpfC);
                                 System.out.println((char) 27 + "[32m\nAlterado com sucesso\u001B[0m");
                             }
                             break;
                         case 8:
-                            System.out.println("\nNova Doença:");
-                            DoencaApplication.adicionaDoencaAoCliente(clientes.get(busca));
-
-                            System.out.println((char) 27 + "[32m\nAlterado com sucesso\u001B[0m");
+                            DoencaApplication.alterarDoenca(cliente);
                             break;
                         case 9:
                             System.out.println("\nNovo Sexo:");
@@ -217,12 +215,12 @@ public class ClienteApplication {
                             if (sexoC.isEmpty()) {
                                 System.out.println((char) 27 + "[31m\nNão pode ser alterado para um campo vazio.\u001B[0m");
                             } else {
-                                clientes.get(busca).setSexo(sexoC);
+                                cliente.setSexo(sexoC);
                                 System.out.println((char) 27 + "[32m\nAlterado com sucesso\u001B[0m");
                             }
                             break;
                         case 10:
-                            TriagemApplication.alterarIdTriagem(clientes.get(busca));
+                            TriagemApplication.alterarIdTriagem(cliente);
                             break;
                         case 11:
                             System.out.println("\nAlterações finalizadas.");
@@ -264,22 +262,19 @@ public class ClienteApplication {
         }
     }
 
-    protected static int pesquisarCliente() {
+    protected static Cliente pesquisarCliente() {
 
         Scanner sc = new Scanner(System.in);
         System.out.println("\nQual o nome do Cliente?");
         String nome = sc.nextLine().toUpperCase();
-
-        int pos;
-
+        
         for (int i = 0; i < clientes.size(); i++) {
             if (clientes.get(i).getNome().toUpperCase().equals(nome)) {
-                pos = i;
-                return pos;
+                return clientes.get(i);
             }
         }
 
-        return -1;
+        return null;
     }
     
     

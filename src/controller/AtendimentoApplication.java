@@ -34,15 +34,17 @@ public class AtendimentoApplication {
     public static void iniciarAtendimento() {
         try {
             System.out.println("\n========= INICIAR ATENDIMENTO =========");
-            int busca = ClienteApplication.pesquisarCliente();
-            if (busca >= 0) {
-                Util.Sucesso("\nAtendimento do cliente " + ClienteApplication.getClientes().get(busca).getNome() + " iniciado.");
+            Cliente cliente = ClienteApplication.pesquisarCliente();
+            if (cliente!=null) {
+                Util.Sucesso("\nAtendimento do cliente " + cliente.getNome() + " iniciado.");
+                cliente.setStatus("Aguardando triagem");
                 LocalDate agora;
                 agora = LocalDate.now();
                 System.out.println(agora);
-                ClienteApplication.getClientes().get(busca).setDate(agora);
-                AtendimentoApplication.getFilaAtendimento().add(ClienteApplication.getClientes().get(busca));
+                cliente.setDate(agora);
+                AtendimentoApplication.getFilaAtendimento().add(cliente);
                 Collections.sort(AtendimentoApplication.getFilaAtendimento());
+                
             } else {
                 throw new Exception("\nCliente não encontrado.");
             }
@@ -58,9 +60,9 @@ public class AtendimentoApplication {
 
             System.out.println("\n========= ALTERAR STATUS =========");
             //Conferir se o paciente existe
-            int busca = ClienteApplication.pesquisarCliente();
+            Cliente cliente = ClienteApplication.pesquisarCliente();
 
-            if (busca >= 0) {
+            if (cliente!=null) {
                 Scanner sc = new Scanner(System.in);
                 System.out.println("\nQual o novo status do paciente?"
                         + "\n1 - Aguardando triagem     2 - Aguardando Atendimento"
@@ -71,19 +73,19 @@ public class AtendimentoApplication {
 
                 switch (acesso) {
                     case 1:
-                        ClienteApplication.getClientes().get(busca).setStatus("Aguardando triagem");
+                        cliente.setStatus("Aguardando triagem");
                         Util.Sucesso("\nAlterado com sucesso");
                         break;
                     case 2:
-                        ClienteApplication.getClientes().get(busca).setStatus("Aguardando Atendimento");
+                        cliente.setStatus("Aguardando Atendimento");
                         Util.Sucesso("\nAlterado com sucesso");
                         break;
                     case 3:
-                        ClienteApplication.getClientes().get(busca).setStatus("Direcionado");
+                        cliente.setStatus("Direcionado");
                         Util.Sucesso("\nAlterado com sucesso");
                         break;
                     case 4:
-                        ClienteApplication.getClientes().get(busca).setStatus("Liberado");
+                        cliente.setStatus("Liberado");
                         Util.Sucesso("\nAlterado com sucesso");
                         break;
                     case 5:
@@ -107,19 +109,19 @@ public class AtendimentoApplication {
             System.out.println("\n========= ENCERRAR ATENDIMENTO =========");
 
             //Conferir se o paciente existe
-            int busca = ClienteApplication.pesquisarCliente();
+            Cliente cliente = ClienteApplication.pesquisarCliente();
 
-            if (busca >= 0) {
-                Util.Sucesso("\nAtendimento do cliente " + ClienteApplication.getClientes().get(busca).getNome() + " finalizado com sucesso.");
-                ClienteApplication.getClientes().get(busca).setStatus("Liberado");
+            if (cliente!=null) {
+                Util.Sucesso("\nAtendimento do cliente " + cliente.getNome() + " finalizado com sucesso.");
+                cliente.setStatus("Liberado");
                 for (int i = 0; i < AtendimentoApplication.getFilaAtendimento().size(); i++) {
-                    if (ClienteApplication.getClientes().get(busca) == AtendimentoApplication.getFilaAtendimento().get(i)) {
+                    if (cliente == AtendimentoApplication.getFilaAtendimento().get(i)) {
                         AtendimentoApplication.getFilaAtendimento().remove(AtendimentoApplication.getFilaAtendimento().get(i));
                         break;
                     }
                 }
-                ClienteApplication.getClientes().get(busca).setData(null);
-                ClienteApplication.getClientes().get(busca).setIdTriagem(null);
+                cliente.setData(null);
+                cliente.setIdTriagem(null);
             } else {
                 throw new Exception("\nCliente não encontrado.");
             }

@@ -2,6 +2,7 @@ package controller;
 
 import java.util.Collections;
 import java.util.Scanner;
+import model.Cliente;
 import model.ClienteComparator;
 import model.Plantao;
 import view.Util;
@@ -22,14 +23,14 @@ public abstract class SistemaApplication {
                 System.out.println("\n========= ACESSAR INFORMAÇÕES =========");
 
                 //Conferir se o paciente existe
-                int busca = ClienteApplication.pesquisarCliente();
+                Cliente cliente = ClienteApplication.pesquisarCliente();
 
-                if (busca >= 0) {
-                    System.out.println(ClienteApplication.getClientes().get(busca).toString());
+                if (cliente!=null) {
+                    System.out.println(cliente.toString());
                     //to do - Concertar a impressão
                     System.out.println("Doencas do paciente: ");
-                    for (int i = 0; i < ClienteApplication.getClientes().get(busca).getClienteDoencas().size(); i++) {
-                        System.out.println(ClienteApplication.getClientes().get(busca).getClienteDoencas().get(i).getNome());
+                    for (int i = 0; i < cliente.getClienteDoencas().size(); i++) {
+                        System.out.println(cliente.getClienteDoencas().get(i).getNome());
                     }
                 } else {
                     throw new Exception("\nCliente não encontrado.");

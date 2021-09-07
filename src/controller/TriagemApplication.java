@@ -17,7 +17,6 @@ public class TriagemApplication {
     //Altera o Id Triagem do Paciente
     public static void alterarIdTriagem(Cliente cliente) {
         try {
-            //to do: procurar cliente
             if ("Enfermeiro".equals(Main.getProfissao()) || "Administrador".equals(Main.getProfissao())) {
                 System.out.println("\n========= ALTERAR IDTRIAGEM =========");
                 Scanner sc = new Scanner(System.in);
