@@ -5,6 +5,7 @@ import controller.ClienteApplication;
 import controller.DoencaApplication;
 import controller.FuncionarioApplication;
 import controller.RelatoriosApplication;
+import controller.SistemaApplication;
 
 import model.Doenca;
 import model.Medico;
@@ -33,6 +34,66 @@ public class Main {
         ArrayList<Plantao> periodo = new ArrayList<>();
         periodo.add(Plantao.TARDE);
         periodo.add(Plantao.MANHA);
+        
+        //Cadastro dos funcionÃ¡rios
+        FuncionarioApplication.getFuncionarios()[FuncionarioApplication.getNumFuncionarios()] = new Funcionario("admin", "admin", 20, "admin", "admin@gmail.com", "Turmalina", 
+        "0", "admin", "Administrador", "admin", periodo);
+        FuncionarioApplication.getFuncionarios()[FuncionarioApplication.getNumFuncionarios()] = new  Funcionario("Tulio", "Cordeiro", 25, "(38)99103-9305", "tulioalves@gmail.com", "Turmalina", 
+        "11111111111", "Masculino", "Funcionario", "123", periodo);
+        FuncionarioApplication.getFuncionarios()[FuncionarioApplication.getNumFuncionarios()] = new  Enfermeiro("Matheus", "Polesca", 20, "(32)98447-5253", "matheuspolesca@gmail.com", "Sete Lagoas", 
+        "22222222222", "Masculino", "Enfermeiro", "456", periodo);
+        FuncionarioApplication.getFuncionarios()[FuncionarioApplication.getNumFuncionarios()] = new  Medico("Brenda", "Orlandi", 23, "(32)98447-5253", "brendaorlandi@gmail.com", "Diamantina", 
+        "33333333333", "Feminino", "Medico", "789", periodo);
+        
+        //Cadastro das doenÃ§as
+        DoencaApplication.getDoencas().add(new Doenca("Cancer"));
+        DoencaApplication.getDoencas().add(new Doenca("AIDS"));
+        DoencaApplication.getDoencas().add(new Doenca("COVID-19"));
+        DoencaApplication.getDoencas().add(new Doenca("Colesterol"));
+        DoencaApplication.getDoencas().add(new Doenca("Diabetes"));
+        DoencaApplication.getDoencas().add(new Doenca("Sinusite"));
+        DoencaApplication.getDoencas().add(new Doenca("Gripe"));
+        DoencaApplication.getDoencas().add(new Doenca("Febre"));
+        DoencaApplication.getDoencas().add(new Doenca("Enxaqueca"));
+        
+        //Cliente teste
+        ClienteApplication.getClientes().add(new Cliente("Gabriel", "Augusto", 25, "3527-1006", "joao@ufvjm.edu.br", "Diamantina", "15274632184", "Pouco"));
+
+        fazerLogin();
+        if(!"NULL".equals(profissao)){
+            boolean valor = true;
+        
+            //Menu Principal
+            while (valor != false) {
+                Scanner sc = new Scanner(System.in);
+                System.out.println("\n========= MENU =========");
+                System.out.println("\nDigite somente o nÃºmero da opÃ§Ã£o desejada:"
+                        + "\n\n1 - Cliente"
+                        + "\n2 - FuncionÃ¡rios"
+                        + "\n3 - Emitir Relatorios  "
+                        + "\n4 - Encerrar Sistema\n");
+                int acessoM = sc.nextInt();
+
+                switch (acessoM) {
+                    case 1:
+                        menuCliente();
+                        break;
+                    case 2:
+                        menuFuncionario();
+                        break;
+                    case 3:
+                        SistemaApplication.gerarRelatorio();
+                        break;
+                    case 4:
+                        System.out.println("Sistema finalizado.");
+                        valor = false;
+                        break;
+                    default:
+                        System.out.println((char) 27 + "[31m\nOpÃ§Ã£o invalida\u001B[0m");
+                }
+            }
+        }
+        
     }
 
   
