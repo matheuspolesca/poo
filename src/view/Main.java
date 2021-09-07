@@ -12,6 +12,7 @@ import model.Enfermeiro;
 import model.Cliente;
 import java.util.ArrayList;
 import java.util.Scanner;
+import model.Administrador;
 import model.Plantao;
 
 public class Main {
@@ -34,7 +35,7 @@ public class Main {
         periodo.add(Plantao.MANHA);
         
         //Cadastro dos funcionÃ¡rios
-        FuncionarioApplication.getFuncionarios()[FuncionarioApplication.getNumFuncionarios()] = new Funcionario("admin", "admin", 20, "admin", "admin@gmail.com", "Turmalina", 
+        FuncionarioApplication.getFuncionarios()[FuncionarioApplication.getNumFuncionarios()] = new Administrador("admin", "admin", 20, "admin", "admin@gmail.com", "Turmalina", 
         "0", "admin", "Administrador", "admin", periodo);
         FuncionarioApplication.getFuncionarios()[FuncionarioApplication.getNumFuncionarios()] = new  Funcionario("Tulio", "Cordeiro", 25, "(38)99103-9305", "tulioalves@gmail.com", "Turmalina", 
         "11111111111", "Masculino", "Funcionario", "123", periodo);

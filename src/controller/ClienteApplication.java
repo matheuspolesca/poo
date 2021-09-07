@@ -97,6 +97,11 @@ public class ClienteApplication {
                     DoencaApplication.adicionaDoencaAoCliente(novoCliente);
                 }
             }
+            
+            //To do: corrigir a inserção de doenças
+            if(novoCliente.getClienteDoencas().size()<numDoencas){
+                throw new Exception("O número de doenças informado foi menor do que o digitado, reinicie o cadastro.");
+            }
 
             //Se algum campo obrigatório estiver vazio, retorna mensagem de erro, se não, cadastra o cliente
             if (novoCliente.getNome().isEmpty() || novoCliente.getSobrenome().isEmpty() || novoCliente.getIdade() <= 0 || novoCliente.getTelefone().isEmpty() || novoCliente.getEmail().isEmpty() || novoCliente.getCpf().isEmpty() || novoCliente.getSexo().isEmpty()) {
