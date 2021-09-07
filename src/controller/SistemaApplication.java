@@ -103,14 +103,14 @@ public abstract class SistemaApplication {
     }
 
     //Lista de Clientes
-    public static void relatorioClientes() {
+    private static void relatorioClientes() {
         for (int i = 0; i < ClienteApplication.getClientes().size(); i++) {
             System.out.println(ClienteApplication.getClientes().get(i).toString());
         }
     }
 
     //Lista de Funcionarios
-    public static void relatorioFuncionarios() {
+    private static void relatorioFuncionarios() {
 
         for (int i = 0; i < FuncionarioApplication.getNumFuncionarios(); i++) {
             System.out.println(FuncionarioApplication.getFuncionarios()[i].toString());
@@ -123,7 +123,7 @@ public abstract class SistemaApplication {
     }
 
     //Lista de Doenças
-    public static void relatorioDoencas() {
+    private static void relatorioDoencas() {
         for (int i = 0; i < DoencaApplication.getDoencas().size(); i++) {
             System.out.println(DoencaApplication.getDoencas().get(i).getNome() + ": " + DoencaApplication.getDoencas().get(i).getQtdPacientes() + " caso(s).");
             if (DoencaApplication.getDoencas().get(i).getQtdPacientes() > 0) {
@@ -136,7 +136,7 @@ public abstract class SistemaApplication {
     }
 
     //Relatórios dos Funcionários de Plantão
-    public static void relatorioPlantao() {
+    private static void relatorioPlantao() {
         System.out.println("\n========= RELATÓRIO PLANTÃO =========");
         for (int j = 0; j < 3; j++) {
             System.out.println("\nPeriodo: " + Plantao.values()[j].name());

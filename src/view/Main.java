@@ -80,9 +80,9 @@ public class Main {
             while (valor != false) {
                 Scanner sc = new Scanner(System.in);
                 System.out.println("\n========= MENU =========");
-                System.out.println("\nDigite somente o nÃºmero da opÃ§Ã£o desejada:"
+                System.out.println("\nDigite somente o número da opção desejada:"
                         + "\n\n1 - Cliente"
-                        + "\n2 - FuncionÃ¡rios"
+                        + "\n2 - Funcionários"
                         + "\n3 - Emitir Relatorios  "
                         + "\n4 - Encerrar Sistema\n");
                 int acessoM = sc.nextInt();
@@ -102,7 +102,7 @@ public class Main {
                         valor = false;
                         break;
                     default:
-                        System.out.println((char) 27 + "[31m\nOpÃ§Ã£o invalida\u001B[0m");
+                        System.out.println((char) 27 + "[31m\nOpção inválida\u001B[0m");
                 }
             }
         }
