@@ -5,7 +5,6 @@ import controller.ClienteApplication;
 import controller.DoencaApplication;
 import controller.FuncionarioApplication;
 import controller.SistemaApplication;
-
 import model.Doenca;
 import model.Medico;
 import model.Funcionario;
@@ -72,7 +71,7 @@ public class Main {
         ClienteApplication.getClientes().get(2).getClienteDoencas().add( DoencaApplication.getDoencas().get(6));
         ClienteApplication.getClientes().get(2).getClienteDoencas().add( DoencaApplication.getDoencas().get(7));
         ClienteApplication.getClientes().get(2).getClienteDoencas().add( DoencaApplication.getDoencas().get(8));
-
+        
         fazerLogin();
         if(!"NULL".equals(profissao)){
             boolean valor = true;

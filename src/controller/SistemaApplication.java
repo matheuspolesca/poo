@@ -2,6 +2,7 @@ package controller;
 
 import java.util.Collections;
 import java.util.Scanner;
+import model.ClienteComparator;
 import model.Plantao;
 import view.Util;
 import view.Main;
@@ -47,8 +48,9 @@ public abstract class SistemaApplication {
                 + "\n2 - Lista de Funcionários"
                 + "\n3 - Lista de Doenças"
                 + "\n4 - Relatório de Plantão"
-                + "\n5 - Fila de Atendimento"
-                + "\n6 - Voltar\n");
+                + "\n5 - Fila de Atendimento em Ordem de Prioridade Crescente"
+                + "\n6 - Fila de Atendimento em Ordem de Prioridade Decrescente"
+                + "\n7 - Voltar\n");
         Scanner sc = new Scanner(System.in);
         int acessoF = sc.nextInt();
 
@@ -82,7 +84,16 @@ public abstract class SistemaApplication {
                 else
                     System.out.println((char) 27 + "[31m\nA fila de atendimento esta vazia.\u001B[0m");
                 break;
-            case 6:
+                case 6:
+                if(!AtendimentoApplication.getFilaAtendimento().isEmpty()){
+                    System.out.println("\nFila de Atendimento:");
+                    Collections.sort(AtendimentoApplication.getFilaAtendimento(), new ClienteComparator());
+                    AtendimentoApplication.getFilaAtendimento().stream().map(s -> s.getNome()).forEach(System.out::println);
+                }
+                else
+                    System.out.println((char) 27 + "[31m\nA fila de atendimento esta vazia.\u001B[0m");
+                break;
+            case 7:
                 break;
 
             default:

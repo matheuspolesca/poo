@@ -45,7 +45,11 @@ public class Cliente extends Pessoa implements Comparable <Cliente>{
     public void setIdTriagem(IdTriagem idtriagem) {
         this.idTriagem = idtriagem;
     }
-
+    
+    public Date getData() {
+        return data;
+    }
+    
     public void setData(Date data) {
         this.data = data;
     }
