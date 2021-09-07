@@ -7,10 +7,11 @@ package controller;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.Scanner;
 import model.Cliente;
-import projetohospital.Util;
-import projetohospital.Main;
+import view.Util;
+import view.Main;
 
 /**
  *
@@ -38,7 +39,8 @@ public class AtendimentoApplication {
                 Util.Sucesso("\nAtendimento do cliente " +ClienteApplication.getClientes().get(busca).getNome() + " iniciado.");
                 //to do: Incluir horário
                 ClienteApplication.getClientes().get(busca).setStatus("Aguardando triagem.");
-                //ClienteApplication.getClientes().get(busca).getData() = ;
+                Date dataAtual = new Date();
+                ClienteApplication.getClientes().get(busca).setData(dataAtual);
                 AtendimentoApplication.getFilaAtendimento().add(ClienteApplication.getClientes().get(busca));
                 Collections.sort(AtendimentoApplication.getFilaAtendimento());
             } else {
@@ -106,15 +108,14 @@ public class AtendimentoApplication {
         if (busca >= 0) {
             Util.Sucesso("\nAtendimento do cliente " + ClienteApplication.getClientes().get(busca).getNome() + " finalizado com sucesso.");
             ClienteApplication.getClientes().get(busca).setStatus("Liberado");
-            //to do: Deletar Data e idCliente
-            //ClienteApplication.getClientes().get(busca).getData() = ;
-            //ClienteApplication.getClientes().get(busca).getIdTriagem();
             for(int i=0; i<AtendimentoApplication.getFilaAtendimento().size(); i++){
                 if(ClienteApplication.getClientes().get(busca) == AtendimentoApplication.getFilaAtendimento().get(i)){
                     AtendimentoApplication.getFilaAtendimento().remove(AtendimentoApplication.getFilaAtendimento().get(i));
                     break;
                 }
             }
+            ClienteApplication.getClientes().get(busca).setData(null);
+            ClienteApplication.getClientes().get(busca).setIdTriagem(null);
         } else {
             Util.Erro("\nCliente não encontrado");
         }

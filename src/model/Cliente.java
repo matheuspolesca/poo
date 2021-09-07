@@ -1,7 +1,6 @@
 package model;
 
 import controller.ClienteApplication;
-import model.Pessoa;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -49,10 +48,10 @@ public class Cliente extends Pessoa implements Comparable <Cliente>{
         return data;
     }
 
-    public void setHorario(Date data) {
+    public void setData(Date data) {
         this.data = data;
     }
-
+    
     @Override
     public String toString() {
         String texto = String.format("\n========== CLIENTE: %s ========"

@@ -9,7 +9,7 @@ import model.Funcionario;
 import java.util.ArrayList;
 import java.util.Scanner;
 import model.Plantao;
-import projetohospital.Util;
+import view.Util;
 
 /**
  *
