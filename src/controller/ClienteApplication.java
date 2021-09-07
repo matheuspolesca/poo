@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import view.Util;
 import controller.TriagemApplication;
+import model.Doenca;
 
 /**
  *
@@ -92,15 +93,15 @@ public class ClienteApplication {
 
             System.out.println("\nQuantas doenças tem o cliente?");
             int numDoencas = sc.nextInt();
-            if (numDoencas > 0) {
-                for (int i = 0; i < numDoencas; i++) {
-                    DoencaApplication.adicionaDoencaAoCliente(novoCliente);
-                }
+            
+            while (numDoencas <= 0 || numDoencas > Doenca.getTotDoencas()) {
+                Util.Erro("O número de doenças informado foi menor do que o digitado, reinicie o cadastro.");
+                System.out.println("\nQuantas doenças tem o cliente?");
+                numDoencas = sc.nextInt();
             }
             
-            //To do: corrigir a inserção de doenças
-            if(novoCliente.getClienteDoencas().size()<numDoencas){
-                throw new Exception("O número de doenças informado foi menor do que o digitado, reinicie o cadastro.");
+            for (int i = 0; i < numDoencas; i++) {
+                DoencaApplication.adicionaDoencaAoCliente(novoCliente);
             }
 
             //Se algum campo obrigatório estiver vazio, retorna mensagem de erro, se não, cadastra o cliente
