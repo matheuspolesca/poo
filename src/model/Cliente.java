@@ -50,10 +50,6 @@ public class Cliente extends Pessoa implements Comparable <Cliente>{
         this.data = data;
     }
 
-    public void setData(Date data) {
-        this.data = data;
-    }
-    
     @Override
     public String toString() {
         String texto = String.format("\n========== CLIENTE: %s ========"
@@ -72,21 +68,19 @@ public class Cliente extends Pessoa implements Comparable <Cliente>{
     }
     
     @Override
+    
     public int compareTo(Cliente cliente) {
         if(this.getIdTriagem()!= cliente.getIdTriagem()){
             return this.getIdTriagem().compareTo(cliente.getIdTriagem());
         }
-<<<<<<< Updated upstream
-        if(this.getData() != cliente.getData()){
-            return this.getData().compareTo(cliente.getData());
-        }
+        //to do: erro GetData()
+//        if(this.getData() != cliente.getData()){
+//            return this.getData().compareTo(cliente.getData());
+//        }
         else if(this.getClienteDoencas().size() != cliente.getClienteDoencas().size()){
             return Integer.valueOf(this.getClienteDoencas().size()).compareTo((cliente.getClienteDoencas().size()));
         }
-        else if(this.getIdade() != cliente.getIdade()){
-=======
         else if(!Objects.equals(this.getIdade(), cliente.getIdade())){
->>>>>>> Stashed changes
             return this.getIdade().compareTo(cliente.getIdade());
         }
         else if(this.getNome() == null ? cliente.getNome() != null : !this.getNome().equals(cliente.getNome())){
