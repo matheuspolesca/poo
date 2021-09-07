@@ -35,12 +35,15 @@ public class AtendimentoApplication {
         try {
             System.out.println("\n========= INICIAR ATENDIMENTO =========");
             int busca = ClienteApplication.pesquisarCliente();
-            if (busca >= 0) {
+            //To do: lançar excessão quando o cliente já existe
+            if (ClienteApplication.getClientes().get(busca).getStatus()!=null) {
+                    throw new Exception("Cliente já esta na fila de atendimento.");
+            }
+            else if (busca >= 0) {
                 Util.Sucesso("\nAtendimento do cliente " + ClienteApplication.getClientes().get(busca).getNome() + " iniciado.");
-                LocalDate agora;
-                agora = LocalDate.now();
-                System.out.println(agora);
-                ClienteApplication.getClientes().get(busca).setDate(agora);
+                Date agora = new Date();
+                ClienteApplication.getClientes().get(busca).setData(agora);
+                ClienteApplication.getClientes().get(busca).setStatus("Aguardando triagem");
                 AtendimentoApplication.getFilaAtendimento().add(ClienteApplication.getClientes().get(busca));
                 Collections.sort(AtendimentoApplication.getFilaAtendimento());
             } else {

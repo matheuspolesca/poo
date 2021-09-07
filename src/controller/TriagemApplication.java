@@ -19,6 +19,9 @@ public class TriagemApplication {
         try {
             //to do: procurar cliente
             if ("Enfermeiro".equals(Main.getProfissao()) || "Administrador".equals(Main.getProfissao())) {
+                if(cliente.getData()==null){
+                    throw new Exception("O atendimento ao cliente não foi iniciado.");
+                }
                 System.out.println("\n========= ALTERAR IDTRIAGEM =========");
                 Scanner sc = new Scanner(System.in);
                 System.out.println("\nDigite o número referente ao nova Id de Triagem:"
@@ -29,9 +32,11 @@ public class TriagemApplication {
                 switch (acesso) {
                     case 1:
                         cliente.setIdTriagem(IdTriagem.VERMELHO);
+                        cliente.setStatus("Aguardando atendimento");
                         for (int i = 0; i < AtendimentoApplication.getFilaAtendimento().size(); i++) {
                             if (cliente == AtendimentoApplication.getFilaAtendimento().get(i)) {
                                 AtendimentoApplication.getFilaAtendimento().get(i).setIdTriagem(IdTriagem.VERMELHO);
+                                AtendimentoApplication.getFilaAtendimento().get(i).setStatus("Aguardando atendimento");
                                 break;
                             }
                         }
@@ -39,9 +44,11 @@ public class TriagemApplication {
                         break;
                     case 2:
                         cliente.setIdTriagem(IdTriagem.AMARELO);
+                        cliente.setStatus("Aguardando atendimento");
                         for (int i = 0; i < AtendimentoApplication.getFilaAtendimento().size(); i++) {
                             if (cliente == AtendimentoApplication.getFilaAtendimento().get(i)) {
                                 AtendimentoApplication.getFilaAtendimento().get(i).setIdTriagem(IdTriagem.AMARELO);
+                                AtendimentoApplication.getFilaAtendimento().get(i).setStatus("Aguardando atendimento");
                                 break;
                             }
                         }
@@ -49,9 +56,11 @@ public class TriagemApplication {
                         break;
                     case 3:
                         cliente.setIdTriagem(IdTriagem.VERDE);
+                        cliente.setStatus("Aguardando atendimento");
                         for (int i = 0; i < AtendimentoApplication.getFilaAtendimento().size(); i++) {
                             if (cliente == AtendimentoApplication.getFilaAtendimento().get(i)) {
                                 AtendimentoApplication.getFilaAtendimento().get(i).setIdTriagem(IdTriagem.VERDE);
+                                AtendimentoApplication.getFilaAtendimento().get(i).setStatus("Aguardando atendimento");
                                 break;
                             }
                         }

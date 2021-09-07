@@ -77,10 +77,9 @@ public class Cliente extends Pessoa implements Comparable <Cliente>{
         if(this.getIdTriagem()!= cliente.getIdTriagem()){
             return this.getIdTriagem().compareTo(cliente.getIdTriagem());
         }
-        //to do: erro GetData()
-//        if(this.getData() != cliente.getData()){
-//            return this.getData().compareTo(cliente.getData());
-//        }
+        if(this.getData() != cliente.getData()){
+            return this.getData().compareTo(cliente.getData());
+        }
         else if(this.getClienteDoencas().size() != cliente.getClienteDoencas().size()){
             return Integer.valueOf(this.getClienteDoencas().size()).compareTo((cliente.getClienteDoencas().size()));
         }
@@ -91,9 +90,5 @@ public class Cliente extends Pessoa implements Comparable <Cliente>{
             return this.getNome().compareTo(cliente.getNome());
         }
         return this.getSobrenome().compareTo(cliente.getSobrenome());
-    }
-
-    public void setDate(LocalDate agora) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
