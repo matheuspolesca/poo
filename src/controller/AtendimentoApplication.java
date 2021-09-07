@@ -5,6 +5,7 @@
  */
 package controller;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
@@ -36,9 +37,10 @@ public class AtendimentoApplication {
         try {
             if (busca >= 0) {
                 Util.Sucesso("\nAtendimento do cliente " +ClienteApplication.getClientes().get(busca).getNome() + " iniciado.");
-                //to do: Incluir horário
-                ClienteApplication.getClientes().get(busca).setStatus("Aguardando triagem.");
-                //ClienteApplication.getClientes().get(busca).getData() = ;
+                LocalDate agora;
+                agora = LocalDate.now();
+                System.out.println(agora);
+                ClienteApplication.getClientes().get(busca).setDate(agora);
                 AtendimentoApplication.getFilaAtendimento().add(ClienteApplication.getClientes().get(busca));
                 Collections.sort(AtendimentoApplication.getFilaAtendimento());
             } else {
@@ -119,5 +121,4 @@ public class AtendimentoApplication {
             Util.Erro("\nCliente não encontrado");
         }
     }
-
 }
