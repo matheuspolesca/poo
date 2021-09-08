@@ -37,10 +37,11 @@ public abstract class SistemaApplication {
 
                 if (cliente!=null) {
                     System.out.println(cliente.toString());
-                    //to do - Concertar a impressão
-                    System.out.println("Doencas do paciente: ");
-                    for (int i = 0; i < cliente.getClienteDoencas().size(); i++) {
-                        System.out.println(cliente.getClienteDoencas().get(i).getNome());
+                    if(cliente.getClienteDoencas().size()>0){
+                        System.out.println("Doencas do paciente: ");
+                        for (int i = 0; i < cliente.getClienteDoencas().size(); i++) {
+                            System.out.println(cliente.getClienteDoencas().get(i).getNome());
+                        }
                     }
                 } else {
                     throw new Exception("\nCliente não encontrado.");
@@ -95,6 +96,7 @@ public abstract class SistemaApplication {
             case 5:
                 if (!AtendimentoApplication.getFilaAtendimento().isEmpty()) {
                     System.out.println("\nFila de Atendimento:");
+                    Collections.sort(AtendimentoApplication.getFilaAtendimento());
                     AtendimentoApplication.getFilaAtendimento().stream().map(s -> s.getNome()).forEach(System.out::println);
                 } else {
                     Util.Erro("A fila de atendimento esta vazia.");
