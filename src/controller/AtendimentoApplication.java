@@ -7,7 +7,6 @@ package controller;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.Scanner;
 import model.Cliente;
@@ -57,7 +56,6 @@ public class AtendimentoApplication {
                 cliente.setData(agora);
                 cliente.setStatus("Aguardando triagem");
                 AtendimentoApplication.getFilaAtendimento().add(cliente);
-                Collections.sort(AtendimentoApplication.getFilaAtendimento());
             } else {
                 throw new Exception("\nCliente não encontrado.");
             }
