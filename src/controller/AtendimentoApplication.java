@@ -19,7 +19,7 @@ import view.Main;
  * @author brend
  */
 public class AtendimentoApplication {
-    
+
     private static ArrayList<Cliente> filaAtendimento = new ArrayList();
 
     public static ArrayList<Cliente> getFilaAtendimento() {
@@ -29,20 +29,23 @@ public class AtendimentoApplication {
     public static void setFilaAtendimento(ArrayList<Cliente> filaAtendimento) {
         AtendimentoApplication.filaAtendimento = filaAtendimento;
     }
-    
+
+    //Inicia o atendimento do paciente
     public static void iniciarAtendimento() {
-
-        System.out.println("\n========= INICIAR ATENDIMENTO =========");
-        int busca = ClienteApplication.pesquisarCliente();
-
         try {
-            if (busca >= 0) {
-                Util.Sucesso("\nAtendimento do cliente " +ClienteApplication.getClientes().get(busca).getNome() + " iniciado.");
-                LocalDate agora;
-                agora = LocalDate.now();
-                System.out.println(agora);
-                ClienteApplication.getClientes().get(busca).setDate(agora);
-                AtendimentoApplication.getFilaAtendimento().add(ClienteApplication.getClientes().get(busca));
+            System.out.println("\n========= INICIAR ATENDIMENTO =========");
+            Cliente cliente = ClienteApplication.pesquisarCliente();
+            //To do: lançar excessão quando o cliente já existe
+            if (cliente!=null) {
+                if (cliente.getStatus()!=null){
+                    throw new Exception("Cliente já esta na fila de atendimento.");
+                }
+                
+                Util.Sucesso("\nAtendimento do cliente " + cliente.getNome() + " iniciado.");
+                Date agora = new Date();
+                cliente.setData(agora);
+                cliente.setStatus("Aguardando triagem");
+                AtendimentoApplication.getFilaAtendimento().add(cliente);
                 Collections.sort(AtendimentoApplication.getFilaAtendimento());
             } else {
                 throw new Exception("\nCliente não encontrado.");
@@ -50,17 +53,18 @@ public class AtendimentoApplication {
         } catch (Exception ex) {
             Util.Erro(ex.getMessage());
         }
+
     }
 
     //Alterar o Status do Paciente
     public static void alterarStatus() {
-        if ("Enfermeiro".equals(Main.getProfissao()) || "Administrador".equals(Main.getProfissao())) {
+        try {
 
             System.out.println("\n========= ALTERAR STATUS =========");
             //Conferir se o paciente existe
-            int busca = ClienteApplication.pesquisarCliente();
+            Cliente cliente = ClienteApplication.pesquisarCliente();
 
-            if (busca >= 0) {
+            if (cliente!=null) {
                 Scanner sc = new Scanner(System.in);
                 System.out.println("\nQual o novo status do paciente?"
                         + "\n1 - Aguardando triagem     2 - Aguardando Atendimento"
@@ -71,19 +75,19 @@ public class AtendimentoApplication {
 
                 switch (acesso) {
                     case 1:
-                        ClienteApplication.getClientes().get(busca).setStatus("Aguardando triagem");
+                        cliente.setStatus("Aguardando triagem");
                         Util.Sucesso("\nAlterado com sucesso");
                         break;
                     case 2:
-                        ClienteApplication.getClientes().get(busca).setStatus("Aguardando Atendimento");
+                        cliente.setStatus("Aguardando Atendimento");
                         Util.Sucesso("\nAlterado com sucesso");
                         break;
                     case 3:
-                        ClienteApplication.getClientes().get(busca).setStatus("Direcionado");
+                        cliente.setStatus("Direcionado");
                         Util.Sucesso("\nAlterado com sucesso");
                         break;
                     case 4:
-                        ClienteApplication.getClientes().get(busca).setStatus("Liberado");
+                        cliente.setStatus("Liberado");
                         Util.Sucesso("\nAlterado com sucesso");
                         break;
                     case 5:
@@ -92,33 +96,39 @@ public class AtendimentoApplication {
                         Util.Erro("\nOpção invalida");
                 }
             } else {
-                Util.Erro("\nCliente não encontrado");
+                throw new Exception("\nCliente não encontrado.");
             }
-        } else {
-            Util.Erro("\nVocê não tem permissão para acessar essa opção.");
+        } catch (Exception ex) {
+            Util.Erro(ex.getMessage());
         }
 
     }
 
+    //Encerrar atendimento do paciente
     public static void encerrarAtendimento() {
-        System.out.println("\n========= ENCERRAR ATENDIMENTO =========");
+        try {
 
-        //Conferir se o paciente existe
-        int busca = ClienteApplication.pesquisarCliente();
+            System.out.println("\n========= ENCERRAR ATENDIMENTO =========");
 
-        if (busca >= 0) {
-            Util.Sucesso("\nAtendimento do cliente " + ClienteApplication.getClientes().get(busca).getNome() + " finalizado com sucesso.");
-            ClienteApplication.getClientes().get(busca).setStatus("Liberado");
-            for(int i=0; i<AtendimentoApplication.getFilaAtendimento().size(); i++){
-                if(ClienteApplication.getClientes().get(busca) == AtendimentoApplication.getFilaAtendimento().get(i)){
-                    AtendimentoApplication.getFilaAtendimento().remove(AtendimentoApplication.getFilaAtendimento().get(i));
-                    break;
+            //Conferir se o paciente existe
+            Cliente cliente = ClienteApplication.pesquisarCliente();
+
+            if (cliente!=null) {
+                Util.Sucesso("\nAtendimento do cliente " + cliente.getNome() + " finalizado com sucesso.");
+                cliente.setStatus("Liberado");
+                for (int i = 0; i < AtendimentoApplication.getFilaAtendimento().size(); i++) {
+                    if (cliente == AtendimentoApplication.getFilaAtendimento().get(i)) {
+                        AtendimentoApplication.getFilaAtendimento().remove(AtendimentoApplication.getFilaAtendimento().get(i));
+                        break;
+                    }
                 }
+                cliente.setData(null);
+                cliente.setIdTriagem(null);
+            } else {
+                throw new Exception("\nCliente não encontrado.");
             }
-            ClienteApplication.getClientes().get(busca).setData(null);
-            ClienteApplication.getClientes().get(busca).setIdTriagem(null);
-        } else {
-            Util.Erro("\nCliente não encontrado");
+        } catch (Exception ex) {
+            Util.Erro(ex.getMessage());
         }
     }
 }
