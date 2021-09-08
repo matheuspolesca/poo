@@ -7,12 +7,23 @@ package model;
 
 /**
  *
- * @author brend
+ * @author Brenda Orlandi, Matheus Polesca, Túlio Alves e Gabriel Augusto
  */
 public enum Plantao {
     
+    /**
+     * Define os plantões dos funcionários
+     */
     MANHA(1),
+
+    /**
+     *
+     */
     TARDE(2),
+
+    /**
+     *
+     */
     NOITE(3);
     
     private final int periodo;
@@ -21,6 +32,10 @@ public enum Plantao {
         this.periodo = periodo;
     }
 
+    /**
+     * Obtém a descrição do plantão
+     * @return
+     */
     public int getDescricao() {
         return periodo;
     }

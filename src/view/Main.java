@@ -15,18 +15,33 @@ import java.util.Scanner;
 import model.Administrador;
 import model.Plantao;
 
+/**
+ *
+ * @author Brenda Orlandi, Matheus Polesca, Túlio Alves e Gabriel Augusto
+ */
 public class Main {
     private static String profissao = "NULL";
 
+    /**
+     * Obtém a profissão de um funcionário
+     * @return
+     */
     public static String getProfissao() {
         return profissao;
     }
 
+    /**
+     * Define a profissão de um funcionário
+     * @param profissao
+     */
     public static void setProfissao(String profissao) {
         Main.profissao = profissao;
     }
     
-    
+    /**
+     * Método principal que executa as funcionalidades do sistema
+     * @param args
+     */
     public static void main(String[] args) {
         
         //Cadastro dos funcionários
@@ -112,6 +127,10 @@ public class Main {
 
   
     //Quando o sistema abre, a pessoa precisa fazer o login
+
+    /**
+     * Método responsável pela realização de login
+     */
     public static void fazerLogin() {
 
         System.out.println("\n========== LOGIN ===========");

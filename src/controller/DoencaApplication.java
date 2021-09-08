@@ -13,24 +13,39 @@ import view.Util;
 
 /**
  *
- * @author brend
+ * @author Brenda Orlandi, Matheus Polesca, Túlio Alves e Gabriel Augusto
  */
 public class DoencaApplication {
     
+
     private static ArrayList<Doenca> doencas = new ArrayList();
 
+    /**
+     * Construtor padrão da classe
+     */
     public DoencaApplication() {
     }
 
+    /**
+     * Obtém as doenças
+     * @return ArrayList
+     */
     public static ArrayList<Doenca> getDoencas() {
         return doencas;
     }
 
+    /**
+     * Define as doenças
+     * @param doencas
+     */
     public static void setDoencas(ArrayList<Doenca> doencas) {
         DoencaApplication.doencas = doencas;
     }
     
-    
+    /**
+     * Adiciona uma nova doença ao cliente
+     * @param cliente
+     */
     protected static void adicionaDoencaAoCliente(Cliente cliente) {
         try{
             int indiceDoenca = pesquisarDoenca();
@@ -54,6 +69,10 @@ public class DoencaApplication {
         }
     }
     
+    /**
+     * Altera a doença de algum cliente
+     * @param cliente
+     */
     public static void alterarDoenca(Cliente cliente) {
         Scanner sc = new Scanner(System.in);
         boolean sair = false;

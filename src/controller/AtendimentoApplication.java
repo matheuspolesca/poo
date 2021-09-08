@@ -16,21 +16,32 @@ import view.Main;
 
 /**
  *
- * @author brend
+ * @author Brenda Orlandi, Matheus Polesca, Túlio Alves e Gabriel Augusto
  */
 public class AtendimentoApplication {
 
     private static ArrayList<Cliente> filaAtendimento = new ArrayList();
 
+    /**
+     * Obtém a fila de atendimento
+     * @return ArrayList
+     */
     public static ArrayList<Cliente> getFilaAtendimento() {
         return filaAtendimento;
     }
 
+    /**
+     * Define a fila de atendimento
+     * @param filaAtendimento
+     */
     public static void setFilaAtendimento(ArrayList<Cliente> filaAtendimento) {
         AtendimentoApplication.filaAtendimento = filaAtendimento;
     }
 
-    //Inicia o atendimento do paciente
+
+    /**
+     * Método responsável por iniciar o atendimento
+     */
     public static void iniciarAtendimento() {
         try {
             System.out.println("\n========= INICIAR ATENDIMENTO =========");
@@ -57,6 +68,10 @@ public class AtendimentoApplication {
     }
 
     //Alterar o Status do Paciente
+
+    /**
+     * Método responsável por alterar o status do paciente
+     */
     public static void alterarStatus() {
         try {
 
@@ -75,20 +90,20 @@ public class AtendimentoApplication {
 
                 switch (acesso) {
                     case 1:
-                        cliente.setStatus("Aguardando triagem");
-                        Util.Sucesso("\nAlterado com sucesso");
+                        ClienteApplication.getClientes().get(busca).setStatus("Aguardando triagem");
+                        Util.Sucesso("\nAlterado com sucesso - Paciente aguardando triagem");
                         break;
                     case 2:
-                        cliente.setStatus("Aguardando Atendimento");
-                        Util.Sucesso("\nAlterado com sucesso");
+                        ClienteApplication.getClientes().get(busca).setStatus("Aguardando Atendimento");
+                        Util.Sucesso("\nAlterado com sucesso - Paciente aguardando atendimento");
                         break;
                     case 3:
-                        cliente.setStatus("Direcionado");
-                        Util.Sucesso("\nAlterado com sucesso");
+                        ClienteApplication.getClientes().get(busca).setStatus("Direcionado");
+                        Util.Sucesso("\nAlterado com sucesso - Paciente direcionado");
                         break;
                     case 4:
-                        cliente.setStatus("Liberado");
-                        Util.Sucesso("\nAlterado com sucesso");
+                        ClienteApplication.getClientes().get(busca).setStatus("Liberado");
+                        Util.Sucesso("\nAlterado com sucesso - Paciente liberado");
                         break;
                     case 5:
                         break;
@@ -105,6 +120,10 @@ public class AtendimentoApplication {
     }
 
     //Encerrar atendimento do paciente
+
+    /**
+     * Método responsável por encerrar o atendimento
+     */
     public static void encerrarAtendimento() {
         try {
 
