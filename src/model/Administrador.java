@@ -11,9 +11,26 @@ import java.util.ArrayList;
  */
 public class Administrador extends Funcionario{
     
+    /**
+     * Construtor padrão da classe
+     */
     public Administrador() {
     }
 
+    /**
+     * Construtor adicional da classe
+     * @param nome - String
+     * @param sobrenome - String
+     * @param idade - int
+     * @param telefone - String
+     * @param email - String
+     * @param endereco - String
+     * @param cpf - String
+     * @param sexo - String
+     * @param profissao - String
+     * @param senha - String
+     * @param periodo - ArrayList
+     */
     public Administrador(String nome, String sobrenome, int idade, String telefone, String email, String endereco, String cpf, String sexo, String profissao, String senha, ArrayList<Plantao> periodo) {
         super(nome, sobrenome, idade, telefone, email, endereco, cpf, sexo, profissao, senha, periodo);
         super.setProfissao("Administrador");
