@@ -7,12 +7,20 @@ package model;
 
 import java.util.Comparator;
 
-/**
- *
- * @author tulio
+/**Classe responsável por comparar os clientes
+ * 
+ * 
+ * @author Brenda Orlandi, Matheus Polesca, Túlio Alves e Gabriel Augusto
+ * 
  */
 public class ClienteComparator implements Comparator <Cliente>{
 
+    /**
+     * Método responsável por comparar dois clientes
+     * @param cliente1
+     * @param cliente2
+     * @return
+     */
     @Override
     public int compare(Cliente cliente1, Cliente cliente2) {
         //Comparação do idTriagem

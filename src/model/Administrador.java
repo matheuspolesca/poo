@@ -3,6 +3,12 @@ package model;
 import model.Funcionario;
 import java.util.ArrayList;
 
+/**Classe responsável por modelar o administrador
+ * 
+ * 
+ * @author Brenda Orlandi, Matheus Polesca, Túlio Alves e Gabriel Augusto
+ * 
+ */
 public class Administrador extends Funcionario{
     
     public Administrador() {

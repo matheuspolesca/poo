@@ -11,10 +11,16 @@ import model.IdTriagem;
 import view.Main;
 import view.Util;
 
-
+/**
+ *
+ * @author Brenda Orlandi, Matheus Polesca, Túlio Alves e Gabriel Augusto
+ */
 public class TriagemApplication {
 
-    //Altera o Id Triagem do Paciente
+    /**
+     * Altera o id de triagem de um cliente
+     * @param cliente
+     */
     public static void alterarIdTriagem(Cliente cliente) {
         try {
             if ("Enfermeiro".equals(Main.getProfissao()) || "Administrador".equals(Main.getProfissao())) {

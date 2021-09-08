@@ -8,12 +8,22 @@ import model.Plantao;
 import view.Util;
 import view.Main;
 
+/**
+ *
+ * @author Brenda Orlandi, Matheus Polesca, Túlio Alves e Gabriel Augusto
+ */
 public abstract class SistemaApplication {
 
+    /**
+     * Construtor padrão da classe
+     */
     public SistemaApplication() {
     }
 
-    //Acessar informações sobre o cliente
+
+    /**
+     * Acessa as informações de algum cliente
+     */
     public static void acessarInformações() {
 
         try {
@@ -43,6 +53,10 @@ public abstract class SistemaApplication {
         }
     }
 
+    /**
+     * Gera os relatórios disponíveis (clientes, funcionários, doenças, fila de atendimento e relatório de plantão)
+     * 
+     */
     public static void gerarRelatorio() {
         System.out.println("\n========= RELATÓRIO =========");
         System.out.println("\nDigite somente o número da opção desejada:"
@@ -103,14 +117,14 @@ public abstract class SistemaApplication {
         }
     }
 
-    //Lista de Clientes
+    
     private static void relatorioClientes() {
         for (int i = 0; i < ClienteApplication.getClientes().size(); i++) {
             System.out.println(ClienteApplication.getClientes().get(i).toString());
         }
     }
 
-    //Lista de Funcionarios
+
     private static void relatorioFuncionarios() {
 
         for (int i = 0; i < FuncionarioApplication.getNumFuncionarios(); i++) {
@@ -123,7 +137,7 @@ public abstract class SistemaApplication {
 
     }
 
-    //Lista de Doenças
+
     private static void relatorioDoencas() {
         for (int i = 0; i < DoencaApplication.getDoencas().size(); i++) {
             System.out.println(DoencaApplication.getDoencas().get(i).getNome() + ": " + DoencaApplication.getDoencas().get(i).getQtdPacientes() + " caso(s).");
@@ -136,7 +150,7 @@ public abstract class SistemaApplication {
         }
     }
 
-    //Relatórios dos Funcionários de Plantão
+
     private static void relatorioPlantao() {
         System.out.println("\n========= RELATÓRIO PLANTÃO =========");
         for (int j = 0; j < 3; j++) {

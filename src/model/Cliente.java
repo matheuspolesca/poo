@@ -6,6 +6,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
 
+/**Classe responsável por modelar o cliente
+ * 
+ * 
+ * @author Brenda Orlandi, Matheus Polesca, Túlio Alves e Gabriel Augusto
+ * 
+ */
 public class Cliente extends Pessoa implements Comparable <Cliente>{
     private String status;
     private ArrayList<Doenca> clienteDoencas = new ArrayList();

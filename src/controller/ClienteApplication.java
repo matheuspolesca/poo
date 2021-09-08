@@ -14,45 +14,77 @@ import model.Doenca;
 
 /**
  *
- * @author brend
+ * @author Brenda Orlandi, Matheus Polesca, Túlio Alves e Gabriel Augusto
  */
 public class ClienteApplication {
     private static ArrayList<Cliente> clientes = new ArrayList();
+
+    /**
+     *
+     */
     protected static int numClientesProtected;
     private static int numClientes;
 
+    /**
+     * Construtor da classe
+     */
     public ClienteApplication() {
         numClientes = 0;
         numClientesProtected = 0;
     }
 
+    /**
+     * Obtém os clientes
+     * @return ArrayList
+     */
     public static ArrayList<Cliente> getClientes() {
         return clientes;
     }
 
+    /**
+     * Define os clientes
+     * @param clientes
+     */
     public static void setClientes(ArrayList<Cliente> clientes) {
         ClienteApplication.clientes = clientes;
     }
 
+    /**
+     * Obtém os clientes (protected)
+     * @return int
+     */
     public static int getNumClientesProtected() {
         return numClientesProtected;
     }
 
+    /**
+     * Define os clientes (protected)
+     * @param numClientesProtected
+     */
     public static void setNumClientesProtected(int numClientesProtected) {
         ClienteApplication.numClientesProtected = numClientesProtected;
     }
 
+    /**
+     * Obtém o número de clientes 
+     * @return int
+     */
     public static int getNumClientes() {
         return numClientes;
     }
 
+    /**
+     * Define o número de clientes
+     * @param numClientes
+     */
     public static void setNumClientes(int numClientes) {
         ClienteApplication.numClientes = numClientes;
     }
     
-    
-    
-    //Receber as informações para criação do cliente
+
+    /**
+     * Método responsável por cadastrar os clientes
+     */
     public static void cadastrarCliente() {
 
         //Tentar fazer o cadastro
@@ -118,6 +150,10 @@ public class ClienteApplication {
     }
 
     //Alterar Cadastro do Cliente
+
+    /**
+     * Método responsável por alterar o cadastro 
+     */
     public static void alterarCadastroCliente() {
         Scanner sc = new Scanner(System.in);
         System.out.println("\n========= EDITAR CLIENTE =========");
@@ -245,6 +281,9 @@ public class ClienteApplication {
         }
     }
 
+    /**
+     * Método responsavel por deletar um cliente
+     */
     public static void deletarCliente() {
         //Tentar fazer o cadastro
         Scanner sc = new Scanner(System.in);
@@ -268,6 +307,10 @@ public class ClienteApplication {
         }
     }
 
+    /**
+     * Método para buscar um cliente
+     * @return Cliente
+     */
     protected static Cliente pesquisarCliente() {
 
         Scanner sc = new Scanner(System.in);

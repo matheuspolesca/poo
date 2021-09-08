@@ -14,36 +14,58 @@ import view.Util;
 
 /**
  *
- * @author brend
+ * @author Brenda Orlandi, Matheus Polesca, Túlio Alves e Gabriel Augusto
  */
 public class FuncionarioApplication {
     
     private static Funcionario funcionarios[] = new Funcionario[100];
     private static int numFuncionarios;
     
-
+    /**
+     * Construtor da classe
+     */
     public FuncionarioApplication() {
         numFuncionarios = 0;
     }
 
+    /**
+     * Obtém os funcionários
+     * @return
+     */
     public static Funcionario[] getFuncionarios() {
         return funcionarios;
     }
 
+    /**
+     * Define os funcionários
+     * @param funcionarios
+     */
     public static void setFuncionarios(Funcionario[] funcionarios) {
         FuncionarioApplication.funcionarios = funcionarios;
     }
 
+    /**
+     * Obtém o número de funcionários
+     * @return
+     */
     public static int getNumFuncionarios() {
         return numFuncionarios;
     }
 
+    /**
+     * Define o número de funcionários
+     * @param numFuncionarios
+     */
     public static void setNumFuncionarios(int numFuncionarios) {
         FuncionarioApplication.numFuncionarios += numFuncionarios;
     }
     
     
-    //Cadastro de um funcionário, médico ou enfermeiro
+
+    /**
+     * Cadastra um novo funcionário
+     * @param cadProfissao
+     */
     public static void cadastroFuncionario(String cadProfissao) {
        
         try{
@@ -128,7 +150,11 @@ public class FuncionarioApplication {
         }
     }
 
-    //Alterar cadastro do funcionário
+
+
+    /**
+     * Altera o cadastro de algum funcionário
+     */
     public static void alterarCadastroFuncionario() {
         try{
             //Necessário ser administrador para cadastrar funcionário
