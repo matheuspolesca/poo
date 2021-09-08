@@ -88,19 +88,19 @@ public class AtendimentoApplication {
 
                 switch (acesso) {
                     case 1:
-                        ClienteApplication.getClientes().get(busca).setStatus("Aguardando triagem");
+                        cliente.setStatus("Aguardando triagem");
                         Util.Sucesso("\nAlterado com sucesso - Paciente aguardando triagem");
                         break;
                     case 2:
-                        ClienteApplication.getClientes().get(busca).setStatus("Aguardando Atendimento");
+                        cliente.setStatus("Aguardando Atendimento");
                         Util.Sucesso("\nAlterado com sucesso - Paciente aguardando atendimento");
                         break;
                     case 3:
-                        ClienteApplication.getClientes().get(busca).setStatus("Direcionado");
+                        cliente.setStatus("Direcionado");
                         Util.Sucesso("\nAlterado com sucesso - Paciente direcionado");
                         break;
                     case 4:
-                        ClienteApplication.getClientes().get(busca).setStatus("Liberado");
+                        cliente.setStatus("Liberado");
                         Util.Sucesso("\nAlterado com sucesso - Paciente liberado");
                         break;
                     case 5:
